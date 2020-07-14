@@ -1,0 +1,54 @@
+/*
+
+Sick Slider
+--------------
+
+*/
+
+.SickSlider-slider {
+  position: relative;
+  height: 40px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+/* The class gets removed once the slider is initialized by JavaScript */
+.SickSlider--isHidden {
+    display: none;
+}
+
+.SickSlider-stripe {
+  height: 5px;
+  width: 100%;
+  background-color: #999999;
+  /*border: 1px solid #a66000;*/
+  position: absolute;
+  top: 18px;
+  left: 0px;
+}
+
+.SickSlider-head {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 40px;
+  background-color: #999999;
+  border: 1px solid #FFFFFF;
+}
+
+.SickSlider-label {
+    text-align: center;
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* Prevent browser from showing selection when the element is touched */
+.SickSlider--isUnselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  -o-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+}
