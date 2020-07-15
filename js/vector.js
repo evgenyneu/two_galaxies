@@ -17,8 +17,31 @@ export function subtract(a, b) {
  *
  * @param  {array} a Array of numbers
  * @param  {array} b Array of numbers
- * @return {number} dot product of thw two vectors
+ * @return {number} Dot product of thw two vectors
  */
 export function dotProduct(a, b) {
   return a.reduce((r, a, i) => r + a * b[i], 0);
+}
+
+
+/**
+ * Calculate length of a vector
+ *
+ * @param  {array} a Array of numbers
+ * @return {number} Lelngth of vector a
+ */
+export function length(a) {
+  return Math.sqrt(dotProduct(a, a));
+}
+
+
+/**
+ * Multiply a vector by a number
+ *
+ * @param  {number} number A number
+ * @param  {array} a An array of numbers
+ * @return {array} Result of multiplying vector `a` by `number`.
+ */
+export function multiplyByNumber(number, a) {
+  return a.map(item => number * item);
 }
