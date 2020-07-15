@@ -3,4 +3,4 @@ mocha.setup('bdd');
 mocha.checkLeaks();
 
 // Enables web notifications
-// mocha.growl();
+mocha.growl();

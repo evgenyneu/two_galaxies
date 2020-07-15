@@ -1,6 +1,6 @@
 import get_acceleration from '../js/acceleration.js';
 
-describe('get_acceleration', function () {
+describe('get_acceleration', () => {
   var expect = chai.expect;
 
   it('should return -1 when the value is not present', () => {
