@@ -13,7 +13,7 @@ describe('Initial conditions', () => {
     expect(init.numberOfStarsInAllRingsOneGalaxy(5)).to.equal(120);
   });
 
-  it('addGalaxy', () => {
+  it('galaxyStarsPositionsAndVelocities', () => {
     const corePosition = [1, 0, 0];
     const coreVelocity = [0, 1, 0];
     const coreMass = 1;
@@ -21,7 +21,7 @@ describe('Initial conditions', () => {
     const numberOfRings = 5;
     const ringSeparation = 3;
 
-    var { positions, velocities } = init.addGalaxy(
+    var { positions, velocities } = init.galaxyStarsPositionsAndVelocities(
       corePosition,
       coreVelocity,
       coreMass,

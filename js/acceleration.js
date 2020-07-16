@@ -47,7 +47,7 @@ export default function getAcceleration(number_of_galaxies, masses, positions) {
       //
       //   2) Newton's law of universal gravitation:
       //
-      //            F = G m M d / r^2,                  (2)
+      //            F = G m M d / r^2,               (2)
       //
       //      where
       //        G is gravitational constant, set to 1 for simplicity,
