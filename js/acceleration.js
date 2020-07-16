@@ -6,9 +6,10 @@ import * as vector from '../js/vector.js';
  * of the galaxy cores. We ignore forces from stars.
  *
  * @param  {number} number_of_galaxies Number of galaxies
- * @param  {array} masses Masses of the two galaxy cores
- * @param  {array} positions Position vectors of all bodies
- * @return {array} Acceleration vectors of all bodies.
+ * @param  {array} masses Masses of the bodies. First two elements are masses
+ *  of galaxy cores, and the rest are masses of stars
+ * @param  {array} positions Position vectors of all bodies, first two are cores
+ * @return {array} Acceleration vectors of all bodies, first two are cores
  */
 export default function getAcceleration(number_of_galaxies, masses, positions) {
   // Create an zero vector that will store the acceleration of all bodies
@@ -62,7 +63,7 @@ export default function getAcceleration(number_of_galaxies, masses, positions) {
         masses[j] / Math.pow(distance, 2), direction);
 
       // Add the acceleration to accelerations from the other cores
-      // to find total acceleration
+      // to find total acceleration of the i-th body
       accelerations[i] = vector.add(acceleration, accelerations[i]);
     }
   });
