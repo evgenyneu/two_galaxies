@@ -8,4 +8,8 @@ describe('Initial conditions', () => {
     expect(init.numberOfStarsInOneRing(2)).to.equal(18);
     expect(init.numberOfStarsInOneRing(3)).to.equal(24);
   });
+
+  it('numberOfStarsInAllRingsOneGalaxy', () => {
+    expect(init.numberOfStarsInAllRingsOneGalaxy(5)).to.equal(120);
+  });
 });

@@ -2,8 +2,8 @@ import * as vector from '../js/vector.js';
 
 
 /**
- * Calculate accelerations of all bodies due to gravitational forces
- * of the galaxy cores. We ignore forces from stars.
+ * Calculate accelerations of all bodies (cores and stars) due
+ * to gravitational forces of the galaxy cores. We ignore forces from stars.
  *
  * @param  {number} number_of_galaxies Number of galaxies
  * @param  {array} masses Masses of the bodies. First two elements are masses
@@ -19,7 +19,7 @@ export default function getAcceleration(number_of_galaxies, masses, positions) {
   // The first two bodies are galaxy cores, the rest are stars
   masses.forEach((mass, i) => {
     // Loop over the galaxy cores
-    for (const j of Array(number_of_galaxies).keys()) {
+    for(let j = 0; j < number_of_galaxies; j++) {
       // Skip the case when the body is the same core,
       // since it can't accelerate itself
       if (i == j) continue;
