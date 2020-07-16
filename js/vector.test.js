@@ -4,6 +4,10 @@ var expect = chai.expect;
 
 describe('vector', () => {
   it('subtract', () => {
+    expect(vector.add([3, 1, 3], [-2, 5, 6])).to.deep.equal([1, 6, 9]);
+  });
+
+  it('subtract', () => {
     expect(vector.subtract([3, 1, 3], [-2, 5, 6])).to.deep.equal([5, -4, -3]);
   });
 

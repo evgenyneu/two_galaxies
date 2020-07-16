@@ -1,23 +1,69 @@
 import * as vector from '../js/vector.js';
 
-export default function getAcceleration(number_of_galaxies, masses,
-                                     positions) {
 
-  var displacement = [0, 0, 0];
+/**
+ * Calculate accelerations of all bodies due to gravitational forces
+ * of the galaxy cores. We ignore forces from stars.
+ *
+ * @param  {number} number_of_galaxies Number of galaxies
+ * @param  {array} masses Masses of the two galaxy cores
+ * @param  {array} positions Position vectors of all bodies
+ * @return {array} Acceleration vectors of all bodies.
+ */
+export default function getAcceleration(number_of_galaxies, masses, positions) {
+  // Create an zero vector that will store the acceleration of all bodies
   var accelerations = Array.from(Array(positions.length)).map(_ => [0, 0, 0]);
 
+  // Loop over all bodies
+  // The first two bodies are galaxy cores, the rest are stars
   masses.forEach((mass, i) => {
+    // Loop over the galaxy cores
     for (const j of Array(number_of_galaxies).keys()) {
+      // Skip the case when the body is the same core,
+      // since it can't accelerate itself
       if (i == j) continue;
 
-      displacement = vector.subtract(positions[i], positions[j]);
+      // Find displacement vector from i-th body to j-th galaxy core
+      let displacement = vector.subtract(positions[j], positions[i]);
+
+      // Find the distance from i-th body to j-th galaxy core
       let distance = vector.length(displacement);
-      console.log(masses[j], displacement, Math.pow(distance, 3));
 
-      var a = vector.multiplyByNumber(masses[j] / Math.pow(distance, 3),
-                                      displacement);
+      // Find the unit vector in direction from i-th body to j-th core
+      let direction = vector.multiplyByNumber(1 / distance, displacement);
 
-      accelerations[i] = vector.subtract(accelerations[i], a);
+      // Calculate the acceleration of i-th body cased by gravitational
+      // force from j-th galaxy core. We are using two physical laws here:
+      //
+      //   1) Newton's second law:
+      //
+      //            F = m a,                         (1)
+      //
+      //      where
+      //        F is force vector,
+      //        m is body mass,
+      //        a is acceleration vector.
+      //
+      //   2) Newton's law of universal gravitation:
+      //
+      //            F = G m M d / r^2,                  (2)
+      //
+      //      where
+      //        G is gravitational constant, set to 1 for simplicity,
+      //        M is the mass of a galaxy core,
+      //        d is a direction unit vector from a body to the core,
+      //        r is distance between a body and a core.
+      //
+      // After we equate Eq. 1 and 2, the body mass m cancels and we get
+      //
+      //            a = M d / r^2.
+      //
+      let acceleration = vector.multiplyByNumber(
+        masses[j] / Math.pow(distance, 2), direction);
+
+      // Add the acceleration to accelerations from the other cores
+      // to find total acceleration
+      accelerations[i] = vector.add(acceleration, accelerations[i]);
     }
   });
 

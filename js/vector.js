@@ -1,6 +1,18 @@
 /** Functions for working with vectors: subtract, dot product etc. */
 
 /**
+ * Calculates the sub of two vectors: a + b
+ *
+ * @param  {array} a Array of numbers
+ * @param  {array} b Array of numbers
+ * @return {array}  Sum of two vectors a - b
+ */
+export function add(a, b) {
+  return a.map((item, i) => item + b[i]);
+}
+
+
+/**
  * Calculates the difference of two vectors: a - b
  *
  * @param  {array} a Array of numbers
