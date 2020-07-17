@@ -75,7 +75,7 @@ export function galaxyStarsPositionsAndVelocities(
     //
     //   2) Newton's law of universal gravitation:
     //
-    //            F = G m M / r^2,              (2)
+    //            F = G m M / r^2,                (2)
     //
     //      where
     //        G is gravitational constant, set to 1 for simplicity,
@@ -148,6 +148,85 @@ export function galaxyStarsPositionsAndVelocities(
   return { positions, velocities };
 }
 
-export function positionsVelocitiesAndAccelerations() {
+export function positionsVelocitiesAndAccelerations(options) {
+  // Calculate semi-major axis of the ellipse. The ellipse is the path
+  // of first galaxy core relative the second core, located at ellipse's focus.
+  // The minimal separation eMin (a.k.a. periastron) between two galaxy cores
+  // is given by equation:
+  //
+  //        rMin = a (1 - e),
+  //
+  //    where
+  //        a is semi-major axis,
+  //        e is eccentricity.
+  //
+  // Solving for a gives:
+  //
+  //        a = eMin / (1 - e).
+  //
+  const a = options.minimalGalaxySeparation / (1 - options.eccentricity);
+
+  // We want to start simulation when two cores are located at maximum distance
+  // rMax from each other (a.k.a. apastron), which is given by equation:
+  //
+  //        rMax = a (1 + e)
+  //
+  const r = a * (1 + options.eccentricity);
+
+  // Calculate the total mass of galaxy cores
+  const totalMass = options.masses[0] + options.masses[1];
+
+
+  // Positions of galaxy cores
+  // --------
+
+  var positions = [];
+
+  // We have two galaxy cores. If we place the origin of coordinate system
+  // at the center of their mass, positions are given by the equation:
+  //
+  //            r1 m1 = r2 m2,                  (1)
+  //
+  //    where
+  //        r1, r2 are distances to the galaxy cores from the center of mass,
+  //        m1, m2 are masses of the two cores.
+  //
+  // The distance r between the two cores is
+  //
+  //          r = r1 + r2.                       (2)
+  //
+  // Next, we solve Eq. 1 for r1:
+  //
+  //          r1 = m2 r2 / m1.
+  //
+  // Substituting r2 = r - r1 from Eq. 2 we get
+  //
+  //          r1 = m2 (r - r1) / m1
+  //             = r m2 / m1 - m2 r1 / m1.
+  //
+  // Finally, we rearrange and find r1 distance:
+  //
+  //          r1 = (r m2 / m1) * ( 1 / (1 + m2 / m1)
+  //             = r m2 / (m1 + m2)
+  //
+  // We use negative of that for the first core as its X coordinate:
+  //
+  positions.push([-r * options.masses[1] / totalMass, 0, 0]);
+
+  // Similarly, we calculate the r2 distance:
+  //
+  //          r2 = r m1 / (m1 + m2)
+  //
+  positions.push([r * options.masses[0] / totalMass, 0, 0]);
+
+
+  // Velocities of galaxy cores
+  // --------
+
+
+  // v0 = sqrt(a * (1 - e**2) * mtot) / r
+  // velocities(:, 1) = [0._dp, -v0 * masses(2) / mtot, 0._dp]
+  // velocities(:, 2) = [0._dp, v0 * masses(1) / mtot, 0._dp ]
+
   return 1;
 }

@@ -66,10 +66,12 @@ describe('Initial conditions', () => {
         ringSeparation: 3,
         minimalGalaxySeparation: 3,
         galaxyInclinationAngle: 0.123,
-        coreMasses: [1, 0.7],
+        masses: [1, 0.7],
         eccentricity: 0.3
       };
 
-    init.positionsVelocitiesAndAccelerations();
+    var { positions, velocities, accelerations } =
+      init.positionsVelocitiesAndAccelerations(options);
+
   });
 });

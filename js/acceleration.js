@@ -13,13 +13,12 @@ import * as vector from '../js/vector.js';
 export default function getAcceleration(masses, positions) {
   // Create an zero vector that will store the acceleration of all bodies
   var accelerations = Array.from(Array(positions.length)).map(_ => [0, 0, 0]);
-  const number_of_galaxies = masses.length;
 
   // Loop over all bodies
   // The first two bodies are galaxy cores, the rest are stars
   for(let i = 0; i < positions.length; i++) {
-    // Loop over the galaxy cores
-    for(let j = 0; j < number_of_galaxies; j++) {
+    // Loop over two galaxy cores
+    for(let j = 0; j < 2; j++) {
       // Skip the case when the body is the same core,
       // since it can't accelerate itself
       if (i == j) continue;
