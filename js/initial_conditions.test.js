@@ -59,19 +59,55 @@ describe('Initial conditions', () => {
       [0.044611774600251820, 1.2542762684421485, -0.44761077756662986e-2], 1e-13);
   });
 
-  it('positionsVelocitiesAndAccelerations', () => {
+  it('allPositionsAndVelocities', () => {
       const options = {
         numberOfGalaxies: 2,
         numberOfRings: [5, 5],
         ringSeparation: 3,
         minimalGalaxySeparation: 3,
-        galaxyInclinationAngle: 0.123,
+        galaxyInclinationAngles: [0.123, 0.123],
         masses: [1, 0.7],
         eccentricity: 0.3
       };
 
-    var { positions, velocities, accelerations } =
-      init.positionsVelocitiesAndAccelerations(options);
+    var { positions, velocities } =
+      init.allPositionsAndVelocities(options);
 
+    // Positions
+    // --------
+
+    // Two cores plus 120 stars in each galaxies
+    expect(positions.length).to.equal(242);
+
+    // Core 1
+    expect(positions[0]).to.deep.closeTo(
+      [-2.2941176470588234, 0, 0], 1e-13);
+
+    // Core 2
+    expect(positions[1]).to.deep.closeTo(
+      [3.2773109243697478, 0, 0], 1e-13);
+
+    // Last star
+    expect(positions[241]).to.deep.closeTo(
+      [17.937824355647578, -2.6047226650039557, -1.8123922781056725], 1e-13);
+
+
+    // Velocities
+    // --------
+
+    // Two cores plus 120 stars in each galaxies
+    expect(velocities.length).to.equal(242);
+
+    // Core 1
+    expect(velocities[0]).to.deep.closeTo(
+      [0, -0.19030023115825126, 0], 1e-13);
+
+    // Core 2
+    expect(velocities[1]).to.deep.closeTo(
+      [0, 0.2718574730832161, 0], 1e-13);
+
+    // Last star
+    expect(velocities[241]).to.deep.closeTo(
+      [0.03722888956660431, 0.48460026258500988, -0.0046023866960218348], 1e-13);
   });
 });

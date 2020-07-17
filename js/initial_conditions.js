@@ -148,7 +148,7 @@ export function galaxyStarsPositionsAndVelocities(
   return { positions, velocities };
 }
 
-export function positionsVelocitiesAndAccelerations(options) {
+export function allPositionsAndVelocities(options) {
   // Calculate semi-major axis of the ellipse. The ellipse is the path
   // of first galaxy core relative the second core, located at ellipse's focus.
   // The minimal separation eMin (a.k.a. periastron) between two galaxy cores
@@ -266,5 +266,22 @@ export function positionsVelocitiesAndAccelerations(options) {
   //            v2 = r m1 / (m1 + m2)
   velocities.push([0, v0 * options.masses[0] / totalMass, 0]);
 
-  return 1;
+  // Loop through galaxy cores
+  for(let galaxyNumber = 0; galaxyNumber < 2; galaxyNumber++) {
+    // Calculate positions and velocities of the stars the galaxy
+    let galaxy = galaxyStarsPositionsAndVelocities(
+      positions[galaxyNumber],
+      velocities[galaxyNumber],
+      options.masses[galaxyNumber],
+      options.galaxyInclinationAngles[galaxyNumber],
+      options.numberOfRings[galaxyNumber],
+      options.ringSeparation
+    );
+
+    // Store positions and velocities of the stars
+    positions = positions.concat(galaxy.positions);
+    velocities = velocities.concat(galaxy.velocities);
+  }
+
+  return { positions, velocities };
 }
