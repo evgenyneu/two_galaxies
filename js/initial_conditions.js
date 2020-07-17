@@ -223,10 +223,48 @@ export function positionsVelocitiesAndAccelerations(options) {
   // Velocities of galaxy cores
   // --------
 
+  var velocities = [];
 
-  // v0 = sqrt(a * (1 - e**2) * mtot) / r
-  // velocities(:, 1) = [0._dp, -v0 * masses(2) / mtot, 0._dp]
-  // velocities(:, 2) = [0._dp, v0 * masses(1) / mtot, 0._dp ]
+  // In the coordinate system with the origin fixed at the first galaxy core,
+  // the speed of the second core v0 is given by (from two-body problem):
+  var v0 = Math.sqrt(a * (1 - Math.pow(options.eccentricity, 2) ) * totalMass) / r;
+
+  // But our origin is located at the center of mass. Velocity vectors
+  // of the two cores always point in the opposite directions. Therefore,
+  // speed v0 of second core when viewed from the first core is
+  //
+  //            v0 = v1 + v2,
+  //
+  //        where
+  //          v1, v2 are speeds of the two cores relative to the center of mass.
+  //
+  // Solving for v1 gives
+  //
+  //            v1 = v0 - v2.                   (3)
+  //
+  // Conservation of momentum gives
+  //
+  //            v1 m1 = v2 m2.
+  //
+  // Next, we solve for v2:
+  //
+  //            v2 = v1 m1 / m2
+  //
+  // and substitute v2 into Eq. 3:
+  //
+  //            v1 = v0 - v1 m1 / m2.
+  //
+  // Rearranging and solving for v1 gives:
+  //
+  //            v1 = v0 / (1 + m1 / m2)
+  //               = v0 m2 / (m1 + m2)
+  //
+  velocities.push([0, -v0 * options.masses[1] / totalMass, 0]);
+
+  // Similarly, we calculate the speed of the second core:
+  //
+  //            v2 = r m1 / (m1 + m2)
+  velocities.push([0, v0 * options.masses[0] / totalMass, 0]);
 
   return 1;
 }
