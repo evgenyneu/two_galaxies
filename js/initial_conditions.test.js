@@ -58,4 +58,18 @@ describe('Initial conditions', () => {
     expect(velocities[119]).to.deep.closeTo(
       [0.044611774600251820, 1.2542762684421485, -0.44761077756662986e-2], 1e-13);
   });
+
+  it('positionsVelocitiesAndAccelerations', () => {
+      const options = {
+        numberOfGalaxies: 2,
+        numberOfRings: [5, 5],
+        ringSeparation: 3,
+        minimalGalaxySeparation: 3,
+        galaxyInclinationAngle: 0.123,
+        coreMasses: [1, 0.7],
+        eccentricity: 0.3
+      };
+
+    init.positionsVelocitiesAndAccelerations();
+  });
 });

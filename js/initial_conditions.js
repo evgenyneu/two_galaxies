@@ -116,7 +116,7 @@ export function galaxyStarsPositionsAndVelocities(
       // star in the ring
       let phi = (starNumber - 1) * angleBetweenNeighbours;
 
-      // Calculate the position of the current star relative to galaxy's center
+      // Calculate the position of the current star relative to galaxy's centre
       var position = [
         distanceFromCenter * Math.cos(phi) * Math.cos(theta),
         distanceFromCenter * Math.sin(phi),
@@ -124,20 +124,20 @@ export function galaxyStarsPositionsAndVelocities(
       ];
 
       // Add star's position to the position of the galaxy to find
-      // the star's position in the global coordinate system
+      // the star's position in our coordinate system
       position = vector.add(corePosition, position);
 
       // Add star's position to the list
       positions.push(position);
 
-      // Calculate the velocity of the star relative to galaxy's center
+      // Calculate the velocity of the star relative to galaxy's centre
       var velocity = [
         -starSpeed * Math.sin(phi) * Math.cos(theta),
         starSpeed * Math.cos(phi),
         starSpeed * Math.sin(phi) * Math.sin(theta)
       ];
 
-      // Calculate global star's velocity
+      // Calculate star's velocity in our coordinate system
       velocity = vector.add(coreVelocity, velocity);
 
       // Store velocity in the list
@@ -146,4 +146,8 @@ export function galaxyStarsPositionsAndVelocities(
   }
 
   return { positions, velocities };
+}
+
+export function positionsVelocitiesAndAccelerations() {
+  return 1;
 }
