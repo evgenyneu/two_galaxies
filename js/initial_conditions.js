@@ -148,7 +148,8 @@ export function galaxyStarsPositionsAndVelocities(
   return { positions, velocities };
 }
 
-export function allPositionsAndVelocities(options) {
+export function allPositionsAndVelocities(numberOfRings, ringSeparation,
+  minimalGalaxySeparation, galaxyInclinationAngles, masses, eccentricity) {
   // Calculate semi-major axis of the ellipse. The ellipse is the path
   // of first galaxy core relative the second core, located at ellipse's focus.
   // The minimal separation eMin (a.k.a. periastron) between two galaxy cores
@@ -164,17 +165,17 @@ export function allPositionsAndVelocities(options) {
   //
   //        a = eMin / (1 - e).
   //
-  const a = options.minimalGalaxySeparation / (1 - options.eccentricity);
+  const a = minimalGalaxySeparation / (1 - eccentricity);
 
   // We want to start simulation when two cores are located at maximum distance
   // rMax from each other (a.k.a. apastron), which is given by equation:
   //
   //        rMax = a (1 + e)
   //
-  const r = a * (1 + options.eccentricity);
+  const r = a * (1 + eccentricity);
 
   // Calculate the total mass of galaxy cores
-  const totalMass = options.masses[0] + options.masses[1];
+  const totalMass = masses[0] + masses[1];
 
 
   // Positions of galaxy cores
@@ -211,13 +212,13 @@ export function allPositionsAndVelocities(options) {
   //
   // We use negative of that for the first core as its X coordinate:
   //
-  positions.push([-r * options.masses[1] / totalMass, 0, 0]);
+  positions.push([-r * masses[1] / totalMass, 0, 0]);
 
   // Similarly, we calculate the r2 distance:
   //
   //          r2 = r m1 / (m1 + m2)
   //
-  positions.push([r * options.masses[0] / totalMass, 0, 0]);
+  positions.push([r * masses[0] / totalMass, 0, 0]);
 
 
   // Velocities of galaxy cores
@@ -227,7 +228,7 @@ export function allPositionsAndVelocities(options) {
 
   // In the coordinate system with the origin fixed at the first galaxy core,
   // the speed of the second core v0 is given by (from two-body problem):
-  var v0 = Math.sqrt(a * (1 - Math.pow(options.eccentricity, 2) ) * totalMass) / r;
+  var v0 = Math.sqrt(a * (1 - Math.pow(eccentricity, 2) ) * totalMass) / r;
 
   // But our origin is located at the center of mass. Velocity vectors
   // of the two cores always point in the opposite directions. Therefore,
@@ -259,12 +260,12 @@ export function allPositionsAndVelocities(options) {
   //            v1 = v0 / (1 + m1 / m2)
   //               = v0 m2 / (m1 + m2)
   //
-  velocities.push([0, -v0 * options.masses[1] / totalMass, 0]);
+  velocities.push([0, -v0 * masses[1] / totalMass, 0]);
 
   // Similarly, we calculate the speed of the second core:
   //
   //            v2 = r m1 / (m1 + m2)
-  velocities.push([0, v0 * options.masses[0] / totalMass, 0]);
+  velocities.push([0, v0 * masses[0] / totalMass, 0]);
 
   // Loop through galaxy cores
   for(let galaxyNumber = 0; galaxyNumber < 2; galaxyNumber++) {
@@ -272,10 +273,10 @@ export function allPositionsAndVelocities(options) {
     let galaxy = galaxyStarsPositionsAndVelocities(
       positions[galaxyNumber],
       velocities[galaxyNumber],
-      options.masses[galaxyNumber],
-      options.galaxyInclinationAngles[galaxyNumber],
-      options.numberOfRings[galaxyNumber],
-      options.ringSeparation
+      masses[galaxyNumber],
+      galaxyInclinationAngles[galaxyNumber],
+      numberOfRings[galaxyNumber],
+      ringSeparation
     );
 
     // Store positions and velocities of the stars
