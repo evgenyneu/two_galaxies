@@ -33,7 +33,7 @@ export function numberOfStarsInAllRingsOneGalaxy(numberOfRings) {
 
 
  /**
-  * Calculate positions and velocities of stars in one galaxy. The
+  * Calculate initial positions and velocities of stars in one galaxy. The
   * stars are located in rings around the galaxy core.
   *
   * @param  {array} corePosition  Position of the core
@@ -148,18 +148,47 @@ export function galaxyStarsPositionsAndVelocities(
   return { positions, velocities };
 }
 
+
+/**
+ * Calculate initial positions and velocities of all bodies: two galaxy
+ * cores and all the stars.
+ *
+ * @param  {array} numberOfRings  Array containing the number of rings in
+ *                                two galaxies, i.e. [5, 3]
+ * @param  {number} ringSeparation  Distance between the rings.
+ * @param  {number} minimalGalaxySeparation Minimal separation (periastron)
+ *                                  between the cores of two galaxies
+ * @param  {array} galaxyInclinationAngles Array containing inclination
+ *                      angles two galaxies relative to orbital plane
+ *                      of two cores, in radians, i.e. [0.1, 0.2].
+ * @param  {array} masses         The masses of the two cores, i.e. [1, 1.5]
+ * @param  {type} eccentricity    The eccentricity of orbit of one core when
+ *                                viewed from the other core.
+ * @return {type}   An object { positions: [], velocities: [] }
+ *                  containing positions and velocities of all bodies. The
+ *                  first two elements are cores, and the remaining
+ *                  are the stars in two galaxies.
+ */
 export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   minimalGalaxySeparation, galaxyInclinationAngles, masses, eccentricity) {
-  // Calculate semi-major axis of the ellipse. The ellipse is the path
-  // of first galaxy core relative the second core, located at ellipse's focus.
-  // The minimal separation eMin (a.k.a. periastron) between two galaxy cores
+
+  // We will setup the system such that two galaxy cores move around the
+  // common centre of mass in the x-y plane (i.e. their z coordinate is zero).
+  // Let's make both cores stars at y=0. We then need to calculate
+  // the x coordinates of the two cores.
+
+  // First, we calculate semi-major axis of the elliptic trajectory
+  // that the first galaxy core makes relative to the second core.
+  // The second core is located at ellipse's focus.
+  //
+  // The minimal separation rMin (a.k.a. periastron) between two galaxy cores
   // is given by equation:
   //
   //        rMin = a (1 - e),
   //
   //    where
-  //        a is semi-major axis,
-  //        e is eccentricity.
+  //        a is semi-major axis of the ellipse,
+  //        e is its eccentricity.
   //
   // Solving for a gives:
   //
@@ -189,7 +218,7 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   //            r1 m1 = r2 m2,                  (1)
   //
   //    where
-  //        r1, r2 are distances to the galaxy cores from the center of mass,
+  //        r1, r2 are distances to the galaxy cores from the centre of mass,
   //        m1, m2 are masses of the two cores.
   //
   // The distance r between the two cores is
@@ -211,7 +240,6 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   //             = r m2 / (m1 + m2)
   //
   // We use negative of that for the first core as its X coordinate:
-  //
   positions.push([-r * masses[1] / totalMass, 0, 0]);
 
   // Similarly, we calculate the r2 distance:
@@ -230,8 +258,8 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   // the speed of the second core v0 is given by (from two-body problem):
   var v0 = Math.sqrt(a * (1 - Math.pow(eccentricity, 2) ) * totalMass) / r;
 
-  // But our origin is located at the center of mass. Velocity vectors
-  // of the two cores always point in the opposite directions. Therefore,
+  // But our origin is located at the centre of mass. Velocity vectors
+  // of the two cores always point in opposite directions. Therefore,
   // speed v0 of second core when viewed from the first core is
   //
   //            v0 = v1 + v2,
