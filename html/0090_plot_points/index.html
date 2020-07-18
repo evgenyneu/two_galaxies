@@ -48,6 +48,7 @@
       void main() {
         // Multiply the position by the matrix.
         gl_Position = u_matrix * a_position;
+        gl_PointSize = 10.0;
       }
     </script>
 
@@ -57,7 +58,29 @@
       precision mediump float;
 
       void main() {
-        gl_FragColor = vec4(1, 0, 0.5, 1); // return reddish-purple
+        // Draw a disk
+        // Source: https://www.desultoryquest.com/blog/drawing-anti-aliased-circular-points-using-opengl-slash-webgl/
+        // ---------
+
+        vec4 color = vec4(1, 0, 0.5, 1); // reddish-purple
+        float r = 0.0, delta = 0.0, alpha = 1.0;
+
+        // gl_PointCoord is the [x, y] coordinate of currently drawn pixel inside
+        // the 1 by 1 rectangle. The x and y values are between 0 and 1.
+        // We translate the coordinates to be from -1 to 1 instead:
+        vec2 cxy = 2.0 * gl_PointCoord - 1.0;
+
+        // Calculate the square of the distance from [0, 0]
+        r = dot(cxy, cxy);
+
+        // Do not draw the pixel if the distance is greater than one,
+        // which means the pixel is outside the disk
+        if (r > 1.0) {
+            discard;
+        }
+
+        // Draw the pixel inside the disk
+        gl_FragColor = color * (alpha);
       }
 
     </script>

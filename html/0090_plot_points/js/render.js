@@ -84,7 +84,7 @@ export default function drawScene(initData, settings) {
     gl.uniformMatrix4fv(initData.matrixLocation, false, matrix);
 
     // Draw the geometry.
-    var primitiveType = gl.TRIANGLES;
+    var primitiveType = gl.POINTS;
     offset = 0;
     var count = 16 * 6;
     gl.drawArrays(primitiveType, offset, count);
