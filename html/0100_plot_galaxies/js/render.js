@@ -86,7 +86,7 @@ export default function drawScene(initData, settings) {
     // Draw the geometry.
     var primitiveType = gl.POINTS;
     offset = 0;
-    var count = 16 * 6;
+    var count = initData.numberOfBodies;
     gl.drawArrays(primitiveType, offset, count);
   }
 }
