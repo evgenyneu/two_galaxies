@@ -47,8 +47,8 @@ export default function drawScene(initData, settings) {
   var fieldOfViewRadians = degToRad(60);
   var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
 
-  var numFs = 5;
-  var radius = 200;
+  // Distance of the camera from the origin
+  var radius = 50;
 
   // Compute a matrix for the camera
   // ------------
@@ -71,24 +71,14 @@ export default function drawScene(initData, settings) {
   // Compute a view projection matrix
   var viewProjectionMatrix = m4.multiply(projectionMatrix, viewMatrix);
 
-  for (var ii = 0; ii < numFs; ++ii) {
-    var angle = ii * Math.PI * 2 / numFs;
-    var x = Math.cos(angle) * radius;
-    var y = Math.sin(angle) * radius;
+  // Set the matrix.
+  gl.uniformMatrix4fv(initData.matrixLocation, false, viewProjectionMatrix);
 
-    // starting with the view projection matrix
-    // compute a matrix for the F
-    var matrix = m4.translate(viewProjectionMatrix, x, 0, y);
-
-    // Set the matrix.
-    gl.uniformMatrix4fv(initData.matrixLocation, false, matrix);
-
-    // Draw the geometry.
-    var primitiveType = gl.POINTS;
-    offset = 0;
-    var count = initData.numberOfBodies;
-    gl.drawArrays(primitiveType, offset, count);
-  }
+  // Draw the geometry.
+  var primitiveType = gl.POINTS;
+  offset = 0;
+  var count = initData.numberOfBodies;
+  gl.drawArrays(primitiveType, offset, count);
 }
 
 function degToRad(d) {
