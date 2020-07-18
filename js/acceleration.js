@@ -10,7 +10,7 @@ import * as vector from '../js/vector.js';
  *                            first two are galaxy cores, the rest are stars.
  * @return {array}            Acceleration vectors of all bodies.
  */
-export default function getAcceleration(masses, positions) {
+export default function getAccelerations(masses, positions) {
   // Create an zero vector that will store the acceleration of all bodies
   var accelerations = Array.from(Array(positions.length)).map(_ => [0, 0, 0]);
 
