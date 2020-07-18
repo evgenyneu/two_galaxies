@@ -1,6 +1,21 @@
 import * as vector from '../js/vector.js';
 import getAccelerations from '../js/acceleration.js';
 
+
+/**
+ * Use one step of Leapfrog method to calculate updated positions,
+ * velocities and accelerations of bodies.
+ *
+ * @param  {number} timeStep    Length of the time increment.
+ * @param  {array} masses       The masses of the two cores, i.e. [1, 1.5]
+ * @param  {array} positions    Position vectors of all bodies,
+ *                              first two are galaxy cores, the rest are stars.
+ * @param  {array} velocities   Velocity vectors of all bodies.
+ * @param  {array} accelerations Acceleration vectors of all bodies.
+ * @return {object} An object { positions: [], velocities: [], accelerations }
+ *                  containing the updated positions, velocities and
+ *                  accelerations of all bodies after `timeStep` time interval.
+ */
 export default function integrateOneStep(timeStep, masses, positions,
                                          velocities, accelerations) {
   for(let i = 0; i < positions.length; i++) {
