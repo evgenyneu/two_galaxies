@@ -157,7 +157,7 @@ export function galaxyStarsPositionsAndVelocities(
  *                                two galaxies, i.e. [5, 3]
  * @param  {number} ringSeparation  Distance between the rings.
  * @param  {number} minimalGalaxySeparation Minimal separation (periastron)
- *                                  between the cores of two galaxies
+ *                      between the cores of two galaxies.
  * @param  {array} galaxyInclinationAngles Array containing inclination
  *                      angles two galaxies relative to orbital plane
  *                      of two cores, in radians, i.e. [0.1, 0.2].
@@ -174,8 +174,8 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
 
   // We will setup the system such that two galaxy cores move around the
   // common centre of mass in the x-y plane (i.e. their z coordinate is zero).
-  // Let's make both cores stars at y=0. We then need to calculate
-  // the x coordinates of the two cores.
+  // Let's make both cores start at y=0. We then need to calculate
+  // the initial x coordinates of the two cores.
 
   // First, we calculate semi-major axis of the elliptic trajectory
   // that the first galaxy core makes relative to the second core.
@@ -190,7 +190,7 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   //        a is semi-major axis of the ellipse,
   //        e is its eccentricity.
   //
-  // Solving for a gives:
+  // Solving for a gives the semi-major axis:
   //
   //        a = eMin / (1 - e).
   //
@@ -239,7 +239,7 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   //          r1 = (r m2 / m1) * ( 1 / (1 + m2 / m1)
   //             = r m2 / (m1 + m2)
   //
-  // We use negative of that for the first core as its X coordinate:
+  // We use negative of that for the first core as its x coordinate:
   positions.push([-r * masses[1] / totalMass, 0, 0]);
 
   // Similarly, we calculate the r2 distance:
@@ -307,7 +307,7 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
       ringSeparation
     );
 
-    // Store positions and velocities of the stars
+    // Add positions and velocities of the stars to the array
     positions = positions.concat(galaxy.positions);
     velocities = velocities.concat(galaxy.velocities);
   }
