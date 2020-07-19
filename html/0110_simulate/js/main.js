@@ -3,43 +3,43 @@ import drawScene from './render.js';
 import SickSlider from '../../../js/sick_slider.js';
 import * as simulation from './simulation.js';
 
-function updateCameraAngle(angleIndex, settings, drawData) {
+function updateCameraAngle(angleIndex, drawData, drawSettings, currentParams) {
   return function(value, position) {
-    settings.cameraAnglesDegrees[angleIndex] = value;
-    drawScene(drawData, settings);
+    drawSettings.cameraAnglesDegrees[angleIndex] = value;
+    drawScene(drawData, drawSettings, currentParams.positions);
   };
 }
 
-function updateCameraDistance(drawData, settings) {
+function updateCameraDistance(drawData, drawSettings, currentParams) {
   return function(value, position) {
-    settings.cameraDistance = value;
-    drawScene(drawData, settings);
+    drawSettings.cameraDistance = value;
+    drawScene(drawData, drawSettings, currentParams.positions);
   };
 }
 
-function setupSlider(drawData, drawSettings) {
+function setupSlider(drawData, drawSettings, currentParams) {
   SickSlider(".SickSlider-cameraAngleX", {
     label: 'Camera angle X: ', labelSuffix: '°',
     value: 0, min: -360, max: 360,
-    onChange: updateCameraAngle(0, drawSettings, drawData)
+    onChange: updateCameraAngle(0, drawData, drawSettings, currentParams)
   });
 
   SickSlider(".SickSlider-cameraAngleY", {
     label: 'Camera angle Y: ', labelSuffix: '°',
     value: 0, min: -360, max: 360,
-    onChange: updateCameraAngle(1, drawSettings, drawData)
+    onChange: updateCameraAngle(1, drawData, drawSettings, currentParams)
   });
 
   SickSlider(".SickSlider-cameraAngleZ", {
     label: 'Camera angle Z: ', labelSuffix: '°',
     value: 0, min: -360, max: 360,
-    onChange: updateCameraAngle(2, drawSettings, drawData)
+    onChange: updateCameraAngle(2, drawData, drawSettings, currentParams)
   });
 
   SickSlider(".SickSlider-cameraDistance", {
     label: 'Camera distance: ',
     value: 0, min: 1, max: 10,
-    onChange: updateCameraDistance(drawSettings, drawData)
+    onChange: updateCameraDistance(drawData, drawSettings, currentParams)
   });
 }
 
@@ -76,7 +76,7 @@ function main() {
     cameraDistance: 2
   };
 
-  setupSlider(drawData, drawSettings);
+  setupSlider(drawData, drawSettings, currentParams);
 
   simulation.setInitial(initialParams, currentParams);
 
