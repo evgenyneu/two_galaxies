@@ -153,6 +153,8 @@ export function galaxyStarsPositionsAndVelocities(
  * Calculate initial positions and velocities of all bodies: two galaxy
  * cores and all the stars.
  *
+ * Parameters are passed as single object with properties:
+ *
  * @param  {array} numberOfRings  Array containing the number of rings in
  *                                two galaxies, i.e. [5, 3]
  * @param  {number} ringSeparation  Distance between the rings.
@@ -169,9 +171,7 @@ export function galaxyStarsPositionsAndVelocities(
  *                  first two elements are cores, and the remaining
  *                  are the stars in two galaxies.
  */
-export function allPositionsAndVelocities(numberOfRings, ringSeparation,
-  minimalGalaxySeparation, galaxyInclinationAngles, masses, eccentricity) {
-
+export function allPositionsAndVelocities(args) {
   // We will setup the system such that two galaxy cores move around the
   // common centre of mass in the x-y plane (i.e. their z coordinate is zero).
   // Let's make both cores start at y=0. We then need to calculate
@@ -194,17 +194,17 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   //
   //        a = eMin / (1 - e).
   //
-  const a = minimalGalaxySeparation / (1 - eccentricity);
+  const a = args.minimalGalaxySeparation / (1 - args.eccentricity);
 
   // We want to start simulation when two cores are located at maximum distance
   // rMax from each other (a.k.a. apastron), which is given by equation:
   //
   //        rMax = a (1 + e)
   //
-  const r = a * (1 + eccentricity);
+  const r = a * (1 + args.eccentricity);
 
   // Calculate the total mass of galaxy cores
-  const totalMass = masses[0] + masses[1];
+  const totalMass = args.masses[0] + args.masses[1];
 
 
   // Positions of galaxy cores
@@ -240,13 +240,13 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   //             = r m2 / (m1 + m2)
   //
   // We use negative of that for the first core as its x coordinate:
-  positions.push([-r * masses[1] / totalMass, 0, 0]);
+  positions.push([-r * args.masses[1] / totalMass, 0, 0]);
 
   // Similarly, we calculate the r2 distance:
   //
   //          r2 = r m1 / (m1 + m2)
   //
-  positions.push([r * masses[0] / totalMass, 0, 0]);
+  positions.push([r * args.masses[0] / totalMass, 0, 0]);
 
 
   // Velocities of galaxy cores
@@ -256,7 +256,7 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
 
   // In the coordinate system with the origin fixed at the first galaxy core,
   // the speed of the second core v0 is given by (from two-body problem):
-  var v0 = Math.sqrt(a * (1 - Math.pow(eccentricity, 2) ) * totalMass) / r;
+  var v0 = Math.sqrt(a * (1 - Math.pow(args.eccentricity, 2) ) * totalMass) / r;
 
   // But our origin is located at the centre of mass. Velocity vectors
   // of the two cores always point in opposite directions. Therefore,
@@ -288,12 +288,12 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
   //            v1 = v0 / (1 + m1 / m2)
   //               = v0 m2 / (m1 + m2)
   //
-  velocities.push([0, -v0 * masses[1] / totalMass, 0]);
+  velocities.push([0, -v0 * args.masses[1] / totalMass, 0]);
 
   // Similarly, we calculate the speed of the second core:
   //
   //            v2 = r m1 / (m1 + m2)
-  velocities.push([0, v0 * masses[0] / totalMass, 0]);
+  velocities.push([0, v0 * args.masses[0] / totalMass, 0]);
 
   // Loop through galaxy cores
   for(let galaxyNumber = 0; galaxyNumber < 2; galaxyNumber++) {
@@ -301,10 +301,10 @@ export function allPositionsAndVelocities(numberOfRings, ringSeparation,
     let galaxy = galaxyStarsPositionsAndVelocities(
       positions[galaxyNumber],
       velocities[galaxyNumber],
-      masses[galaxyNumber],
-      galaxyInclinationAngles[galaxyNumber],
-      numberOfRings[galaxyNumber],
-      ringSeparation
+      args.masses[galaxyNumber],
+      args.galaxyInclinationAngles[galaxyNumber],
+      args.numberOfRings[galaxyNumber],
+      args.ringSeparation
     );
 
     // Add positions and velocities of the stars to the array

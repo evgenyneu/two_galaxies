@@ -51,8 +51,8 @@ function animate(now) {
 function main() {
   var drawData = initDrawing();
 
-  // Initial conditions of the simulation, they can't be changed without restart
-  var initialConditions = {
+  // Initial parameters of the simulation, they can't be changed without restart
+  var initialParameters = {
     numberOfRings: [5, 5],
     ringSeparation: 3,
     minimalGalaxySeparation: 25,
@@ -64,7 +64,7 @@ function main() {
   // Current positions, velocities and accelerations
   // of all the bodies. First two elements are galaxy cores and
   // the rest are stars.
-  var currentConditions = {
+  var currentParameters = {
     positions: [],
     velocities: [],
     accelerations: []
@@ -78,11 +78,11 @@ function main() {
 
   setupSlider(drawData, drawSettings);
 
-  simulation.initial(settings);
+  simulation.setInitial(initialParameters, currentParameters);
 
   // requestAnimationFrame(animate);
 
-  drawScene(drawData, settings);
+  // drawScene(drawData, settings);
 }
 
 window.onload = main;

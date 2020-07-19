@@ -60,16 +60,16 @@ describe('Initial conditions', () => {
   });
 
   it('allPositionsAndVelocities', () => {
-    const numberOfRings = [5, 5];
-    const ringSeparation = 3;
-    const minimalGalaxySeparation = 3;
-    const galaxyInclinationAngles = [0.123, 0.123];
-    const masses = [1, 0.7];
-    const eccentricity = 0.3;
+    const args = {
+      numberOfRings: [5, 5],
+      ringSeparation: 3,
+      minimalGalaxySeparation: 3,
+      galaxyInclinationAngles: [0.123, 0.123],
+      masses: [1, 0.7],
+      eccentricity: 0.3
+    };
 
-    var { positions, velocities } =
-      init.allPositionsAndVelocities(numberOfRings, ringSeparation,
-        minimalGalaxySeparation, galaxyInclinationAngles, masses, eccentricity);
+    var { positions, velocities } = init.allPositionsAndVelocities(args);
 
     // Positions
     // --------
