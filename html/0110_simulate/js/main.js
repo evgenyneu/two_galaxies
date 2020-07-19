@@ -18,19 +18,19 @@ function updateCameraDistance(drawSettings) {
 function setupSlider(drawSettings) {
   SickSlider(".SickSlider-cameraAngleX", {
     label: 'Camera angle X: ', labelSuffix: '°',
-    value: 0, min: -360, max: 360,
+    value: 0, min: -180, max: 180,
     onChange: updateCameraAngle(0, drawSettings)
   });
 
   SickSlider(".SickSlider-cameraAngleY", {
     label: 'Camera angle Y: ', labelSuffix: '°',
-    value: 0, min: -360, max: 360,
+    value: 0, min: -180, max: 180,
     onChange: updateCameraAngle(1, drawSettings)
   });
 
   SickSlider(".SickSlider-cameraAngleZ", {
     label: 'Camera angle Z: ', labelSuffix: '°',
-    value: 0, min: -360, max: 360,
+    value: 0, min: -180, max: 180,
     onChange: updateCameraAngle(2, drawSettings)
   });
 
@@ -43,18 +43,22 @@ function setupSlider(drawSettings) {
 
 function onNextFrame(drawData, drawSettings, currentParams) {
   return function(now) {
-    if (currentParams.positions === null) {
-      // Initial parameters of the simulation, they can't be changed without restart
-      var initialParams = {
-        numberOfRings: [5, 5],
-        ringSeparation: 3,
-        minimalGalaxySeparation: 25,
-        galaxyInclinationAngles: [60 * Math.PI / 180, 60 * Math.PI / 180],
-        masses: [1, 1],
-        eccentricity: 0.6
-      };
+    // Initial parameters of the simulation, they can't be changed without restart
+    var initialParams = {
+      numberOfRings: [5, 5],
+      ringSeparation: 3,
+      minimalGalaxySeparation: 25,
+      galaxyInclinationAngles: [60 * Math.PI / 180, 60 * Math.PI / 180],
+      masses: [1, 1],
+      eccentricity: 0.6
+    };
 
+    if (currentParams.positions === null) { // First frame
+      // calculate initial positions of the bodies
       simulation.setInitial(initialParams, currentParams);
+    } else {
+      // Update positions of the bodies at new time
+      simulation.update(1, initialParams, currentParams);
     }
 
     drawScene(drawData, drawSettings, currentParams.positions);
