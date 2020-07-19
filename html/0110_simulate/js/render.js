@@ -1,9 +1,11 @@
 import { resizeCanvasToDisplaySize } from '../../../js/web_gl_utils.js';
 import m4 from '../../../js/m4.js';
 
-export default function drawScene(initData, settings) {
-  var gl = initData.gl;
-  var program = initData.program;
+export default function drawScene(drawData, settings, positions) {
+  storePositions(drawData, positions);
+
+  var gl = drawData.gl;
+  var program = drawData.program;
   resizeCanvasToDisplaySize(gl.canvas);
 
   // Tell WebGL how to convert from clip space to pixels
@@ -23,10 +25,10 @@ export default function drawScene(initData, settings) {
   gl.useProgram(program);
 
   // Turn on the attribute
-  gl.enableVertexAttribArray(initData.positionLocation);
+  gl.enableVertexAttribArray(drawData.positionLocation);
 
   // Bind the position buffer.
-  gl.bindBuffer(gl.ARRAY_BUFFER, initData.positionBuffer);
+  gl.bindBuffer(gl.ARRAY_BUFFER, drawData.positionBuffer);
 
   // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
   var size = 3;          // 3 components per iteration
@@ -35,7 +37,7 @@ export default function drawScene(initData, settings) {
   var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
   var offset = 0;        // start at the beginning of the buffer
   gl.vertexAttribPointer(
-    initData.positionLocation, size, type, normalize, stride, offset);
+    drawData.positionLocation, size, type, normalize, stride, offset);
 
   // Translate, scale and rotate
   // ---------
@@ -72,13 +74,28 @@ export default function drawScene(initData, settings) {
   var viewProjectionMatrix = m4.multiply(projectionMatrix, viewMatrix);
 
   // Set the matrix.
-  gl.uniformMatrix4fv(initData.matrixLocation, false, viewProjectionMatrix);
+  gl.uniformMatrix4fv(drawData.matrixLocation, false, viewProjectionMatrix);
 
   // Draw the geometry.
   var primitiveType = gl.POINTS;
   offset = 0;
-  var count = initData.numberOfBodies;
-  gl.drawArrays(primitiveType, offset, count);
+  var numberOfBodies = positions.length;
+  gl.drawArrays(primitiveType, offset, numberOfBodies);
+}
+
+// Load positions of stars into GPU memory
+function storePositions(drawData, positions) {
+  var gl = drawData.gl;
+
+  // Bind ARRAY_BUFFER to the positionBuffer
+  // (creates a global variable inside WebGL)
+  gl.bindBuffer(gl.ARRAY_BUFFER, drawData.positionBuffer);
+
+  const numberOfBodies = positions.length;
+  positions = positions.flat();
+  positions = new Float32Array(positions);
+
+  gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
 }
 
 function degToRad(d) {
