@@ -14,21 +14,16 @@ describe('Initial conditions', () => {
   });
 
   it('galaxyStarsPositionsAndVelocities', () => {
-    const corePosition = [1, 0, 0];
-    const coreVelocity = [0, 1, 0];
-    const coreMass = 1;
-    const theta = 0.1;
-    const numberOfRings = 5;
-    const ringSeparation = 3;
+    const args = {
+      corePosition: [1, 0, 0],
+      coreVelocity: [0, 1, 0],
+      coreMass: 1,
+      galaxyAngle: 0.1,
+      numberOfRings: 5,
+      ringSeparation: 3
+    };
 
-    var { positions, velocities } = init.galaxyStarsPositionsAndVelocities(
-      corePosition,
-      coreVelocity,
-      coreMass,
-      theta,
-      numberOfRings,
-      ringSeparation
-    );
+    var { positions, velocities } = init.galaxyStarsPositionsAndVelocities(args);
 
     // Positions
     // --------

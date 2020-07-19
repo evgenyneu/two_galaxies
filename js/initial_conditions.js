@@ -36,27 +36,28 @@ export function numberOfStarsInAllRingsOneGalaxy(numberOfRings) {
   * Calculate initial positions and velocities of stars in one galaxy. The
   * stars are located in rings around the galaxy core.
   *
+  * Parameters are passed as single object with properties:
+  *
   * @param  {array} corePosition  Position of the core
   * @param  {array} coreVelocity  Core velocity
   * @param  {number} coreMass     Mass of the core
-  * @param  {number} theta        Inclination angle of the galaxy relative
-  *                               to the orbital plane of the core
+  * @param  {number} galaxyAngle  Inclination angle of the galaxy relative
+  *                               to the orbital plane of the core, in radians.
   * @param  {number} numberOfRings Number of rings in the galaxy
   * @param  {number} ringSeparation Separation between two rings
   * @return {object} An object { positions: [], velocities: [] }
   *                  containing positions and velocities of all stars in the
   *                  galaxy.
   */
-export function galaxyStarsPositionsAndVelocities(
-  corePosition, coreVelocity, coreMass, theta, numberOfRings, ringSeparation) {
+export function galaxyStarsPositionsAndVelocities(args) {
 
   var positions = [];
   var velocities = [];
 
   // Loop over the rings of the galaxy
-  for(let ringNumber = 1; ringNumber <= numberOfRings; ringNumber++) {
+  for(let ringNumber = 1; ringNumber <= args.numberOfRings; ringNumber++) {
     // Find distance of stars in current ring from the galaxy center
-    let distanceFromCenter = ringNumber * ringSeparation;
+    let distanceFromCenter = ringNumber * args.ringSeparation;
 
     // Find number of stars in the ring
     let numberOfStars = numberOfStarsInOneRing(ringNumber);
@@ -104,7 +105,7 @@ export function galaxyStarsPositionsAndVelocities(
     //
     //          v = sqrt(M / r).
     //
-    let starSpeed = Math.sqrt(coreMass / distanceFromCenter);
+    let starSpeed = Math.sqrt(args.coreMass / distanceFromCenter);
 
     // Calculate the angle between two neighbouring stars in a ring
     // when viewed from the galaxy center
@@ -114,31 +115,31 @@ export function galaxyStarsPositionsAndVelocities(
     for(let starNumber = 1; starNumber <= numberOfStars; starNumber++) {
       // Find the angle of the current star relative to the first
       // star in the ring
-      let phi = (starNumber - 1) * angleBetweenNeighbours;
+      let starAngle = (starNumber - 1) * angleBetweenNeighbours;
 
       // Calculate the position of the current star relative to galaxy's centre
       var position = [
-        distanceFromCenter * Math.cos(phi) * Math.cos(theta),
-        distanceFromCenter * Math.sin(phi),
-        -distanceFromCenter * Math.cos(phi) * Math.sin(theta)
+        distanceFromCenter * Math.cos(starAngle) * Math.cos(args.galaxyAngle),
+        distanceFromCenter * Math.sin(starAngle),
+        -distanceFromCenter * Math.cos(starAngle) * Math.sin(args.galaxyAngle)
       ];
 
       // Add star's position to the position of the galaxy to find
       // the star's position in our coordinate system
-      position = vector.add(corePosition, position);
+      position = vector.add(args.corePosition, position);
 
       // Add star's position to the list
       positions.push(position);
 
       // Calculate the velocity of the star relative to galaxy's centre
       var velocity = [
-        -starSpeed * Math.sin(phi) * Math.cos(theta),
-        starSpeed * Math.cos(phi),
-        starSpeed * Math.sin(phi) * Math.sin(theta)
+        -starSpeed * Math.sin(starAngle) * Math.cos(args.galaxyAngle),
+        starSpeed * Math.cos(starAngle),
+        starSpeed * Math.sin(starAngle) * Math.sin(args.galaxyAngle)
       ];
 
       // Calculate star's velocity in our coordinate system
-      velocity = vector.add(coreVelocity, velocity);
+      velocity = vector.add(args.coreVelocity, velocity);
 
       // Store velocity in the list
       velocities.push(velocity);
@@ -298,14 +299,14 @@ export function allPositionsAndVelocities(args) {
   // Loop through galaxy cores
   for(let galaxyNumber = 0; galaxyNumber < 2; galaxyNumber++) {
     // Calculate positions and velocities of the stars the galaxy
-    let galaxy = galaxyStarsPositionsAndVelocities(
-      positions[galaxyNumber],
-      velocities[galaxyNumber],
-      args.masses[galaxyNumber],
-      args.galaxyInclinationAngles[galaxyNumber],
-      args.numberOfRings[galaxyNumber],
-      args.ringSeparation
-    );
+    let galaxy = galaxyStarsPositionsAndVelocities({
+        corePosition: positions[galaxyNumber],
+        coreVelocity: velocities[galaxyNumber],
+        coreMass: args.masses[galaxyNumber],
+        galaxyAngle: args.galaxyInclinationAngles[galaxyNumber],
+        numberOfRings: args.numberOfRings[galaxyNumber],
+        ringSeparation: args.ringSeparation
+    });
 
     // Add positions and velocities of the stars to the array
     positions = positions.concat(galaxy.positions);
