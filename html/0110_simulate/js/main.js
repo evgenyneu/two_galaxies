@@ -43,33 +43,26 @@ function setupSlider(drawSettings) {
 
 function onNextFrame(drawData, drawSettings, currentParams) {
   return function(now) {
+    if (currentParams.positions === null) {
+      // Initial parameters of the simulation, they can't be changed without restart
+      var initialParams = {
+        numberOfRings: [5, 5],
+        ringSeparation: 3,
+        minimalGalaxySeparation: 25,
+        galaxyInclinationAngles: [60 * Math.PI / 180, 60 * Math.PI / 180],
+        masses: [1, 1],
+        eccentricity: 0.6
+      };
+
+      simulation.setInitial(initialParams, currentParams);
+    }
+
     drawScene(drawData, drawSettings, currentParams.positions);
     requestAnimationFrame(onNextFrame(drawData, drawSettings, currentParams));
   };
 }
 
 function main() {
-  var drawData = initDrawing();
-
-  // Initial parameters of the simulation, they can't be changed without restart
-  var initialParams = {
-    numberOfRings: [5, 5],
-    ringSeparation: 3,
-    minimalGalaxySeparation: 25,
-    galaxyInclinationAngles: [60 * Math.PI / 180, 60 * Math.PI / 180],
-    masses: [1, 1],
-    eccentricity: 0.6
-  };
-
-  // Current positions, velocities and accelerations
-  // of all the bodies. First two elements are galaxy cores and
-  // the rest are stars.
-  var currentParams = {
-    positions: [],
-    velocities: [],
-    accelerations: []
-  };
-
   // Settings that control the drawing of the scene
   var drawSettings = {
     cameraAnglesDegrees: [0, 0, 0],
@@ -78,7 +71,14 @@ function main() {
 
   setupSlider(drawSettings);
 
-  simulation.setInitial(initialParams, currentParams);
+  var drawData = initDrawing();
+
+  // Current positions, velocities and accelerations of all the bodies.
+  var currentParams = {
+    positions: null,
+    velocities: null,
+    accelerations: null
+  };
 
   requestAnimationFrame(onNextFrame(drawData, drawSettings, currentParams));
 }
