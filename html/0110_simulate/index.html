@@ -48,6 +48,8 @@
       void main() {
         // Multiply the position by the matrix.
         gl_Position = u_matrix * a_position;
+
+        // Make stars that are further away appear smaller
         gl_PointSize = 1000.0 / gl_Position.z;
       }
     </script>
