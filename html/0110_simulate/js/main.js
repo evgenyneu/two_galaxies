@@ -3,49 +3,49 @@ import drawScene from './render.js';
 import SickSlider from '../../../js/sick_slider.js';
 import * as simulation from './simulation.js';
 
-function updateCameraAngle(angleIndex, drawData, drawSettings, currentParams) {
+function updateCameraAngle(angleIndex, drawSettings) {
   return function(value, position) {
     drawSettings.cameraAnglesDegrees[angleIndex] = value;
-    drawScene(drawData, drawSettings, currentParams.positions);
   };
 }
 
-function updateCameraDistance(drawData, drawSettings, currentParams) {
+function updateCameraDistance(drawSettings) {
   return function(value, position) {
     drawSettings.cameraDistance = value;
-    drawScene(drawData, drawSettings, currentParams.positions);
   };
 }
 
-function setupSlider(drawData, drawSettings, currentParams) {
+function setupSlider(drawSettings) {
   SickSlider(".SickSlider-cameraAngleX", {
     label: 'Camera angle X: ', labelSuffix: '°',
     value: 0, min: -360, max: 360,
-    onChange: updateCameraAngle(0, drawData, drawSettings, currentParams)
+    onChange: updateCameraAngle(0, drawSettings)
   });
 
   SickSlider(".SickSlider-cameraAngleY", {
     label: 'Camera angle Y: ', labelSuffix: '°',
     value: 0, min: -360, max: 360,
-    onChange: updateCameraAngle(1, drawData, drawSettings, currentParams)
+    onChange: updateCameraAngle(1, drawSettings)
   });
 
   SickSlider(".SickSlider-cameraAngleZ", {
     label: 'Camera angle Z: ', labelSuffix: '°',
     value: 0, min: -360, max: 360,
-    onChange: updateCameraAngle(2, drawData, drawSettings, currentParams)
+    onChange: updateCameraAngle(2, drawSettings)
   });
 
   SickSlider(".SickSlider-cameraDistance", {
     label: 'Camera distance: ',
     value: 0, min: 1, max: 10,
-    onChange: updateCameraDistance(drawData, drawSettings, currentParams)
+    onChange: updateCameraDistance(drawSettings)
   });
 }
 
-function animate(now) {
-  console.log(now);
-  requestAnimationFrame(hello);
+function onNextFrame(drawData, drawSettings, currentParams) {
+  return function(now) {
+    drawScene(drawData, drawSettings, currentParams.positions);
+    requestAnimationFrame(onNextFrame(drawData, drawSettings, currentParams));
+  };
 }
 
 function main() {
@@ -76,13 +76,11 @@ function main() {
     cameraDistance: 2
   };
 
-  setupSlider(drawData, drawSettings, currentParams);
+  setupSlider(drawSettings);
 
   simulation.setInitial(initialParams, currentParams);
 
-  // requestAnimationFrame(animate);
-
-  drawScene(drawData, drawSettings, currentParams.positions);
+  requestAnimationFrame(onNextFrame(drawData, drawSettings, currentParams));
 }
 
 window.onload = main;
