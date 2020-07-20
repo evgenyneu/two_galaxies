@@ -2,6 +2,15 @@
 // Source: https://webglfundamentals.org/webgl/lessons/webgl-3d-orthographic.html
 
 var m4 = {
+  indentity: function() {
+    return [
+       1,  0,  0,  0,
+       0,  1,  0,  0,
+       0,  0,  1,  0,
+       0,  0,  0,  1,
+    ];
+  },
+
   translation: function(tx, ty, tz) {
     return [
        1,  0,  0,  0,

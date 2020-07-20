@@ -4,20 +4,33 @@ function startMoving(state, e) {
   console.log('startMoving');
 }
 
+function move(state, e) {
+  if (!state.moving ) return;
+  if (!state.lastPosition) return;
+
+  const delta = [
+    e.pageX - state.lastPosition[0],
+    e.pageY - state.lastPosition[1]
+  ];
+
+  state.cameraAnglesDegrees[1] -= delta[0];
+  state.cameraAnglesDegrees[0] -= delta[1];
+
+  state.lastPosition = [e.pageX, e.pageY];
+  console.log(`move ${state.cameraAngleDegrees}`);
+}
+
 function stopMoving(state) {
   state.moving = false;
   console.log('stopMoving');
-}
-
-function move(state, e) {
-  if (!state.moving ) return;
-  console.log('move');
 }
 
 export function init(canvas) {
   var state = {
     moving: false,
     lastPosition: null,
+    cameraAnglesDegrees: [0, 0, 0],
+    cameraDistance: 2
   };
 
   // Start moving

@@ -78,7 +78,7 @@ function main() {
 
   var drawData = initDrawing();
 
-  rotate.init(drawData.gl.canvas);
+  var rotateState = rotate.init(drawData.gl.canvas);
 
   // Current positions, velocities and accelerations of all the bodies.
   var currentParams = {
