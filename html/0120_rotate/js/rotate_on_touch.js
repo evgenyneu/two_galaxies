@@ -1,3 +1,5 @@
+import m4 from '../../../js/m4.js';
+
 function startMoving(state, e) {
   state.moving = true;
   state.lastPosition = [e.pageX, e.pageY];
@@ -13,8 +15,8 @@ function move(state, e) {
     e.pageY - state.lastPosition[1]
   ];
 
-  state.cameraAnglesDegrees[1] -= delta[0];
-  state.cameraAnglesDegrees[0] -= delta[1];
+  state.worldMatrix = m4.multiply(m4.xRotation(delta[1] / 100), state.worldMatrix);
+  state.worldMatrix = m4.multiply(m4.yRotation(delta[0] / 100), state.worldMatrix);
 
   state.lastPosition = [e.pageX, e.pageY];
   console.log(`move ${state.cameraAngleDegrees}`);
@@ -29,8 +31,7 @@ export function init(canvas) {
   var state = {
     moving: false,
     lastPosition: null,
-    cameraAnglesDegrees: [0, 0, 0],
-    cameraDistance: 2
+    worldMatrix: m4.indentity()
   };
 
   // Start moving

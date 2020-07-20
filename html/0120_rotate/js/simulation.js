@@ -13,14 +13,14 @@ export function setInitial(initialParams, currentParams) {
 }
 
 export function update(timeStep, initialParams, currentParams) {
-  // var result = integrateOneStep(
-  //   timeStep,
-  //   initialParams.masses,
-  //   currentParams.positions,
-  //   currentParams.velocities,
-  //   currentParams.accelerations);
+  var result = integrateOneStep(
+    timeStep,
+    initialParams.masses,
+    currentParams.positions,
+    currentParams.velocities,
+    currentParams.accelerations);
 
-  currentParams.positions = currentParams.positions;
-  currentParams.velocities = currentParams.velocities;
-  currentParams.accelerations = currentParams.accelerations;
+  currentParams.positions = result.positions;
+  currentParams.velocities = result.velocities;
+  currentParams.accelerations = result.accelerations;
 }

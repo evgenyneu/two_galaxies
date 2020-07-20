@@ -55,17 +55,21 @@ export default function drawScene(drawData, settings, positions) {
   // Compute a matrix for the camera
   // ------------
 
-  var cameraAngleRadians = degToRad(settings.cameraAnglesDegrees[0]);
-  var cameraMatrix = m4.xRotation(cameraAngleRadians);
+  // var cameraAngleRadians = degToRad(settings.cameraAnglesDegrees[1]);
+  // var cameraMatrix = m4.yRotation(cameraAngleRadians);
+  //
+  // cameraMatrix = m4.translate(
+  //   cameraMatrix, 0, 0, radius * settings.cameraDistance);
 
-  cameraAngleRadians = degToRad(settings.cameraAnglesDegrees[1]);
-  cameraMatrix = m4.yRotate(cameraMatrix, cameraAngleRadians);
+  // Get the camera's position from the matrix we computed
+  var cameraPosition = [ 0, 0, radius * settings.cameraDistance ];
 
-  cameraAngleRadians = degToRad(settings.cameraAnglesDegrees[2]);
-  cameraMatrix = m4.zRotate(cameraMatrix, cameraAngleRadians);
+  var up = [0, 1, 0];
 
-  cameraMatrix = m4.translate(
-    cameraMatrix, 0, 0, radius * settings.cameraDistance);
+  // Compute the camera's matrix looing at the center of mass at the
+  // origin
+  var target = [0, 0, 0];
+  var cameraMatrix = m4.lookAt(cameraPosition, target, up);
 
   // Make a view matrix from the camera matrix.
   var viewMatrix = m4.inverse(cameraMatrix);
@@ -74,7 +78,8 @@ export default function drawScene(drawData, settings, positions) {
   var viewProjectionMatrix = m4.multiply(projectionMatrix, viewMatrix);
 
   // Set the matrix.
-  gl.uniformMatrix4fv(drawData.matrixLocation, false, viewProjectionMatrix);
+  var uMatrix = m4.multiply(viewProjectionMatrix, settings.rotateState.worldMatrix);
+  gl.uniformMatrix4fv(drawData.matrixLocation, false, uMatrix);
 
   // Draw the geometry.
   var primitiveType = gl.POINTS;
