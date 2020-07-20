@@ -2,6 +2,7 @@ import initDrawing from './init_web_gl.js';
 import drawScene from './render.js';
 import SickSlider from '../../../js/sick_slider.js';
 import * as simulation from './simulation.js';
+import * as rotate from './rotate_on_touch.js';
 
 function updateCameraAngle(angleIndex, drawSettings) {
   return function(value, position) {
@@ -76,6 +77,8 @@ function main() {
   setupSlider(drawSettings);
 
   var drawData = initDrawing();
+
+  rotate.init(drawData.gl.canvas);
 
   // Current positions, velocities and accelerations of all the bodies.
   var currentParams = {
