@@ -19,7 +19,7 @@ function move(state, e) {
   state.worldMatrix = m4.multiply(m4.yRotation(delta[0] / 100), state.worldMatrix);
 
   state.lastPosition = [e.pageX, e.pageY];
-  console.log(`move ${state.cameraAngleDegrees}`);
+  console.log(`move`);
 }
 
 function stopMoving(state) {

@@ -66,8 +66,7 @@ export default function drawScene(drawData, settings, positions) {
 
   var up = [0, 1, 0];
 
-  // Compute the camera's matrix looing at the center of mass at the
-  // origin
+  // Compute the camera's matrix looking at the center of mass at the origin
   var target = [0, 0, 0];
   var cameraMatrix = m4.lookAt(cameraPosition, target, up);
 
