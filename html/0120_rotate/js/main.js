@@ -3,6 +3,7 @@ import drawScene from './render.js';
 import SickSlider from '../../../js/sick_slider.js';
 import * as simulation from './simulation.js';
 import * as rotate from './rotate_on_touch.js';
+import * as zoom from './zoom.js';
 
 function updateCameraAngle(angleIndex, drawSettings) {
   return function(value, position) {
@@ -80,6 +81,9 @@ function main() {
 
   var rotateState = rotate.init(drawData.gl.canvas);
   drawSettings.rotateState = rotateState;
+
+  var zoomState = zoom.init(drawData.gl.canvas);
+  drawSettings.zoomState = zoomState;
 
   // Current positions, velocities and accelerations of all the bodies.
   var currentParams = {
