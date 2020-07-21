@@ -3,7 +3,6 @@ import m4 from '../../../js/m4.js';
 function startMoving(state, e) {
   state.moving = true;
   state.lastPosition = [e.pageX, e.pageY];
-  console.log('startMoving');
 }
 
 function move(state, e) {
@@ -19,12 +18,10 @@ function move(state, e) {
   state.worldMatrix = m4.multiply(m4.yRotation(delta[0] / 100), state.worldMatrix);
 
   state.lastPosition = [e.pageX, e.pageY];
-  console.log(`move`);
 }
 
 function stopMoving(state) {
   state.moving = false;
-  console.log('stopMoving');
 }
 
 export function init(canvas) {
