@@ -44,18 +44,15 @@ export default function drawScene(drawData, settings, positions) {
   // Compute the projection matrix
   var aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
   var zNear = 1;
-  var zFar = 2000;
+  var zFar = 100000;
   var fieldOfViewRadians = degToRad(60);
   var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
-
-  // Distance of the camera from the origin
-  var radius = 50;
 
   // Compute a matrix for the camera
   // ------------
 
   // Get the camera's position from the matrix we computed
-  var cameraPosition = [ 0, 0, radius * settings.zoomState.cameraDistance ];
+  var cameraPosition = [ 0, 0, settings.zoomState.cameraDistance ];
 
   var up = [0, 1, 0];
 

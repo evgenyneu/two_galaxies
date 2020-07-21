@@ -30,7 +30,8 @@
           gl_Position = u_matrix * a_position;
 
           // Make stars that are further away appear smaller
-          gl_PointSize = 1000.0 / gl_Position.z;
+          // but not smaller than minimum size
+          gl_PointSize = max(1500.0 / gl_Position.z, 4.0);
         }
       </script>
 
@@ -44,16 +45,13 @@
           // Source: https://www.desultoryquest.com/blog/drawing-anti-aliased-circular-points-using-opengl-slash-webgl/
           // ---------
 
-          vec4 color = vec4(1, 0, 0.5, 1); // reddish-purple
-          float r = 0.0, delta = 0.0, alpha = 1.0;
-
           // gl_PointCoord is the [x, y] coordinate of currently drawn pixel inside
           // the 1 by 1 rectangle. The x and y values are between 0 and 1.
           // We translate the coordinates to be from -1 to 1 instead:
           vec2 cxy = 2.0 * gl_PointCoord - 1.0;
 
           // Calculate the square of the distance from [0, 0]
-          r = dot(cxy, cxy);
+          float r = dot(cxy, cxy);
 
           // Do not draw the pixel if the distance is greater than one,
           // which means the pixel is outside the disk
@@ -61,8 +59,12 @@
               discard;
           }
 
-          // Draw the pixel inside the disk
-          gl_FragColor = color * (alpha);
+          // Draw the pixels inside the disk, brighter in the middle
+          // to make it look like a sphere
+          gl_FragColor = vec4(1.0 - 0.5 * pow(r, 3.0), 1.0 - pow(r, 0.4), 1.0 - 0.5 * pow(r, 0.4), 1);
+
+          // Simple color
+          // gl_FragColor = vec4(1.0, 0.0, 0.5, 1);
         }
 
       </script>

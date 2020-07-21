@@ -6,7 +6,11 @@ function distanceBetweenFingers(e) {
 
 function onWheel(state, e) {
   e.preventDefault();
-  state.cameraDistance += e.deltaY / 100;
+  state.cameraDistance += e.deltaY / 100 * state.cameraDistance;
+
+  if (state.cameraDistance > state.maxCameraDistance) {
+    state.cameraDistance = state.maxCameraDistance;
+  }
 
   if (state.cameraDistance < state.minCameraDistance) {
     state.cameraDistance = state.minCameraDistance;
@@ -26,8 +30,12 @@ function touchMove(state, e) {
   if (e.targetTouches.length !== 2) return;
 
   const distance = distanceBetweenFingers(e);
-  state.cameraDistance += (state.lastDistance - distance) / 100;
+  state.cameraDistance += (state.lastDistance - distance) / 100 * state.cameraDistance;
   state.lastDistance = distance;
+
+  if (state.cameraDistance > state.maxCameraDistance) {
+    state.cameraDistance = state.maxCameraDistance;
+  }
 
   if (state.cameraDistance < state.minCameraDistance) {
     state.cameraDistance = state.minCameraDistance;
@@ -41,8 +49,9 @@ function stopTouch(state) {
 export function init(canvas) {
   var state = {
     touching: false,
-    cameraDistance: 2,
-    minCameraDistance: 0.5,
+    cameraDistance: 100,
+    maxCameraDistance: 50000,
+    minCameraDistance: 10,
     lastDistance: null,
   };
 
