@@ -1,4 +1,4 @@
-import initDrawing from './init_web_gl.js';
+import initDrawing from './graphics.js';
 import drawScene from './render.js';
 import SickSlider from '../../../js/sick_slider.js';
 import * as simulation from './simulation.js';
@@ -71,9 +71,9 @@ function onNextFrame(drawData, drawSettings, currentParams) {
 function main() {
   setupSlider();
   var drawData = initDrawing();
+  var drawSettings = {};
 
   var rotateState = rotate.init(drawData.gl.canvas);
-  var drawSettings = {};
   drawSettings.rotateState = rotateState;
 
   var zoomState = zoom.init(drawData.gl.canvas);

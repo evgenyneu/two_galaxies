@@ -3,3 +3,8 @@
   position: relative;
   height: 600px;
 }
+
+.TwoGalaxies-canvas {
+  width: 100%;
+  display: block;
+}

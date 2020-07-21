@@ -6,7 +6,6 @@ export default function drawScene(drawData, settings, positions) {
 
   var gl = drawData.gl;
   var program = drawData.program;
-  resizeCanvasToDisplaySize(gl.canvas);
 
   // Tell WebGL how to convert from clip space to pixels
   gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
