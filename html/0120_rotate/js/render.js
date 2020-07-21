@@ -55,12 +55,6 @@ export default function drawScene(drawData, settings, positions) {
   // Compute a matrix for the camera
   // ------------
 
-  // var cameraAngleRadians = degToRad(settings.cameraAnglesDegrees[1]);
-  // var cameraMatrix = m4.yRotation(cameraAngleRadians);
-  //
-  // cameraMatrix = m4.translate(
-  //   cameraMatrix, 0, 0, radius * settings.cameraDistance);
-
   // Get the camera's position from the matrix we computed
   var cameraPosition = [ 0, 0, radius * settings.cameraDistance ];
 

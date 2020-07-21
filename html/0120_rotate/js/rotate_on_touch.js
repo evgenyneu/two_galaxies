@@ -46,6 +46,13 @@ export function init(canvas) {
   document.addEventListener("mousemove", (e) => move(state, e));
   document.addEventListener("touchmove", (e) => move(state, e.touches[0]));
 
+  canvas.addEventListener("touchmove", (e) => {
+    if (typeof e.preventDefault !== 'undefined' && e.preventDefault !== null) {
+      // Prevent screen from sliding on touch devices when the element is dragged.
+      e.preventDefault();
+    }
+  });
+
   // End moving
   // -----------------
 
