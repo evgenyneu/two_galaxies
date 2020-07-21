@@ -153,6 +153,17 @@ export default function SickSlider(sliderElementSelector, settings) {
         e.preventDefault(); // Prevent screen from sliding on touch devices when the element is dragged.
       }
     });
+
+    that.previousSliderWidth = that.sliderContainer.offsetWidth;
+
+    // Screen is resized
+    window.addEventListener('resize', function(e) {
+      if (that.sliderContainer.offsetWidth == that.previousSliderWidth) return;
+
+      // The width of the slider has change, update its position
+      that.previousSliderWidth = that.sliderContainer.offsetWidth;
+      that.changePosition(that.previousSliderPosition);
+    });
   };
 
   /**
