@@ -321,7 +321,7 @@ export default function SickSlider(sliderElementSelector, settings) {
   /**
    * Changes the position of the slider
    *
-   * @param  {type} sliderValue a value between 0 and
+   * @param  {type} sliderValue a value between 0 and 1
    */
   that.changePosition = function(sliderValue) {
     var headLeft = (that.slider.offsetWidth - that.sliderHead.offsetWidth) * sliderValue;

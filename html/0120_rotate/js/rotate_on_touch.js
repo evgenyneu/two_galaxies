@@ -5,8 +5,19 @@ function startMoving(state, e) {
   state.lastPosition = [e.pageX, e.pageY];
 }
 
+function startTouching(state, e) {
+  if (e.targetTouches.length === 2) {
+    // Touching with two fingers.
+    // This is a pinch/zoom gesture, not rotation
+    return;
+  }
+
+  // Single finger touch
+  if (e.targetTouches.length === 1) startMoving(state, e.targetTouches[0]);
+}
+
 function move(state, e) {
-  if (!state.moving ) return;
+  if (!state.moving) return;
   if (!state.lastPosition) return;
 
   const delta = [
@@ -18,6 +29,17 @@ function move(state, e) {
   state.worldMatrix = m4.multiply(m4.yRotation(delta[0] / 100), state.worldMatrix);
 
   state.lastPosition = [e.pageX, e.pageY];
+}
+
+function touchMove(state, e) {
+  if (e.targetTouches.length === 2) {
+    // Touching with two fingers.
+    // This is a pinch/zoom gesture, not rotation
+    return;
+  }
+
+  // Single finger touch
+  if (e.targetTouches.length === 1) move(state, e.targetTouches[0]);
 }
 
 function stopMoving(state) {
@@ -35,13 +57,13 @@ export function init(canvas) {
   // -----------------
 
   canvas.addEventListener("mousedown", (e) => startMoving(state, e));
-  canvas.addEventListener("touchstart", (e) => startMoving(state, e.touches[0]));
+  canvas.addEventListener("touchstart", (e) => startTouching(state, e));
 
   // Move
   // -----------------
 
   document.addEventListener("mousemove", (e) => move(state, e));
-  document.addEventListener("touchmove", (e) => move(state, e.touches[0]));
+  document.addEventListener("touchmove", (e) => touchMove(state, e));
 
   canvas.addEventListener("touchmove", (e) => {
     if (typeof e.preventDefault !== 'undefined' && e.preventDefault !== null) {

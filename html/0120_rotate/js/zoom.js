@@ -1,24 +1,49 @@
+function distanceBetweenFingers(e) {
+  return Math.hypot(
+      e.targetTouches[0].pageX - e.targetTouches[1].pageX,
+      e.targetTouches[0].pageY - e.targetTouches[1].pageY);
+}
+
 function onWheel(state, e) {
   e.preventDefault();
   state.cameraDistance += e.deltaY / 100;
-  if (state.cameraDistance < 0.5) state.cameraDistance = 0.5;
+
+  if (state.cameraDistance < state.minCameraDistance) {
+    state.cameraDistance = state.minCameraDistance;
+  }
 }
 
 function startTouch(state, e) {
-  console.log('startTouch');
+  state.touching = true;
+  if (e.targetTouches.length !== 2) return;
+
+  state.lastDistance = distanceBetweenFingers(e);
 }
 
 function touchMove(state, e) {
-  console.log('touchMove');
+  if (!state.touching) return;
+  if (!state.lastDistance) return;
+  if (e.targetTouches.length !== 2) return;
+
+  const distance = distanceBetweenFingers(e);
+  state.cameraDistance += (state.lastDistance - distance) / 100;
+  state.lastDistance = distance;
+
+  if (state.cameraDistance < state.minCameraDistance) {
+    state.cameraDistance = state.minCameraDistance;
+  }
 }
 
 function stopTouch(state) {
-  console.log('stopTouch');
+  state.touching = false;
 }
 
 export function init(canvas) {
   var state = {
-    cameraDistance: 2
+    touching: false,
+    cameraDistance: 2,
+    minCameraDistance: 0.5,
+    lastDistance: null,
   };
 
   // Mouse wheel / scroll event
