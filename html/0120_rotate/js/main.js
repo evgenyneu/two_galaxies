@@ -13,28 +13,28 @@ function updateCameraAngle(angleIndex, drawSettings) {
 
 function updateCameraDistance(drawSettings) {
   return function(value, position) {
-    drawSettings.cameraDistance = value;
+    // drawSettings.cameraDistance = value;
   };
 }
 
 function setupSlider(drawSettings) {
-  SickSlider(".SickSlider-cameraAngleX", {
-    label: 'Camera angle X: ', labelSuffix: '°',
-    value: 0, min: -180, max: 180,
-    onChange: updateCameraAngle(0, drawSettings)
-  });
-
-  SickSlider(".SickSlider-cameraAngleY", {
-    label: 'Camera angle Y: ', labelSuffix: '°',
-    value: 0, min: -180, max: 180,
-    onChange: updateCameraAngle(1, drawSettings)
-  });
-
-  SickSlider(".SickSlider-cameraAngleZ", {
-    label: 'Camera angle Z: ', labelSuffix: '°',
-    value: 0, min: -180, max: 180,
-    onChange: updateCameraAngle(2, drawSettings)
-  });
+  // SickSlider(".SickSlider-cameraAngleX", {
+  //   label: 'Camera angle X: ', labelSuffix: '°',
+  //   value: 0, min: -180, max: 180,
+  //   onChange: updateCameraAngle(0, drawSettings)
+  // });
+  //
+  // SickSlider(".SickSlider-cameraAngleY", {
+  //   label: 'Camera angle Y: ', labelSuffix: '°',
+  //   value: 0, min: -180, max: 180,
+  //   onChange: updateCameraAngle(1, drawSettings)
+  // });
+  //
+  // SickSlider(".SickSlider-cameraAngleZ", {
+  //   label: 'Camera angle Z: ', labelSuffix: '°',
+  //   value: 0, min: -180, max: 180,
+  //   onChange: updateCameraAngle(2, drawSettings)
+  // });
 
   SickSlider(".SickSlider-cameraDistance", {
     label: 'Camera distance: ',
@@ -69,17 +69,11 @@ function onNextFrame(drawData, drawSettings, currentParams) {
 }
 
 function main() {
-  // Settings that control the drawing of the scene
-  var drawSettings = {
-    cameraAnglesDegrees: [0, 0, 0],
-    cameraDistance: 2
-  };
-
-  setupSlider(drawSettings);
-
+  setupSlider();
   var drawData = initDrawing();
 
   var rotateState = rotate.init(drawData.gl.canvas);
+  var drawSettings = {};
   drawSettings.rotateState = rotateState;
 
   var zoomState = zoom.init(drawData.gl.canvas);
