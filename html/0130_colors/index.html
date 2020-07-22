@@ -69,8 +69,8 @@
 
           // Draw the pixels inside the disk with the supplied color
           // Make middle brighter to make it look like a sphere
-          r = pow(r, 0.5);
-          gl_FragColor = vec4(1, 1, 1, 1)*(1.0 - r) + v_color * r;
+          // r = pow(r, 0.5);
+          gl_FragColor = v_color * r + vec4(1, 1, 1, 1) * (1.0 - r);
         }
 
       </script>
