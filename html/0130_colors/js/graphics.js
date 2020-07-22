@@ -48,17 +48,21 @@ export default function initGraphics() {
 
   // Lookup location of the position attribute for the program
   var positionLocation = gl.getAttribLocation(program, "a_position");
+  var colorLocation = gl.getAttribLocation(program, "a_color");
   var matrixLocation = gl.getUniformLocation(program, "u_matrix");
 
   // Create a buffer (attributes get their data from buffers)
   var positionBuffer = gl.createBuffer();
+  var colorBuffer = gl.createBuffer();
 
   var drawData = {
     gl: gl,
     program: program,
     positionLocation: positionLocation,
-    matrixLocation: matrixLocation,
-    positionBuffer: positionBuffer
+    positionBuffer: positionBuffer,
+    colorLocation: colorLocation,
+    colorBuffer: colorBuffer,
+    matrixLocation: matrixLocation
   };
 
   fitToContainer(drawData);

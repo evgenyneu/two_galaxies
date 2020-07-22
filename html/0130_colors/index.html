@@ -23,7 +23,9 @@
 
       <script class="Webgl-vertexShader2d" type="notjs">
         attribute vec4 a_position;
+        attribute vec4 a_color;
         uniform mat4 u_matrix;
+        varying vec4 v_color;
 
         void main() {
           // Multiply the position by the matrix.
@@ -32,6 +34,9 @@
           // Make stars that are further away appear smaller
           // but not smaller than minimum size
           gl_PointSize = max(1500.0 / gl_Position.z, 4.0);
+
+          // Pass the color to the fragment shader.
+          v_color = a_color;
         }
       </script>
 
@@ -39,6 +44,9 @@
         // fragment shaders don't have a default precision so we need
         // to pick one. mediump is a good default
         precision mediump float;
+
+        // Passed in from the vertex shader.
+        varying vec4 v_color;
 
         void main() {
           // Draw a disk
@@ -62,6 +70,8 @@
           // Draw the pixels inside the disk, brighter in the middle
           // to make it look like a sphere
           gl_FragColor = vec4(1.0 - 0.5 * pow(r, 3.0), 1.0 - pow(r, 0.4), 1.0 - 0.5 * pow(r, 0.4), 1);
+
+          gl_FragColor = v_color;
 
           // Simple color
           // gl_FragColor = vec4(1.0, 0.0, 0.5, 1);

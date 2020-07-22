@@ -23,6 +23,9 @@ export default function drawScene(drawData, settings, positions) {
   // Tell it to use our program (pair of shaders)
   gl.useProgram(program);
 
+  // Position
+  // ----------
+
   // Turn on the attribute
   gl.enableVertexAttribArray(drawData.positionLocation);
 
@@ -37,6 +40,24 @@ export default function drawScene(drawData, settings, positions) {
   var offset = 0;        // start at the beginning of the buffer
   gl.vertexAttribPointer(
     drawData.positionLocation, size, type, normalize, stride, offset);
+
+  // Color
+  // ----------
+
+  // Turn on the color attribute
+  gl.enableVertexAttribArray(drawData.colorLocation);
+
+  // Bind the color buffer.
+  gl.bindBuffer(gl.ARRAY_BUFFER, drawData.colorBuffer);
+
+  // Tell the attribute how to get data out of colorBuffer (ARRAY_BUFFER)
+  size = 3;                 // 3 components per iteration
+  type = gl.UNSIGNED_BYTE;  // the data is 8bit unsigned values
+  normalize = true;         // normalize the data (convert from 0-255 to 0-1)
+  stride = 0;               // 0 = move forward size * sizeof(type) each iteration to get the next position
+  offset = 0;               // start at the beginning of the buffer
+  gl.vertexAttribPointer(
+    drawData.colorLocation, size, type, normalize, stride, offset);
 
   // Translate, scale and rotate
   // ---------
