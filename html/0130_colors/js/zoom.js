@@ -67,5 +67,8 @@ export function init(canvas) {
   // Stopped touching
   document.addEventListener("touchend", () => stopTouch(state));
 
+  // Prevent right click menu
+  canvas.addEventListener('contextmenu', (e) => { e.preventDefault(); }, true);
+
   return state;
 }

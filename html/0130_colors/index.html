@@ -33,9 +33,9 @@
 
           // Make stars that are further away appear smaller
           // but not smaller than minimum size
-          gl_PointSize = max(1500.0 / gl_Position.z, 4.0);
+          gl_PointSize = max(1200.0 / gl_Position.z, 4.0);
 
-          // Pass the color to the fragment shader.
+          // Pass the color to the fragment shader
           v_color = a_color;
         }
       </script>
@@ -67,14 +67,10 @@
               discard;
           }
 
-          // Draw the pixels inside the disk, brighter in the middle
-          // to make it look like a sphere
-          gl_FragColor = vec4(1.0 - 0.5 * pow(r, 3.0), 1.0 - pow(r, 0.4), 1.0 - 0.5 * pow(r, 0.4), 1);
-
-          gl_FragColor = v_color;
-
-          // Simple color
-          // gl_FragColor = vec4(1.0, 0.0, 0.5, 1);
+          // Draw the pixels inside the disk with the supplied color
+          // Make middle brighter to make it look like a sphere
+          r = pow(r, 0.5);
+          gl_FragColor = vec4(1, 1, 1, 1)*(1.0 - r) + v_color * r;
         }
 
       </script>

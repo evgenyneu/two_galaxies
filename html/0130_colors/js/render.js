@@ -1,4 +1,3 @@
-import { resizeCanvasToDisplaySize } from '../../../js/web_gl_utils.js';
 import m4 from '../../../js/m4.js';
 
 export default function drawScene(drawData, settings, positions) {

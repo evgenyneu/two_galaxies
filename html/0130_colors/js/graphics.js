@@ -1,5 +1,3 @@
-import * as init from '../../../js/initial_conditions.js';
-
 import { createProgramFromScripts } from '../../../js/web_gl_utils.js';
 import m4 from '../../../js/m4.js';
 
@@ -29,7 +27,7 @@ function fitToContainer(drawData){
   }
 }
 
-export default function initGraphics() {
+export function initGraphics() {
   // Get canvas object
   var canvas = document.querySelector(".TwoGalaxies-canvas");
   var gl = canvas.getContext("webgl");
@@ -43,8 +41,7 @@ export default function initGraphics() {
   // ---------
 
   var program = createProgramFromScripts(
-    gl,
-    [".Webgl-vertexShader2d", ".Webgl-fragmentShader2d"]);
+    gl, [".Webgl-vertexShader2d", ".Webgl-fragmentShader2d"]);
 
   // Lookup location of the position attribute for the program
   var positionLocation = gl.getAttribLocation(program, "a_position");
@@ -70,4 +67,26 @@ export default function initGraphics() {
   window.addEventListener('resize', (e) => fitToContainer(drawData));
 
   return drawData;
+}
+
+export function loadColors(drawData, stars1, stars2, twoColors) {
+  // Set two different colors for the galaxy cores
+  var colors = [twoColors[0], twoColors[1]];
+
+  // Colors of stars in first galaxy
+  colors = colors.concat(Array(stars1).fill(colors[0]));
+
+  // ... in second galaxy
+  colors = colors.concat(Array(stars2).fill(colors[1]));
+
+  // Make 1D array of numbers
+  drawData.colors = colors.flat();
+
+  var gl = drawData.gl;
+
+  // Bind ARRAY_BUFFER to the colorBuffer (creates a global variable inside WebGL)
+  gl.bindBuffer(gl.ARRAY_BUFFER, drawData.colorBuffer);
+
+  // Write colors to the buffer
+  gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(drawData.colors), gl.STATIC_DRAW);
 }
