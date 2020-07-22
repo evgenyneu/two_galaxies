@@ -80,7 +80,7 @@ export function loadColors(drawData, stars1, stars2, twoColors) {
   colors = colors.concat(Array(stars2).fill(colors[1]));
 
   // Make 1D array of numbers
-  drawData.colors = colors.flat();
+  colors = colors.flat();
 
   var gl = drawData.gl;
 
@@ -88,5 +88,5 @@ export function loadColors(drawData, stars1, stars2, twoColors) {
   gl.bindBuffer(gl.ARRAY_BUFFER, drawData.colorBuffer);
 
   // Write colors to the buffer
-  gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(drawData.colors), gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(colors), gl.STATIC_DRAW);
 }
