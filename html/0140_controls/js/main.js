@@ -43,7 +43,10 @@ function main(screenRefreshRateFPS) {
 
   // Make the speed of the simulation independent of refresh rate of the screen
   // by using smaller time step for higher refresh rates.
-  currentParams.timeStep = 60.0 / screenRefreshRateFPS * 5;
+  // Use time step of 1 for 60 FPS screen.
+  // Round refresh to first significant figure
+  screenRefreshRateFPS = (Math.round(screenRefreshRateFPS / 10) * 10);
+  currentParams.timeStep = 60 / screenRefreshRateFPS;
 
   console.log(screenRefreshRateFPS, currentParams.timeStep);
 
@@ -68,4 +71,4 @@ function main(screenRefreshRateFPS) {
   requestAnimationFrame(onNextFrame(drawData, drawSettings, initialParams, currentParams));
 }
 
-window.onload = () => measureRefreshRate(10).then(fps => main(fps));
+window.onload = () => measureRefreshRate(20).then(fps => main(fps));
