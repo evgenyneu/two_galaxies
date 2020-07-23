@@ -51,12 +51,12 @@ export default function SickSlider(sliderElementSelector, settings) {
     labelSuffix: null,
 
     // Number of decimal places for position to show in label
-    labelDecimalPlaces: 2,
+    decimalPlaces: 2,
 
     // Use scientific notation for label (i.e. 1.23E3) when
     // log10 of abs(position) is larger than this value
     // (or smaller than its negative)
-    labelLogUseScientic: 5,
+    logUseScientic: 5,
 
     // Store the current slider position, a number from 0 to 1
     position: -42,
@@ -93,12 +93,12 @@ export default function SickSlider(sliderElementSelector, settings) {
     that.labelSuffix = settings.labelSuffix;
 
     // Set decimal places for the label
-    if ('labelDecimalPlaces' in settings) {
+    if ('decimalPlaces' in settings) {
       // Given by the user
-      that.labelDecimalPlaces = settings.labelDecimalPlaces;
+      that.decimalPlaces = settings.decimalPlaces;
     } else {
       // Show decimal places if the range is larger than 10.
-      if (Math.abs(that.max - that.min) > 10) { that.labelDecimalPlaces = 0; }
+      if (Math.abs(that.max - that.min) > 10) { that.decimalPlaces = 0; }
     }
 
     that.sliderContainer.classList.remove("SickSlider--isHidden");
@@ -198,7 +198,7 @@ export default function SickSlider(sliderElementSelector, settings) {
   };
 
   /**
-   * Update the slider position and call the callback function
+   * Update the slider position and call the callback function.
    *
    * @param  e A touch event
    */
@@ -224,8 +224,9 @@ export default function SickSlider(sliderElementSelector, settings) {
    * @param  {number} position Slider position from 0 to 1.
    * @return {number}          Slider value from min to max.
    */
-  that.positionToValue = function(position) {
-    return that.min + position * (that.max - that.min);
+  that.positionToValue = function(position, decimalPlaces, min, max) {
+    var value = min + position * (max - min);
+    return roundNumber(value, decimalPlaces);
   };
 
   /**
@@ -263,13 +264,13 @@ export default function SickSlider(sliderElementSelector, settings) {
 
     if (abs_value < 1e-30) {
       rounded = 0;
-    } else if (Math.log10(abs_value) > that.labelLogUseScientic ||
-        Math.log10(abs_value) < -that.labelLogUseScientic) {
+    } else if (Math.log10(abs_value) > that.decimalPlaces ||
+        Math.log10(abs_value) < -that.decimalPlaces) {
       // Use exponential notation (i.e. 2.12e2 for 212)
       // if number is very large or small
-      rounded = abs_value.toExponential(that.labelDecimalPlaces);
+      rounded = abs_value.toExponential(that.decimalPlaces);
     } else {
-      rounded = Number(value).toFixed(that.labelDecimalPlaces);
+      rounded = Number(value).toFixed(that.decimalPlaces);
     }
 
     var text = `${that.label}${rounded}`;
