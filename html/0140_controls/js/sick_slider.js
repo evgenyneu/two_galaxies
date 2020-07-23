@@ -53,11 +53,6 @@ export default function SickSlider(sliderElementSelector, settings) {
     // Number of decimal places for position to show in label
     decimalPlaces: 2,
 
-    // Use scientific notation for label (i.e. 1.23E3) when
-    // log10 of abs(position) is larger than this value
-    // (or smaller than its negative)
-    logUseScientic: 5,
-
     // Store the current slider position, a number from 0 to 1
     position: -42,
 
@@ -259,21 +254,8 @@ export default function SickSlider(sliderElementSelector, settings) {
    * @return {string}       Label text to be shown. If null, label is hidden.
    */
   that.makeLabelText = function(value) {
-    var abs_value = Math.abs(value);
-    var rounded = "";
-
-    if (abs_value < 1e-30) {
-      rounded = 0;
-    } else if (Math.log10(abs_value) > that.decimalPlaces ||
-        Math.log10(abs_value) < -that.decimalPlaces) {
-      // Use exponential notation (i.e. 2.12e2 for 212)
-      // if number is very large or small
-      rounded = abs_value.toExponential(that.decimalPlaces);
-    } else {
-      rounded = Number(value).toFixed(that.decimalPlaces);
-    }
-
-    var text = `${that.label}${rounded}`;
+    var text = Number(value).toFixed(that.decimalPlaces);
+    text = `${that.label}${text}`;
 
     if (that.labelSuffix != null) {
       text += that.labelSuffix;

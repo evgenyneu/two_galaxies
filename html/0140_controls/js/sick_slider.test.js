@@ -43,4 +43,18 @@ describe('SickSlider', () => {
     places = 2;
     expect(slider.positionToValue(position, places, min, max)).to.equal(0);
   });
+
+  it('makeLabelText', () => {
+    var slider = SickSlider(".SickSlider", {
+      label: 'Time step: ',
+      value: 1, min: 0, max: 10,
+      decimalPlaces: 2,
+      onChange: null,
+    });
+
+    var places = 2;
+
+    expect(slider.makeLabelText(0.01, places)).to.equal('Time step: 0.01');
+    expect(slider.makeLabelText(3, places)).to.equal('Time step: 3.00');
+  });
 });
