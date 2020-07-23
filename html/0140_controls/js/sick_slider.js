@@ -240,6 +240,18 @@ export default function SickSlider(sliderElementSelector, settings) {
   };
 
   /**
+   * Round a number to specified decimal places.
+   * Source: https://stackoverflow.com/a/61961630/297131
+   *
+   * @param  {number} number A number.
+   * @param  {number} places Number of decimal places.
+   * @return {number} Rounded number.
+   */
+  function roundNumber(number, places) {
+    return Math.round((number + Number.EPSILON) * Math.pow(10, places)) / Math.pow(10, places);
+  }
+
+  /**
    * Make the text of the label.
    *
    * @param  {number} value Current slider position (between min and max)
@@ -253,7 +265,7 @@ export default function SickSlider(sliderElementSelector, settings) {
       rounded = 0;
     } else if (Math.log10(abs_value) > that.labelLogUseScientic ||
         Math.log10(abs_value) < -that.labelLogUseScientic) {
-      // Use exponential notation (i.i. 2.12e2 for 212)
+      // Use exponential notation (i.e. 2.12e2 for 212)
       // if number is very large or small
       rounded = abs_value.toExponential(that.labelDecimalPlaces);
     } else {
@@ -274,7 +286,7 @@ export default function SickSlider(sliderElementSelector, settings) {
    * the label stays the same as it's updated with new position values
    * to prevent text from shifting on screen.
    *
-   * @param  {number} value Corrent slider position (between min and max)
+   * @param  {number} value Current slider value (between min and max)
    * @return {string}       Label text to be shown. If null, label is hidden.
    */
   that.makeLabel = function(value) {
