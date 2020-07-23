@@ -3,6 +3,7 @@ import SickSlider from './sick_slider.js';
 
 function updateSlider(currentParams) {
   return function(value, position) {
+    console.log(value);
     currentParams.timeStep = value;
   };
 }

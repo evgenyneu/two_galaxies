@@ -203,7 +203,8 @@ export default function SickSlider(sliderElementSelector, settings) {
     // Handle the head change only if it changed significantly (more than 0.1%)
     if (Math.round(that.position * 10000) === Math.round(newPosition * 10000)) { return; }
     that.position = newPosition;
-    that.value = that.positionToValue(that.position);
+    that.value = that.positionToValue(that.position, that.decimalPlaces,
+                                      that.min, that.max);
 
     if (!that.didRequestUpdateOnNextFrame) {
       // Update the slider on next redraw, to improve performance
