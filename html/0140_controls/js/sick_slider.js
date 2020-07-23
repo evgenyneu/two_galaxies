@@ -218,7 +218,7 @@ export default function SickSlider(sliderElementSelector, settings) {
   };
 
   /**
-   * Convert to slider position (number from 0 to 1) to slider value
+   * Convert slider position (number from 0 to 1) to slider value
    * (a number from min to max),
    *
    * @param  {number} position Slider position from 0 to 1.
@@ -226,6 +226,17 @@ export default function SickSlider(sliderElementSelector, settings) {
    */
   that.positionToValue = function(position) {
     return that.min + position * (that.max - that.min);
+  };
+
+  /**
+   * Convert slider value (a number from min to max) to position
+   * (a number from 0 to 1).
+   *
+   * @param  {number} value Slider value from min to max.
+   * @return {number}       Slider position from 0 to 1.
+   */
+  that.valueToPosition = function(value) {
+    return Math.abs(value - that.min) / Math.abs(that.max - that.min);
   };
 
   /**
@@ -315,19 +326,6 @@ export default function SickSlider(sliderElementSelector, settings) {
   };
 
   /**
-   * Updates the slider and its label text based on the given value.
-   *
-   * @param  {number} value The new value of the slider.
-   */
-  that.updatePositionAndLabel = function(value) {
-    that.value = value;
-    var position = Math.abs(that.value - that.min) / Math.abs(that.max - that.min);
-    that.position = position;
-    that.changePosition(position);
-    that.updateLabel();
-  };
-
-  /**
    * Changes the position of the slider
    *
    * @param  {type} sliderValue a value between 0 and 1
@@ -335,6 +333,18 @@ export default function SickSlider(sliderElementSelector, settings) {
   that.changePosition = function(sliderPosition) {
     var headLeft = (that.slider.offsetWidth - that.sliderHead.offsetWidth) * sliderPosition;
     that.sliderHead.style.left = headLeft + "px";
+  };
+
+  /**
+   * Updates the slider and its label text based on the given value.
+   *
+   * @param  {number} value The new value of the slider.
+   */
+  that.updatePositionAndLabel = function(value) {
+    that.value = value;
+    that.position = that.valueToPosition(value);
+    that.changePosition(that.position);
+    that.updateLabel();
   };
 
   that.init(sliderElementSelector, settings);
