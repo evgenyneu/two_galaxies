@@ -58,10 +58,8 @@ export default function SickSlider(sliderElementSelector, settings) {
     // (or smaller than its negative)
     labelLogUseScientic: 5,
 
-    // Store the previous slider position from 0 to 1
-    // in order to prevent calling onChange
-    // function with the same argument
-    previousSliderPosition: -42,
+    // Store the current slider position, a number from 0 to 1
+    position: -42,
 
     // If false the slider position and label will be updated
     // on next animation frame. This is used to improve performance
@@ -87,6 +85,7 @@ export default function SickSlider(sliderElementSelector, settings) {
     // Assign settings
     // -------
 
+    that.value = settings.value;
     that.min = settings.min;
     that.max = settings.max;
     that.label = settings.label;
@@ -162,7 +161,7 @@ export default function SickSlider(sliderElementSelector, settings) {
 
       // The width of the slider has change, update its position
       that.previousSliderWidth = that.sliderContainer.offsetWidth;
-      that.changePosition(that.previousSliderPosition);
+      that.changePosition(that.position);
     });
   };
 
@@ -172,7 +171,7 @@ export default function SickSlider(sliderElementSelector, settings) {
    * @param e a touch event
    * @return {number}   slider value (a number form 0 to 1) from the cursor position
    */
-  that.sliderValueFromCursor = function(e) {
+  that.sliderPositionFromCursor = function(e) {
     var pointerX = e.pageX;
 
     if (e.touches && e.touches.length > 0) {
@@ -189,13 +188,13 @@ export default function SickSlider(sliderElementSelector, settings) {
 
     // Calculate slider value from head position
     var sliderWidthWithoutHead = that.slider.offsetWidth - that.sliderHead.offsetWidth;
-    var sliderValue = 1;
+    var sliderPosition = 1;
 
     if (sliderWidthWithoutHead !== 0) {
-      sliderValue = headLeft / sliderWidthWithoutHead;
+      sliderPosition = headLeft / sliderWidthWithoutHead;
     }
 
-    return sliderValue;
+    return sliderPosition;
   };
 
   /**
@@ -204,11 +203,11 @@ export default function SickSlider(sliderElementSelector, settings) {
    * @param  e A touch event
    */
   that.updateHeadPositionOnTouch = function(e) {
-    var sliderValue = that.sliderValueFromCursor(e);
+    var newPosition = that.sliderPositionFromCursor(e);
 
     // Handle the head change only if it changed significantly (more than 0.1%)
-    if (Math.round(that.previousSliderPosition * 10000) === Math.round(sliderValue * 10000)) { return; }
-    that.previousSliderPosition = sliderValue;
+    if (Math.round(that.position * 10000) === Math.round(newPosition * 10000)) { return; }
+    that.position = newPosition;
 
     if (!that.didRequestUpdateOnNextFrame) {
       // Update the slider on next redraw, to improve performance
@@ -218,20 +217,20 @@ export default function SickSlider(sliderElementSelector, settings) {
   };
 
   /**
-   * Convert to slider position value using the positino value.
-   * 0 position is mapped to min and 1 is mapped to max.
+   * Convert to slider position (number from 0 to 1) to slider value
+   * (a number from min to max),
    *
-   * @param  {number} value slider position from 0 to 1.
-   * @return {number}       slider value from min to max.
+   * @param  {number} position Slider position from 0 to 1.
+   * @return {number}          Slider value from min to max.
    */
-  that.mapSliderValue = function(value) {
-    return that.min + value * (that.max - that.min);
+  that.positionToValue = function(position) {
+    return that.min + position * (that.max - that.min);
   };
 
   /**
    * Make the text of the label.
    *
-   * @param  {number} value Corrent slider position (between min and max)
+   * @param  {number} value Current slider position (between min and max)
    * @return {string}       Label text to be shown. If null, label is hidden.
    */
   that.makeLabelText = function(value) {
@@ -292,7 +291,7 @@ export default function SickSlider(sliderElementSelector, settings) {
    * Updates the text label.
    */
   that.updateLabel = function() {
-    var value = that.mapSliderValue(that.previousSliderPosition);
+    var value = that.positionToValue(that.position);
     var labelText = that.makeLabel(value);
     that.labelElement.innerHTML = labelText;
   };
@@ -300,17 +299,17 @@ export default function SickSlider(sliderElementSelector, settings) {
 
   /**
    * Updates the slider, label and called the that.onChange callback.
-   * This method is called on each animatino frame when the slider is moved
+   * This method is called on each animation frame when the slider is moved
    * by the user.
    *
    */
   that.updateOnFrame = function() {
-    that.value = that.mapSliderValue(that.previousSliderPosition);
-    that.changePosition(that.previousSliderPosition);
+    that.value = that.positionToValue(that.position);
+    that.changePosition(that.position);
     that.updateLabel();
 
     if (that.onChange) {
-      that.onChange(that.value, that.previousSliderPosition);
+      that.onChange(that.value, that.position);
     }
 
     that.didRequestUpdateOnNextFrame = false;
@@ -324,7 +323,7 @@ export default function SickSlider(sliderElementSelector, settings) {
   that.updatePositionAndLabel = function(value) {
     that.value = value;
     var position = Math.abs(that.value - that.min) / Math.abs(that.max - that.min);
-    that.previousSliderPosition = position;
+    that.position = position;
     that.changePosition(position);
     that.updateLabel();
   };
@@ -334,8 +333,8 @@ export default function SickSlider(sliderElementSelector, settings) {
    *
    * @param  {type} sliderValue a value between 0 and 1
    */
-  that.changePosition = function(sliderValue) {
-    var headLeft = (that.slider.offsetWidth - that.sliderHead.offsetWidth) * sliderValue;
+  that.changePosition = function(sliderPosition) {
+    var headLeft = (that.slider.offsetWidth - that.sliderHead.offsetWidth) * sliderPosition;
     that.sliderHead.style.left = headLeft + "px";
   };
 

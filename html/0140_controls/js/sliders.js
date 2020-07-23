@@ -8,9 +8,10 @@ function updateSlider(currentParams) {
 }
 
 export function setupSlider(currentParams) {
+  console.log(currentParams.timeStep);
   SickSlider(".SickSlider", {
     label: 'Time step: ',
-    value: 0, min: -10, max: 10,
+    value: currentParams.timeStep, min: 0, max: 3,
     onChange: updateSlider(currentParams)
   });
 }
