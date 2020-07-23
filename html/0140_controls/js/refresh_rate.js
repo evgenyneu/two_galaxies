@@ -1,7 +1,5 @@
-
-
 /**
- * Measure refresh rate of the screen in frame per second.
+ * Measure refresh rate of the screen.
  *
  * Example
  * -------
@@ -11,8 +9,9 @@
  * @param  {type} tries=10 Number of animation frames called.
  *      Bigger number will result in more accurate measurement, but
  *      it will take longer to get it.
- * @return {Promise} A promise object. Use .then((fps)=> ...) to get the
- *                   refresh rate number.
+ *
+ * @return {Promise} A promise object. Call .then((fps)=> ...) function
+ *                   to get the refresh rate number.
  */
 export default function measureRefreshRate(tries=10) {
   return new Promise(resolve => {
@@ -55,8 +54,10 @@ function measure(measurements) {
 function storeFrameTime(tries, measurements, resolve) {
   return (now) => {
     if (measurements.length < tries) {
-      // Save current time
+      // Save the time fo the current frame
       measurements.push(now);
+
+      // Call this function on the next frame
       requestAnimationFrame(storeFrameTime(tries, measurements, resolve));
     } else {
       // Number of tries is exceeded, measure FPS
