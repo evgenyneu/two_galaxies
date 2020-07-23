@@ -1,48 +1,10 @@
 import { initGraphics, loadColors } from './graphics.js';
 import drawScene from './render.js';
-import SickSlider from '../../../js/sick_slider.js';
 import { numberOfStarsInAllRingsOneGalaxy } from '../../../js/initial_conditions.js';
 import * as simulation from './simulation.js';
 import * as rotate from './rotate_on_touch.js';
 import * as zoom from './zoom.js';
-
-function updateCameraAngle(angleIndex, drawSettings) {
-  return function(value, position) {
-    drawSettings.cameraAnglesDegrees[angleIndex] = value;
-  };
-}
-
-function updateCameraDistance(drawSettings) {
-  return function(value, position) {
-    // drawSettings.cameraDistance = value;
-  };
-}
-
-function setupSlider(drawSettings) {
-  // SickSlider(".SickSlider-cameraAngleX", {
-  //   label: 'Camera angle X: ', labelSuffix: '°',
-  //   value: 0, min: -180, max: 180,
-  //   onChange: updateCameraAngle(0, drawSettings)
-  // });
-  //
-  // SickSlider(".SickSlider-cameraAngleY", {
-  //   label: 'Camera angle Y: ', labelSuffix: '°',
-  //   value: 0, min: -180, max: 180,
-  //   onChange: updateCameraAngle(1, drawSettings)
-  // });
-  //
-  // SickSlider(".SickSlider-cameraAngleZ", {
-  //   label: 'Camera angle Z: ', labelSuffix: '°',
-  //   value: 0, min: -180, max: 180,
-  //   onChange: updateCameraAngle(2, drawSettings)
-  // });
-
-  SickSlider(".SickSlider-cameraDistance", {
-    label: 'Camera distance: ',
-    value: 0, min: 1, max: 10,
-    onChange: updateCameraDistance(drawSettings)
-  });
-}
+import * as sliders from './sliders.js';
 
 function onNextFrame(drawData, drawSettings, initialParams, currentParams) {
   return function(now) {
@@ -51,7 +13,7 @@ function onNextFrame(drawData, drawSettings, initialParams, currentParams) {
       simulation.setInitial(initialParams, currentParams);
     } else {
       // Update positions of the bodies at new time
-      simulation.update(1, initialParams, currentParams);
+      simulation.update(currentParams.timeStep, initialParams, currentParams);
     }
 
     drawScene(drawData, drawSettings, currentParams.positions);
@@ -71,7 +33,16 @@ function main() {
     eccentricity: 0.6
   };
 
-  setupSlider();
+  // Current positions, velocities and accelerations of all the bodies.
+  var currentParams = {
+    positions: null,
+    velocities: null,
+    accelerations: null,
+    timeStep: 1
+  };
+
+  sliders.setupSlider(currentParams);
+
   var drawData = initGraphics();
 
   loadColors(drawData,
@@ -87,13 +58,6 @@ function main() {
 
   var zoomState = zoom.init(drawData.gl.canvas);
   drawSettings.zoomState = zoomState;
-
-  // Current positions, velocities and accelerations of all the bodies.
-  var currentParams = {
-    positions: null,
-    velocities: null,
-    accelerations: null
-  };
 
   requestAnimationFrame(onNextFrame(drawData, drawSettings, initialParams, currentParams));
 }
