@@ -5,6 +5,7 @@ import * as simulation from './simulation.js';
 import * as rotate from './rotate_on_touch.js';
 import * as zoom from './zoom.js';
 import * as sliders from './sliders.js';
+import measureRefreshRate from './refresh_rate.js';
 
 function onNextFrame(drawData, drawSettings, initialParams, currentParams) {
   return function(now) {
@@ -21,7 +22,7 @@ function onNextFrame(drawData, drawSettings, initialParams, currentParams) {
   };
 }
 
-function main() {
+function main(screenRefreshRateFPS) {
   // Initial parameters of the simulation, they can't be changed without restart
   var initialParams = {
     numberOfRings: [5, 5],
@@ -37,9 +38,14 @@ function main() {
   var currentParams = {
     positions: null,
     velocities: null,
-    accelerations: null,
-    timeStep: 1
+    accelerations: null
   };
+
+  // Make the speed of the simulation independent of refresh rate of the screen
+  // by using smaller time step for higher refresh rates.
+  currentParams.timeStep = 60.0 / screenRefreshRateFPS * 5;
+
+  console.log(screenRefreshRateFPS, currentParams.timeStep);
 
   sliders.setupSlider(currentParams);
 
@@ -62,4 +68,4 @@ function main() {
   requestAnimationFrame(onNextFrame(drawData, drawSettings, initialParams, currentParams));
 }
 
-window.onload = main;
+window.onload = () => measureRefreshRate(10).then(fps => main(fps));

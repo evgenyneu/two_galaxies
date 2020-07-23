@@ -87,6 +87,9 @@ export default function SickSlider(sliderElementSelector, settings) {
     that.onChange = settings.onChange;
     that.labelSuffix = settings.labelSuffix;
 
+    if (that.value < that.min) that.value = that.min;
+    if (that.value > that.max) that.value = that.max;
+
     // Set decimal places for the label
     if ('decimalPlaces' in settings) {
       // Given by the user
