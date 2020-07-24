@@ -1,3 +1,5 @@
+// Draw the stars on screen on each frame of animation
+
 import m4 from '../../../js/m4.js';
 
 export default function drawScene(drawData, currentParams) {

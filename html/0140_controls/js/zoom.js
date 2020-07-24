@@ -1,3 +1,6 @@
+// Zoom the stars in and out by using the mouse scroll wheel
+// or pinch gensture
+
 function distanceBetweenFingers(e) {
   return Math.hypot(
       e.targetTouches[0].pageX - e.targetTouches[1].pageX,

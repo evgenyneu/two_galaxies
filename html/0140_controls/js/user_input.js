@@ -3,10 +3,11 @@
 import * as rotate from './rotate_on_touch.js';
 import * as zoom from './zoom.js';
 import * as sliders from './sliders.js';
-
+import * as buttons from './buttons.js';
 
 export function init(drawData, currentParams) {
   sliders.setupSlider(currentParams);
+  buttons.init(currentParams);
 
   // Rotation
   // --------

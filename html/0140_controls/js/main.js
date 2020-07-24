@@ -1,3 +1,6 @@
+// The entry point of the program.
+// Initialises graphics and runs the simulation.
+
 import { initGraphics } from './graphics.js';
 import drawScene from './render.js';
 import * as simulation from './simulation.js';

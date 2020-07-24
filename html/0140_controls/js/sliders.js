@@ -1,5 +1,6 @@
-import SickSlider from './sick_slider.js';
+// Handle the slider input
 
+import SickSlider from './sick_slider.js';
 
 function updateSlider(currentParams) {
   return function(value, position) {

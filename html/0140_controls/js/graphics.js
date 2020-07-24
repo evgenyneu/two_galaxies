@@ -1,3 +1,5 @@
+// Initialise the graphics, the canvas and WebGL
+
 import { createProgramFromScripts } from '../../../js/web_gl_utils.js';
 import m4 from '../../../js/m4.js';
 import { numberOfStarsInAllRingsOneGalaxy } from '../../../js/initial_conditions.js';

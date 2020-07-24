@@ -1,3 +1,5 @@
+// Get positions of stars from the physics simulation
+
 import * as init from '../../../js/initial_conditions.js';
 import getAccelerations from '../../../js/acceleration.js';
 import integrateOneStep from '../../../js/integrator.js';

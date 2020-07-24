@@ -1,3 +1,5 @@
+// Rotate the stars by clicking and dragging on the screen.
+
 import m4 from '../../../js/m4.js';
 
 function startMoving(state, e) {
