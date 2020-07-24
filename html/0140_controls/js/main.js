@@ -45,6 +45,7 @@ function main(screenRefreshRateFPS) {
 
   initUserInput(drawData, currentParams);
 
+  // Run the animation
   requestAnimationFrame(onNextFrame(drawData, initialParams, currentParams));
 }
 
