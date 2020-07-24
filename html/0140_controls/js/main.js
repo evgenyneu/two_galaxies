@@ -34,11 +34,13 @@ function main(screenRefreshRateFPS) {
     eccentricity: 0.6
   };
 
-  // Current positions, velocities and accelerations of all the bodies.
+  // Parameters that can change during the simulation
   var currentParams = {
+    // Current positions, velocities and accelerations of all the bodies.
     positions: null,
     velocities: null,
-    accelerations: null
+    accelerations: null,
+    rotating: false // User is rotating the scene
   };
 
   // Make the speed of the simulation independent of refresh rate of the screen
@@ -63,6 +65,8 @@ function main(screenRefreshRateFPS) {
   var drawSettings = {};
 
   var rotateState = rotate.init(drawData.gl.canvas);
+  rotateState.didStartRotating = () => currentParams.rotating = true;
+  rotateState.didStopRotating = () => currentParams.rotating = false;
   drawSettings.rotateState = rotateState;
 
   var zoomState = zoom.init(drawData.gl.canvas);

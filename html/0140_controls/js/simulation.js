@@ -13,6 +13,8 @@ export function setInitial(initialParams, currentParams) {
 }
 
 export function update(timeStep, initialParams, currentParams) {
+  if (currentParams.rotating) return;
+
   var result = integrateOneStep(
     timeStep,
     initialParams.masses,

@@ -3,6 +3,7 @@ import m4 from '../../../js/m4.js';
 function startMoving(state, e) {
   state.moving = true;
   state.lastPosition = [e.pageX, e.pageY];
+  if (state.didStartRotating) state.didStartRotating();
 }
 
 function startTouching(state, e) {
@@ -44,13 +45,16 @@ function touchMove(state, e) {
 
 function stopMoving(state) {
   state.moving = false;
+  if (state.didStopRotating) state.didStopRotating();
 }
 
 export function init(canvas) {
   var state = {
     moving: false,
     lastPosition: null,
-    worldMatrix: m4.indentity()
+    worldMatrix: m4.indentity(),
+    didStartRotating: null, // callback
+    didStopRotating: null // callback
   };
 
   // Start moving
