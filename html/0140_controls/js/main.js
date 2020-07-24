@@ -1,7 +1,7 @@
 import { initGraphics } from './graphics.js';
 import drawScene from './render.js';
 import * as simulation from './simulation.js';
-import measureRefreshRate from './refresh_rate.js';
+import { measureRefreshRate } from './refresh_rate.js';
 import {init as initUserInput} from './user_input.js';
 
 function onNextFrame(drawData, initialParams, currentParams) {
@@ -37,15 +37,9 @@ function main(screenRefreshRateFPS) {
     positions: null,
     velocities: null,
     accelerations: null,
-    rotating: false // User is rotating the scene
+    rotating: false, // User is rotating the scene
+    timeStep: simulation.calculateTimeStep(screenRefreshRateFPS)
   };
-
-  // Make the speed of the simulation independent of refresh rate of the screen
-  // by using smaller time step for higher refresh rates.
-  // Use time step of 1 for 60 FPS screen.
-  // Round refresh to first significant figure
-  screenRefreshRateFPS = (Math.round(screenRefreshRateFPS / 10) * 10);
-  currentParams.timeStep = 60 / screenRefreshRateFPS;
 
   var drawData = initGraphics(initialParams);
 

@@ -13,7 +13,7 @@
  * @return {Promise} A promise object. Call .then((fps)=> ...) function
  *                   to get the refresh rate number.
  */
-export default function measureRefreshRate(tries=10) {
+export function measureRefreshRate(tries=10) {
   return new Promise(resolve => {
       requestAnimationFrame(storeFrameTime(tries, [], resolve));
     }
