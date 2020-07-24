@@ -1,6 +1,7 @@
 import m4 from '../../../js/m4.js';
 
-export default function drawScene(drawData, settings, positions) {
+export default function drawScene(drawData, currentParams) {
+  var positions = currentParams.positions;
   storePositions(drawData, positions);
 
   var gl = drawData.gl;
@@ -72,7 +73,7 @@ export default function drawScene(drawData, settings, positions) {
   // ------------
 
   // Get the camera's position from the matrix we computed
-  var cameraPosition = [ 0, 0, settings.zoomState.cameraDistance ];
+  var cameraPosition = [ 0, 0, currentParams.zoomState.cameraDistance ];
 
   var up = [0, 1, 0];
 
@@ -87,7 +88,7 @@ export default function drawScene(drawData, settings, positions) {
   var viewProjectionMatrix = m4.multiply(projectionMatrix, viewMatrix);
 
   // Set the matrix.
-  var uMatrix = m4.multiply(viewProjectionMatrix, settings.rotateState.worldMatrix);
+  var uMatrix = m4.multiply(viewProjectionMatrix, currentParams.rotateState.worldMatrix);
   gl.uniformMatrix4fv(drawData.matrixLocation, false, uMatrix);
 
   // Draw the geometry.

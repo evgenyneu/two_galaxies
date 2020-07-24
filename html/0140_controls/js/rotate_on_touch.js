@@ -48,7 +48,7 @@ function stopMoving(state) {
   if (state.didStopRotating) state.didStopRotating();
 }
 
-export function init(canvas) {
+export function init(hudContainer) {
   var state = {
     moving: false,
     lastPosition: null,
@@ -60,8 +60,8 @@ export function init(canvas) {
   // Start moving
   // -----------------
 
-  canvas.addEventListener("mousedown", (e) => startMoving(state, e));
-  canvas.addEventListener("touchstart", (e) => startTouching(state, e));
+  hudContainer.addEventListener("mousedown", (e) => startMoving(state, e));
+  hudContainer.addEventListener("touchstart", (e) => startTouching(state, e));
 
   // Move
   // -----------------
@@ -69,7 +69,7 @@ export function init(canvas) {
   document.addEventListener("mousemove", (e) => move(state, e));
   document.addEventListener("touchmove", (e) => touchMove(state, e));
 
-  canvas.addEventListener("touchmove", (e) => {
+  hudContainer.addEventListener("touchmove", (e) => {
     if (typeof e.preventDefault !== 'undefined' && e.preventDefault !== null) {
       // Prevent screen from sliding on touch devices when the element is dragged.
       e.preventDefault();

@@ -46,7 +46,7 @@ function stopTouch(state) {
   state.touching = false;
 }
 
-export function init(canvas) {
+export function init(hudContainer) {
   var state = {
     touching: false,
     cameraDistance: 100,
@@ -56,10 +56,10 @@ export function init(canvas) {
   };
 
   // Mouse wheel / scroll event
-  canvas.addEventListener('wheel',(e) => onWheel(state, e));
+  hudContainer.addEventListener('wheel',(e) => onWheel(state, e));
 
   // Start touching
-  canvas.addEventListener("touchstart", (e) => startTouch(state, e));
+  hudContainer.addEventListener("touchstart", (e) => startTouch(state, e));
 
   // Touch is moving
   document.addEventListener("touchmove", (e) => touchMove(state, e));
@@ -68,7 +68,7 @@ export function init(canvas) {
   document.addEventListener("touchend", () => stopTouch(state));
 
   // Prevent right click menu
-  canvas.addEventListener('contextmenu', (e) => { e.preventDefault(); }, true);
+  hudContainer.addEventListener('contextmenu', (e) => { e.preventDefault(); }, true);
 
   return state;
 }

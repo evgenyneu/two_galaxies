@@ -2,12 +2,11 @@ import { initGraphics, loadColors } from './graphics.js';
 import drawScene from './render.js';
 import { numberOfStarsInAllRingsOneGalaxy } from '../../../js/initial_conditions.js';
 import * as simulation from './simulation.js';
-import * as rotate from './rotate_on_touch.js';
-import * as zoom from './zoom.js';
 import * as sliders from './sliders.js';
 import measureRefreshRate from './refresh_rate.js';
+import {init as initUserInput} from './user_input.js';
 
-function onNextFrame(drawData, drawSettings, initialParams, currentParams) {
+function onNextFrame(drawData, initialParams, currentParams) {
   return function(now) {
     if (currentParams.positions === null) { // First frame
       // calculate initial positions of the bodies
@@ -17,8 +16,8 @@ function onNextFrame(drawData, drawSettings, initialParams, currentParams) {
       simulation.update(currentParams.timeStep, initialParams, currentParams);
     }
 
-    drawScene(drawData, drawSettings, currentParams.positions);
-    requestAnimationFrame(onNextFrame(drawData, drawSettings, initialParams, currentParams));
+    drawScene(drawData, currentParams);
+    requestAnimationFrame(onNextFrame(drawData, initialParams, currentParams));
   };
 }
 
@@ -50,8 +49,6 @@ function main(screenRefreshRateFPS) {
   screenRefreshRateFPS = (Math.round(screenRefreshRateFPS / 10) * 10);
   currentParams.timeStep = 60 / screenRefreshRateFPS;
 
-  console.log(screenRefreshRateFPS, currentParams.timeStep);
-
   sliders.setupSlider(currentParams);
 
   var drawData = initGraphics();
@@ -62,17 +59,9 @@ function main(screenRefreshRateFPS) {
     initialParams.colors
   );
 
-  var drawSettings = {};
+  initUserInput(drawData, currentParams);
 
-  var rotateState = rotate.init(drawData.gl.canvas);
-  rotateState.didStartRotating = () => currentParams.rotating = true;
-  rotateState.didStopRotating = () => currentParams.rotating = false;
-  drawSettings.rotateState = rotateState;
-
-  var zoomState = zoom.init(drawData.gl.canvas);
-  drawSettings.zoomState = zoomState;
-
-  requestAnimationFrame(onNextFrame(drawData, drawSettings, initialParams, currentParams));
+  requestAnimationFrame(onNextFrame(drawData, initialParams, currentParams));
 }
 
 window.onload = () => measureRefreshRate(20).then(fps => main(fps));
