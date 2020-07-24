@@ -1,5 +1,6 @@
 import { createProgramFromScripts } from '../../../js/web_gl_utils.js';
 import m4 from '../../../js/m4.js';
+import { numberOfStarsInAllRingsOneGalaxy } from '../../../js/initial_conditions.js';
 
 // Adjust the canvas to the size of the screen
 function fitToContainer(drawData){
@@ -12,7 +13,7 @@ function fitToContainer(drawData){
   var realToCSSPixels = window.devicePixelRatio;
 
   // Lookup the size the browser is displaying the canvas in CSS pixels
-  // and compute a size needed to make our drawingbuffer match it in
+  // and compute a size needed to make our drawing buffer match it in
   // device pixels.
   var displayWidth  = Math.floor(canvas.clientWidth  * realToCSSPixels);
   var displayHeight = Math.floor(canvas.clientHeight * realToCSSPixels);
@@ -27,7 +28,7 @@ function fitToContainer(drawData){
   }
 }
 
-export function initGraphics() {
+export function initGraphics(initialParams) {
   // Get canvas object
   var canvas = document.querySelector(".TwoGalaxies-canvas");
   var gl = canvas.getContext("webgl");
@@ -62,14 +63,30 @@ export function initGraphics() {
     matrixLocation: matrixLocation
   };
 
+  loadColors(drawData,
+    numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[0]),
+    numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[1]),
+    initialParams.colors
+  );
+
   fitToContainer(drawData);
 
+  // Adjust the canvas size when the browser window is resized
   window.addEventListener('resize', (e) => fitToContainer(drawData));
 
   return drawData;
 }
 
-export function loadColors(drawData, stars1, stars2, twoColors) {
+
+/**
+ * Load star colors into the GPU buffer
+ *
+ * @param  {object} drawData Draw data
+ * @param  {number} stars1    Number of stars in first galaxy (not counting the core)
+ * @param  {number} stars2    Number of stars in second galaxy (not counting the core)
+ * @param  {array} twoColors  Colors of the two galaxies
+ */
+function loadColors(drawData, stars1, stars2, twoColors) {
   // Set two different colors for the galaxy cores
   var colors = [twoColors[0], twoColors[1]];
 

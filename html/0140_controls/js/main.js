@@ -1,8 +1,6 @@
-import { initGraphics, loadColors } from './graphics.js';
+import { initGraphics } from './graphics.js';
 import drawScene from './render.js';
-import { numberOfStarsInAllRingsOneGalaxy } from '../../../js/initial_conditions.js';
 import * as simulation from './simulation.js';
-import * as sliders from './sliders.js';
 import measureRefreshRate from './refresh_rate.js';
 import {init as initUserInput} from './user_input.js';
 
@@ -49,15 +47,7 @@ function main(screenRefreshRateFPS) {
   screenRefreshRateFPS = (Math.round(screenRefreshRateFPS / 10) * 10);
   currentParams.timeStep = 60 / screenRefreshRateFPS;
 
-  sliders.setupSlider(currentParams);
-
-  var drawData = initGraphics();
-
-  loadColors(drawData,
-    numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[0]),
-    numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[1]),
-    initialParams.colors
-  );
+  var drawData = initGraphics(initialParams);
 
   initUserInput(drawData, currentParams);
 
