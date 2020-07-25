@@ -43,6 +43,8 @@
     width: 45px;
 }
 
+.TwoGalaxies-leftButton { float: left; }
+
 .TwoGalaxies-bottomButton.TwoGalaxies-bottomButton--isHidden { display: none; }
 
 /*
@@ -55,11 +57,9 @@
   position: absolute;
   display: block;
   left: 15px;
-  bottom: 10px;
+  bottom: 5px;
   height: 45px;
 }
-
-.TwoGalaxies-leftBottomButton { float: left; }
 
 .TwoGalaxies-doesChangeOpacityOnHover {
   opacity: 0.6;
@@ -76,12 +76,10 @@
   ---------
 */
 
-.TwoGalaxies-rightBottomButtonContainer {
+.TwoGalaxies-leftTopButtonContainer {
     position: absolute;
     display: block;
-    right: 15px;
-    bottom: 10px;
+    left: 15px;
+    top: 5px;
     height: 45px;
 }
-
-.TwoGalaxies-rightBottomButton { float: right; }
