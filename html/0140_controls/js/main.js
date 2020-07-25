@@ -41,6 +41,7 @@ function main(screenRefreshRateFPS) {
     velocities: null,
     accelerations: null,
     rotating: false, // User is rotating the scene
+    paused: false,
     timeStep: simulation.calculateTimeStep(screenRefreshRateFPS)
   };
 

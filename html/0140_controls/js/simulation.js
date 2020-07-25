@@ -16,6 +16,7 @@ export function setInitial(initialParams, currentParams) {
 
 export function update(timeStep, initialParams, currentParams) {
   if (currentParams.rotating) return;
+  if (currentParams.paused) return;
 
   var result = integrateOneStep(
     timeStep,

@@ -18,6 +18,23 @@ function didClickReverseTime(currentParams) {
   };
 }
 
+function didClickPause(currentParams, pauseButton, resumeButton) {
+  return (e) => {
+    currentParams.paused = true;
+    pauseButton.classList.toggle('TwoGalaxies-bottomButton--isHidden');
+    resumeButton.classList.toggle('TwoGalaxies-bottomButton--isHidden');
+    return false; // Prevent default
+  };
+}
+
+function didClickResume(currentParams, pauseButton, resumeButton) {
+  return (e) => {
+    currentParams.paused = false;
+    pauseButton.classList.toggle('TwoGalaxies-bottomButton--isHidden');
+    resumeButton.classList.toggle('TwoGalaxies-bottomButton--isHidden');
+    return false; // Prevent default
+  };
+}
 
 /**
   * Stop propagation of events from elements defined by `selector`
@@ -35,11 +52,20 @@ function stopClickPropagation(event, selector) {
 }
 
 export function init(currentParams) {
-  var reloadButton = document.querySelector(".TwoGalaxies-reloadButton");
-  reloadButton.onclick = didClickReload(currentParams);
+  var button = document.querySelector(".TwoGalaxies-reloadButton");
+  button.onclick = didClickReload(currentParams);
 
-  var reverseTimeButton = document.querySelector(".TwoGalaxies-reverseTimeButton");
-  reverseTimeButton.onclick = didClickReverseTime(currentParams);
+  button = document.querySelector(".TwoGalaxies-reverseTimeButton");
+  button.onclick = didClickReverseTime(currentParams);
+
+  // Pause/resume
+  // ------------
+
+  var pauseButton = document.querySelector(".TwoGalaxies-pauseButton");
+  var resumeButton = document.querySelector(".TwoGalaxies-resumeButton");
+
+  pauseButton.onclick = didClickPause(currentParams, pauseButton, resumeButton);
+  resumeButton.onclick = didClickResume(currentParams, pauseButton, resumeButton);
 
   stopClickPropagation("mousedown", ".TwoGalaxies-bottomButton");
   stopClickPropagation("touchstart", ".TwoGalaxies-bottomButton");
