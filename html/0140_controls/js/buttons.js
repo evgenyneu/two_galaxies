@@ -25,7 +25,7 @@ function stopClickPropagation(event, selector) {
  */
 function toggleElements(elements) {
   elements.forEach((element) => {
-    element.classList.toggle('TwoGalaxies-bottomButton--isHidden');
+    element.classList.toggle('TwoGalaxies-button--isHidden');
   });
 }
 
@@ -42,11 +42,10 @@ function didClickReload(currentParams) {
 
 function didClickReverseTime(currentParams, buttons) {
   return (e) => {
-    currentParams.fastForwardSeconds = -5;
-    // currentParams.timeStep *= -1;
+    currentParams.timeStep *= -1;
 
     // Show time forward and hide time backward button when clicked and vice versa
-    // toggleElements(buttons);
+    toggleElements(buttons);
 
     return false; // Prevent default
   };
@@ -54,11 +53,10 @@ function didClickReverseTime(currentParams, buttons) {
 
 function didClickPause(currentParams, buttons) {
   return (e) => {
-    currentParams.fastForwardSeconds = 5;
-    // currentParams.paused = true;
+    currentParams.paused = true;
 
     // Show play and hide pause button when pause is clicked and vice versa
-    // toggleElements(buttons);
+    toggleElements(buttons);
 
     return false; // Prevent default
   };
@@ -71,6 +69,13 @@ function didClickResume(currentParams, buttons) {
     // Show play and hide pause button when pause is clicked and vice versa
     toggleElements(buttons);
 
+    return false; // Prevent default
+  };
+}
+
+function didClickFastForward(currentParams, fastForwardSeconds) {
+  return (e) => {
+    currentParams.fastForwardSeconds = fastForwardSeconds;
     return false; // Prevent default
   };
 }
@@ -95,6 +100,17 @@ export function init(currentParams) {
   pauseButton.onclick = didClickPause(currentParams, buttons);
   resumeButton.onclick = didClickResume(currentParams, buttons);
 
-  stopClickPropagation("mousedown", ".TwoGalaxies-bottomButton");
-  stopClickPropagation("touchstart", ".TwoGalaxies-bottomButton");
+  stopClickPropagation("mousedown", ".TwoGalaxies-button");
+  stopClickPropagation("touchstart", ".TwoGalaxies-button");
+
+  // Fast forward / rewind
+  // --------
+
+  var fastForwardSeconds = 5;
+  button = document.querySelector(".TwoGalaxies-fastForwardButton");
+  button.onclick = didClickFastForward(currentParams, fastForwardSeconds);
+
+  fastForwardSeconds = -5;
+  button = document.querySelector(".TwoGalaxies-fastBackwardButton");
+  button.onclick = didClickFastForward(currentParams, fastForwardSeconds);
 }

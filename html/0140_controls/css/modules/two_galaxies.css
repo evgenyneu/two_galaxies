@@ -37,7 +37,7 @@
   border : 0;
 }
 
-.TwoGalaxies-bottomButton {
+.TwoGalaxies-button {
     display: block;
     height: 45px;
     width: 45px;
@@ -45,7 +45,7 @@
 
 .TwoGalaxies-leftButton { float: left; }
 
-.TwoGalaxies-bottomButton.TwoGalaxies-bottomButton--isHidden { display: none; }
+.TwoGalaxies-button.TwoGalaxies-button--isHidden { display: none; }
 
 /*
   Left buttons
