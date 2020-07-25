@@ -14,7 +14,7 @@ function onNextFrame(drawData, initialParams, currentParams) {
       simulation.setInitial(initialParams, currentParams);
     } else {
       // Update positions of the bodies at new time
-      simulation.update(currentParams.timeStep, initialParams, currentParams);
+      simulation.update(initialParams, currentParams);
     }
 
     drawScene(drawData, currentParams);
@@ -40,9 +40,24 @@ function main(screenRefreshRateFPS) {
     positions: null,
     velocities: null,
     accelerations: null,
-    rotating: false, // User is rotating the scene
+
+    // User is rotating the scene
+    rotating: false,
+
     paused: false,
-    timeStep: simulation.calculateTimeStep(screenRefreshRateFPS)
+
+    // The approximate detected refresh rate of the screen, in
+    // number of frames per second (FPS). At each frame, the simulation
+    // time is advanced by `timeStep` and then drawn on the screen
+    screenRefreshRateFPS: screenRefreshRateFPS,
+
+    // The amount of time the simulation is advanced after each
+    // screen refresh frame.
+    timeStep: simulation.calculateTimeStep(screenRefreshRateFPS),
+
+    // Number of seconds to fast forward the simulation. The number
+    // can be negative, which means we want to go back in simulation time.
+    fastForwardSeconds: 0
   };
 
   var drawData = initGraphics(initialParams);

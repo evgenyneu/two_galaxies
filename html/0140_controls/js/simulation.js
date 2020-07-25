@@ -14,12 +14,41 @@ export function setInitial(initialParams, currentParams) {
   currentParams.velocities = velocities;
 }
 
-export function update(timeStep, initialParams, currentParams) {
+function fastForward(initialParams, currentParams) {
+  var timeSteps = Math.round(Math.abs(currentParams.fastForwardSeconds *
+                          currentParams.screenRefreshRateFPS));
+
+  // Go back in simulation time if `currentParams.fastForwardSeconds`
+  // is negative
+  var timeStep = Math.abs(currentParams.timeStep);
+  if (currentParams.fastForwardSeconds < 0 ) timeStep *= -1;
+
+  for(let i = 0; i < timeSteps; i++) {
+    var result = integrateOneStep(
+      timeStep,
+      initialParams.masses,
+      currentParams.positions,
+      currentParams.velocities,
+      currentParams.accelerations);
+
+    currentParams.positions = result.positions;
+    currentParams.velocities = result.velocities;
+    currentParams.accelerations = result.accelerations;
+  }
+}
+
+export function update(initialParams, currentParams) {
   if (currentParams.rotating) return;
   if (currentParams.paused) return;
 
+  if (currentParams.fastForwardSeconds !== 0) {
+    // We want to fast forward the simulation
+    fastForward(initialParams, currentParams);
+    currentParams.fastForwardSeconds = 0 ;
+  }
+
   var result = integrateOneStep(
-    timeStep,
+    currentParams.timeStep,
     initialParams.masses,
     currentParams.positions,
     currentParams.velocities,

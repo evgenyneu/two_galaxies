@@ -42,10 +42,11 @@ function didClickReload(currentParams) {
 
 function didClickReverseTime(currentParams, buttons) {
   return (e) => {
-    currentParams.timeStep *= -1;
+    currentParams.fastForwardSeconds = -5;
+    // currentParams.timeStep *= -1;
 
     // Show time forward and hide time backward button when clicked and vice versa
-    toggleElements(buttons);
+    // toggleElements(buttons);
 
     return false; // Prevent default
   };
@@ -53,10 +54,11 @@ function didClickReverseTime(currentParams, buttons) {
 
 function didClickPause(currentParams, buttons) {
   return (e) => {
-    currentParams.paused = true;
+    currentParams.fastForwardSeconds = 5;
+    // currentParams.paused = true;
 
     // Show play and hide pause button when pause is clicked and vice versa
-    toggleElements(buttons);
+    // toggleElements(buttons);
 
     return false; // Prevent default
   };
