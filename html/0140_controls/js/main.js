@@ -52,12 +52,16 @@ function main(screenRefreshRateFPS) {
     screenRefreshRateFPS: screenRefreshRateFPS,
 
     // The amount of time the simulation is advanced after each
-    // screen refresh frame.
+    // screen refresh frame. The number is always positive.
+    // To simulate back in time, set timeDirection to -1.
     timeStep: simulation.calculateTimeStep(screenRefreshRateFPS),
 
     // Number of seconds to fast forward the simulation. The number
     // can be negative, which means we want to go back in simulation time.
-    fastForwardSeconds: 0
+    fastForwardSeconds: 0,
+
+    // Direction of time. 1 for forward, -1 for backward.
+    timeDirection: 1
   };
 
   var drawData = initGraphics(initialParams);

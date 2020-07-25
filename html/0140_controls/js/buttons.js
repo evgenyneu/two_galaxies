@@ -42,7 +42,7 @@ function didClickReload(currentParams) {
 
 function didClickReverseTime(currentParams, buttons) {
   return (e) => {
-    currentParams.timeStep *= -1;
+    currentParams.timeDirection *= -1;
 
     // Show time forward and hide time backward button when clicked and vice versa
     toggleElements(buttons);

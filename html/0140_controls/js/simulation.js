@@ -18,14 +18,12 @@ function fastForward(initialParams, currentParams) {
   var timeSteps = Math.round(Math.abs(currentParams.fastForwardSeconds *
                           currentParams.screenRefreshRateFPS));
 
-  // Go back in simulation time if `currentParams.fastForwardSeconds`
-  // is negative
-  var timeStep = Math.abs(currentParams.timeStep);
-  if (currentParams.fastForwardSeconds < 0 ) timeStep *= -1;
+  var timeDirection = Math.abs(currentParams.fastForwardSeconds) /
+                        currentParams.fastForwardSeconds;
 
   for(let i = 0; i < timeSteps; i++) {
     var result = integrateOneStep(
-      timeStep,
+      currentParams.timeStep * timeDirection,
       initialParams.masses,
       currentParams.positions,
       currentParams.velocities,
@@ -49,7 +47,7 @@ export function update(initialParams, currentParams) {
   if (currentParams.paused) return;
 
   var result = integrateOneStep(
-    currentParams.timeStep,
+    currentParams.timeStep * currentParams.timeDirection,
     initialParams.masses,
     currentParams.positions,
     currentParams.velocities,
