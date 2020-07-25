@@ -56,7 +56,7 @@
 .TwoGalaxies-leftBottomButtonContainer {
   position: absolute;
   display: block;
-  left: 15px;
+  left: 5px;
   bottom: 5px;
   height: 45px;
 }
@@ -72,14 +72,14 @@
 }
 
 /*
-  Right buttons
+  Top buttons
   ---------
 */
 
 .TwoGalaxies-leftTopButtonContainer {
     position: absolute;
     display: block;
-    left: 15px;
+    left: 5px;
     top: 5px;
     height: 45px;
 }

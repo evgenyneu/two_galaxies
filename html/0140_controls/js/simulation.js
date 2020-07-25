@@ -39,13 +39,14 @@ function fastForward(initialParams, currentParams) {
 
 export function update(initialParams, currentParams) {
   if (currentParams.rotating) return;
-  if (currentParams.paused) return;
 
   if (currentParams.fastForwardSeconds !== 0) {
     // We want to fast forward the simulation
     fastForward(initialParams, currentParams);
     currentParams.fastForwardSeconds = 0 ;
   }
+
+  if (currentParams.paused) return;
 
   var result = integrateOneStep(
     currentParams.timeStep,

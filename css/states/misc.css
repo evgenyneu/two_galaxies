@@ -13,6 +13,7 @@
 ----------------- */
 
 .hasTopMarginSmall { margin-top: var(--iiMarginSmall); }
+.hasBottomMarginSmall { margin-bottom: var(--iiMarginSmall); }
 .hasMarginSmall { margin: var(--iiMarginSmall); }
 
 /* Horizontal alignment
