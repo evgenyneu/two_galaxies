@@ -37,6 +37,12 @@
   border : 0;
 }
 
+.TwoGalaxies-bottomButton {
+    display: block;
+    height: 40px;
+    width: 40px;
+}
+
 /*
   Left buttons
   ---------
@@ -51,12 +57,7 @@
   height: 40px;
 }
 
-.TwoGalaxies-leftBottomButton {
-  display: block;
-  height: 40px;
-  width: 40px;
-  float: left;
-}
+.TwoGalaxies-leftBottomButton { float: left; }
 
 .TwoGalaxies-doesChangeOpacityOnHover {
   opacity: 0.6;
@@ -81,9 +82,4 @@
     height: 40px;
 }
 
-.TwoGalaxies-rightBottomButton {
-    display: block;
-    height: 40px;
-    width: 40px;
-    float: right;
-}
+.TwoGalaxies-rightBottomButton { float: right; }
