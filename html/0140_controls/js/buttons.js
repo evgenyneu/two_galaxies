@@ -13,6 +13,7 @@ function didClickReload(currentParams) {
 
 function didClickReverseTime(currentParams) {
   return (e) => {
+    currentParams.timeStep *= -1;
     return false; // Prevent default
   };
 }
@@ -41,4 +42,5 @@ export function init(currentParams) {
   reverseTimeButton.onclick = didClickReverseTime(currentParams);
 
   stopClickPropagation("mousedown", ".TwoGalaxies-bottomButton");
+  stopClickPropagation("touchstart", ".TwoGalaxies-bottomButton");
 }

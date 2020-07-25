@@ -39,8 +39,8 @@
 
 .TwoGalaxies-bottomButton {
     display: block;
-    height: 40px;
-    width: 40px;
+    height: 45px;
+    width: 45px;
 }
 
 /*
@@ -54,7 +54,7 @@
   display: block;
   left: 15px;
   bottom: 10px;
-  height: 40px;
+  height: 45px;
 }
 
 .TwoGalaxies-leftBottomButton { float: left; }
@@ -79,7 +79,7 @@
     display: block;
     right: 15px;
     bottom: 10px;
-    height: 40px;
+    height: 45px;
 }
 
 .TwoGalaxies-rightBottomButton { float: right; }
