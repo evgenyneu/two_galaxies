@@ -71,7 +71,7 @@ export function init(hudContainer) {
   document.addEventListener("touchend", () => stopTouch(state));
 
   // Prevent right click menu
-  hudContainer.addEventListener('contextmenu', (e) => { e.preventDefault(); }, true);
+  // hudContainer.addEventListener('contextmenu', (e) => { e.preventDefault(); }, true);
 
   return state;
 }

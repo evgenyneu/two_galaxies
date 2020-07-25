@@ -32,6 +32,11 @@
   margin-right: auto;
 }
 
+.TwoGalaxies-bottomImage {
+  height: 100%;
+  border : 0;
+}
+
 /*
   Left buttons
   ---------
@@ -42,7 +47,6 @@
   position: absolute;
   display: block;
   left: 15px;
-  right: 15px;
   bottom: 10px;
   height: 40px;
 }
@@ -52,11 +56,6 @@
   height: 40px;
   width: 40px;
   float: left;
-}
-
-.TwoGalaxies-leftBottomImage {
-  height: 100%;
-  border : 0;
 }
 
 .TwoGalaxies-doesChangeOpacityOnHover {
@@ -70,20 +69,21 @@
 }
 
 /*
-  Reload button
+  Right buttons
   ---------
 */
 
-.TwoGalaxies-reloadButton {
-  position: absolute;
-  display: block;
-  bottom: 10px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
+.TwoGalaxies-rightBottomButtonContainer {
+    position: absolute;
+    display: block;
+    right: 15px;
+    bottom: 10px;
+    height: 40px;
 }
 
-.TwoGalaxies-reloadIcon {
-  width: 100%;
-  border : 0;
+.TwoGalaxies-rightBottomButton {
+    display: block;
+    height: 40px;
+    width: 40px;
+    float: right;
 }
