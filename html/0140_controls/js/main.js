@@ -66,7 +66,7 @@ function main(screenRefreshRateFPS) {
 
   var drawData = initGraphics(initialParams);
 
-  initUserInput(drawData, currentParams);
+  initUserInput(drawData, initialParams, currentParams);
 
   // Run the animation
   requestAnimationFrame(onNextFrame(drawData, initialParams, currentParams));

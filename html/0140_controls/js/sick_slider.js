@@ -75,6 +75,7 @@ export default function SickSlider(sliderElementSelector, settings) {
     that.labelElement = that.sliderContainer.querySelector(".SickSlider-label");
     that.slider = that.sliderContainer.querySelector(".SickSlider-slider");
     that.sliderHead = that.slider.querySelector(".SickSlider-head");
+    that.sliderStripe = that.slider.querySelector(".SickSlider-stripeLeft");
     var sliding = false;
 
     // Assign settings
@@ -332,6 +333,7 @@ export default function SickSlider(sliderElementSelector, settings) {
   that.changePosition = function(sliderPosition) {
     var headLeft = (that.slider.offsetWidth - that.sliderHead.offsetWidth) * sliderPosition;
     that.sliderHead.style.left = headLeft + "px";
+    that.sliderStripe.style.width = headLeft + "px";
   };
 
   /**

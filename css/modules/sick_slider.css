@@ -17,14 +17,17 @@ Sick Slider
     display: none;
 }
 
-.SickSlider-stripe {
-  height: 5px;
+.SickSlider-stripe, .SickSlider-stripeLeft {
+  height: 2px;
   width: 100%;
-  background-color: #999999;
-  /*border: 1px solid #a66000;*/
+  background-color: #aaaaaa;
   position: absolute;
-  top: 18px;
+  top: 20px;
   left: 0px;
+}
+
+.SickSlider-stripeLeft {
+  background-color: #777777;
 }
 
 .SickSlider-head {
@@ -33,8 +36,9 @@ Sick Slider
   left: 0;
   width: 30px;
   height: 40px;
-  background-color: #999999;
-  border: 1px solid #FFFFFF;
+  background-color: #ffffff;
+  border: 2px solid #777777;
+  border-radius: 20px
 }
 
 .SickSlider-label {
