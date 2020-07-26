@@ -1,8 +1,8 @@
 // Get positions of stars from the physics simulation
 
-import * as init from '../../../js/initial_conditions.js';
-import getAccelerations from '../../../js/acceleration.js';
-import integrateOneStep from '../../../js/integrator.js';
+import * as init from './simulation/initial_conditions.js';
+import getAccelerations from './simulation/acceleration.js';
+import integrateOneStep from './simulation/integrator.js';
 
 export function setInitial(initialParams, currentParams) {
   var { positions, velocities } = init.allPositionsAndVelocities(initialParams);
