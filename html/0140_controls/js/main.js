@@ -6,9 +6,12 @@ import drawScene from './render.js';
 import * as simulation from './simulation.js';
 import { measureRefreshRate } from './refresh_rate.js';
 import {init as initUserInput} from './user_input.js';
+import * as showFps from './show_fps.js';
 
-function onNextFrame(drawData, initialParams, currentParams) {
+function onNextFrame(drawData, initialParams, currentParams, fpsState) {
   return function(now) {
+    showFps.update(now, fpsState);
+
     if (currentParams.positions === null) { // First frame
       // calculate initial positions of the bodies
       simulation.setInitial(initialParams, currentParams);
@@ -18,7 +21,9 @@ function onNextFrame(drawData, initialParams, currentParams) {
     }
 
     drawScene(drawData, currentParams);
-    requestAnimationFrame(onNextFrame(drawData, initialParams, currentParams));
+
+    requestAnimationFrame(onNextFrame(drawData, initialParams,
+                                      currentParams, fpsState));
   };
 }
 
@@ -33,7 +38,7 @@ function restart(drawData, initialParams, currentParams) {
 function main(screenRefreshRateFPS) {
   // Initial parameters of the simulation, they can't be changed without restart
   var initialParams = {
-    numberOfRings: [30, 30],
+    numberOfRings: [50, 50],
     colors: [[255, 127, 0], [0, 100, 255]],
     ringSeparation: 3,
     minimalGalaxySeparation: 25,
@@ -77,8 +82,11 @@ function main(screenRefreshRateFPS) {
   initUserInput(drawData, initialParams, currentParams,
                 onRestart => restart(drawData, initialParams, currentParams));
 
+  var fpsState = showFps.init();
+
   // Run the animation
-  requestAnimationFrame(onNextFrame(drawData, initialParams, currentParams));
+  requestAnimationFrame(onNextFrame(drawData, initialParams,
+                                    currentParams, fpsState));
 }
 
 window.onload = () => measureRefreshRate(20).then(fps => main(fps));

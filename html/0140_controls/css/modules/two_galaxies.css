@@ -52,6 +52,18 @@
   ---------
 */
 
+.TwoGalaxies-rightTopFPS {
+    color: #ffffff88;
+    font-size: 12px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+/*
+  Left buttons
+  ---------
+*/
 
 .TwoGalaxies-leftBottomButtonContainer,
 .TwoGalaxies-rightBottomButtonContainer {
