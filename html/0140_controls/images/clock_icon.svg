@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>clock_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="44.5" cy="44.5" r="29.5"></circle>
+        <path d="M55,22 L45.0009766,45.7382812" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+        <path d="M58.5078125,56.5585938 L45.1943359,45.7666016" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+        <circle id="Oval-2" fill="#FFFFFF" cx="45" cy="45.5" r="4"></circle>
+        <path d="M45,15 L45,22.6083984" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+        <path d="M45,67 L45,73" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+        <path d="M74,45 L66,45" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+        <path d="M22,45 L15,45" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+    </g>
+</svg>
