@@ -65,12 +65,7 @@ export function initGraphics(initialParams) {
     matrixLocation: matrixLocation
   };
 
-  loadColors(drawData,
-    numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[0]),
-    numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[1]),
-    initialParams.colors
-  );
-
+  loadColors(drawData, initialParams);
   fitToContainer(drawData);
 
   // Adjust the canvas size when the browser window is resized
@@ -84,11 +79,15 @@ export function initGraphics(initialParams) {
  * Load star colors into the GPU buffer
  *
  * @param  {object} drawData Draw data
- * @param  {number} stars1    Number of stars in first galaxy (not counting the core)
- * @param  {number} stars2    Number of stars in second galaxy (not counting the core)
+ * @param  {object} initialParams Initial parameters of the simulation
  * @param  {array} twoColors  Colors of the two galaxies
  */
-function loadColors(drawData, stars1, stars2, twoColors) {
+export function loadColors(drawData, initialParams) {
+  // Calculate the number of stars in each galaxy
+  let stars1 = numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[0]);
+  let stars2 = numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[1]);
+
+  let twoColors = initialParams.colors;
   // Set two different colors for the galaxy cores
   var colors = [twoColors[0], twoColors[1]];
 

@@ -5,8 +5,8 @@ import * as zoom from './zoom.js';
 import * as sliders from './sliders.js';
 import * as buttons from './buttons.js';
 
-export function init(drawData, initialParams, currentParams) {
-  sliders.setupSlider(initialParams, currentParams);
+export function init(drawData, initialParams, currentParams, onRestart) {
+  sliders.setupSlider(initialParams, currentParams, onRestart);
   buttons.init(currentParams);
 
   // Rotation

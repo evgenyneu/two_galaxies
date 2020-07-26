@@ -1,7 +1,7 @@
 // The entry point of the program.
 // Initialises graphics and runs the simulation.
 
-import { initGraphics } from './graphics.js';
+import { initGraphics, loadColors } from './graphics.js';
 import drawScene from './render.js';
 import * as simulation from './simulation.js';
 import { measureRefreshRate } from './refresh_rate.js';
@@ -20,6 +20,14 @@ function onNextFrame(drawData, initialParams, currentParams) {
     drawScene(drawData, currentParams);
     requestAnimationFrame(onNextFrame(drawData, initialParams, currentParams));
   };
+}
+
+// Restart the simulation
+function restart(drawData, initialParams, currentParams) {
+  currentParams.positions = null;
+  currentParams.velocities = null;
+  currentParams.accelerations = null;
+  loadColors(drawData, initialParams);
 }
 
 function main(screenRefreshRateFPS) {
@@ -66,7 +74,8 @@ function main(screenRefreshRateFPS) {
 
   var drawData = initGraphics(initialParams);
 
-  initUserInput(drawData, initialParams, currentParams);
+  initUserInput(drawData, initialParams, currentParams,
+                onRestart => restart(drawData, initialParams, currentParams));
 
   // Run the animation
   requestAnimationFrame(onNextFrame(drawData, initialParams, currentParams));

@@ -8,13 +8,14 @@ function didChangeTimeStep(currentParams) {
   };
 }
 
-function didChangeRings(initialParams, galaxyIndex) {
+function didChangeRings(initialParams, currentParams, galaxyIndex, onRestart) {
   return function(value, position) {
+    onRestart();
     initialParams.numberOfRings[galaxyIndex] = value;
   };
 }
 
-export function setupSlider(initialParams, currentParams) {
+export function setupSlider(initialParams, currentParams, onRestart) {
   SickSlider(".TwoGalaxies-sliderTimeStep", {
     label: 'Time step: ',
     value: currentParams.timeStep, min: 0, max: 3,
@@ -26,7 +27,7 @@ export function setupSlider(initialParams, currentParams) {
     label: 'Number of rings: ',
     value: initialParams.numberOfRings[0], min: 0, max: 10,
     decimalPlaces: 0,
-    onChange: didChangeRings(initialParams, 0),
+    onChange: didChangeRings(initialParams, currentParams, 0, onRestart),
     visible: false
   });
 
@@ -34,7 +35,7 @@ export function setupSlider(initialParams, currentParams) {
     label: 'Number of rings: ',
     value: initialParams.numberOfRings[1], min: 0, max: 10,
     decimalPlaces: 0,
-    onChange: didChangeRings(initialParams, 1),
+    onChange: didChangeRings(initialParams, currentParams, 1, onRestart),
     visible: false
   });
 }
