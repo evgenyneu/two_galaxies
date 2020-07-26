@@ -7,7 +7,7 @@ import { numberOfStarsInAllRingsOneGalaxy } from '../../../js/initial_conditions
 // Adjust the canvas to the size of the screen
 function fitToContainer(drawData){
   var canvas = drawData.gl.canvas;
-  const canvasHeight = Math.min(window.innerHeight, window.innerWidth) - 100;
+  const canvasHeight = Math.min(window.innerHeight, window.innerWidth) - 150;
   document.querySelector(".TwoGalaxies-container").style.height = canvasHeight + 'px';
 
   canvas.style.height = canvasHeight + 'px';

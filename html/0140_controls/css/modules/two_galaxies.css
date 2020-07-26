@@ -53,12 +53,18 @@
 */
 
 
-.TwoGalaxies-leftBottomButtonContainer {
+.TwoGalaxies-leftBottomButtonContainer,
+.TwoGalaxies-rightBottomButtonContainer {
   position: absolute;
   display: block;
   left: 5px;
   bottom: 5px;
   height: 45px;
+}
+
+.TwoGalaxies-rightBottomButtonContainer {
+    right: 5px;
+    left: auto;
 }
 
 .TwoGalaxies-doesChangeOpacityOnHover {
@@ -83,6 +89,7 @@
     top: 5px;
     height: 45px;
 }
+
 
 /*
   Sliders

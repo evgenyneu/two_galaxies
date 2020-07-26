@@ -214,11 +214,12 @@ export default function SickSlider(sliderElementSelector, settings) {
   that.updateHeadPositionOnTouch = function(e) {
     var newPosition = that.sliderPositionFromCursor(e);
 
-    // Handle the head change only if it changed significantly (more than 0.1%)
+    // Respond the head change only if it changed significantly (more than 0.1%)
     if (Math.round(that.position * 10000) === Math.round(newPosition * 10000)) { return; }
     that.position = newPosition;
+
     that.value = that.positionToValue(that.position, that.decimalPlaces,
-                                      that.min, that.max);
+                                        that.min, that.max);
 
     if (!that.didRequestUpdateOnNextFrame) {
       // Update the slider on next redraw, to improve performance
@@ -329,7 +330,12 @@ export default function SickSlider(sliderElementSelector, settings) {
     that.updateLabel();
 
     if (that.onChange) {
-      that.onChange(that.value, that.position);
+      if (that.onChangePreviousValue !== that.value) {
+        // Call the change function only if the value has changed.
+        that.onChange(that.value, that.position);
+      }
+
+      that.onChangePreviousValue = that.value;
     }
 
     that.didRequestUpdateOnNextFrame = false;
