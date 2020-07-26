@@ -21,6 +21,7 @@ export function setupSlider(initialParams, currentParams) {
     onChange: didChangeTimeStep(currentParams)
   });
 
+
   SickSlider(".TwoGalaxies-sliderRings1", {
     label: 'Number of rings: ',
     value: initialParams.numberOfRings[0], min: 0, max: 10,

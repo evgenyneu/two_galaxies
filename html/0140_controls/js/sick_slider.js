@@ -104,11 +104,14 @@ export default function SickSlider(sliderElementSelector, settings) {
       if (Math.abs(that.max - that.min) > 10) { that.decimalPlaces = 0; }
     }
 
-    if (that.visible) {
-      that.sliderContainer.classList.remove("SickSlider--isHidden");
-    }
+    // Make slider visible in order to calculate its size
+    that.sliderContainer.classList.remove("SickSlider--isHidden");
 
     that.updatePositionAndLabel(that.value);
+
+    if (!that.visible) {
+      that.sliderContainer.classList.add("SickSlider--isHidden");
+    }
 
     // Start dragging slider
     // -----------------
