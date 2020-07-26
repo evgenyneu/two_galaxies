@@ -25,13 +25,15 @@ export function setupSlider(initialParams, currentParams) {
     label: 'Number of rings: ',
     value: initialParams.numberOfRings[0], min: 0, max: 10,
     decimalPlaces: 0,
-    onChange: didChangeRings(initialParams, 0)
+    onChange: didChangeRings(initialParams, 0),
+    visible: false
   });
 
   SickSlider(".TwoGalaxies-sliderRings2", {
     label: 'Number of rings: ',
     value: initialParams.numberOfRings[1], min: 0, max: 10,
     decimalPlaces: 0,
-    onChange: didChangeRings(initialParams, 1)
+    onChange: didChangeRings(initialParams, 1),
+    visible: false
   });
 }

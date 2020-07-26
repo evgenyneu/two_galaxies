@@ -83,3 +83,11 @@
     top: 5px;
     height: 45px;
 }
+
+/*
+  Sliders
+  ---------
+*/
+
+.TwoGalaxies-sliderColor1 .SickSlider-head { border-color: #ff9900; }
+.TwoGalaxies-sliderColor2 .SickSlider-head { border-color: #0099ff; }

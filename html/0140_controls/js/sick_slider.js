@@ -60,7 +60,10 @@ export default function SickSlider(sliderElementSelector, settings) {
     // on next animation frame. This is used to improve performance
     // and only update the slider no faster than 60 frames per second, as user
     // moves the slider.
-    didRequestUpdateOnNextFrame: false
+    didRequestUpdateOnNextFrame: false,
+
+    // If false the slider is hidden
+    visible: true
   };
 
 
@@ -87,6 +90,7 @@ export default function SickSlider(sliderElementSelector, settings) {
     that.label = settings.label;
     that.onChange = settings.onChange;
     that.labelSuffix = settings.labelSuffix;
+    if ('visible' in settings) that.visible = settings.visible;
 
     if (that.value < that.min) that.value = that.min;
     if (that.value > that.max) that.value = that.max;
@@ -100,7 +104,10 @@ export default function SickSlider(sliderElementSelector, settings) {
       if (Math.abs(that.max - that.min) > 10) { that.decimalPlaces = 0; }
     }
 
-    that.sliderContainer.classList.remove("SickSlider--isHidden");
+    if (that.visible) {
+      that.sliderContainer.classList.remove("SickSlider--isHidden");
+    }
+
     that.updatePositionAndLabel(that.value);
 
     // Start dragging slider
