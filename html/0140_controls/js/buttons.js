@@ -80,6 +80,27 @@ function didClickFastForward(currentParams, fastForwardSeconds) {
   };
 }
 
+function didClickSliderButton(selectors) {
+  return (e) => {
+    var sliders = document.querySelectorAll(".SickSlider");
+
+    // Hide all sliders
+    sliders.forEach((slider) => slider.classList.add("SickSlider--isHidden"));
+
+    // Show the current sliders
+    selectors.forEach((selector) => {
+      document.querySelector(selector).classList.remove("SickSlider--isHidden");
+    });
+
+    return false; // Prevent default
+  };
+}
+
+function initSliderButton(buttonSelector, sliderSelectors) {
+  var button = document.querySelector(buttonSelector);
+  button.onclick = didClickSliderButton(sliderSelectors);
+}
+
 export function init(currentParams) {
   var button = document.querySelector(".TwoGalaxies-reloadButton");
   button.onclick = didClickReload(currentParams);
@@ -113,4 +134,20 @@ export function init(currentParams) {
   fastForwardSeconds = -5;
   button = document.querySelector(".TwoGalaxies-fastBackwardButton");
   button.onclick = didClickFastForward(currentParams, fastForwardSeconds);
+
+  // Buttons for showing sliders
+  // -----------
+
+  var sliderButtonSelectors = {
+    ".TwoGalaxies-timeStepButton": [".TwoGalaxies-sliderTimeStep"],
+    ".TwoGalaxies-numberOfRingsButton": [
+      ".TwoGalaxies-sliderRings1",
+      ".TwoGalaxies-sliderRings2"
+    ]
+  };
+
+  for (let buttonSelector in sliderButtonSelectors) {
+    var sliderSelectors = sliderButtonSelectors[buttonSelector];
+    initSliderButton(buttonSelector, sliderSelectors);
+  }
 }
