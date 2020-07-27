@@ -87,18 +87,35 @@ export function loadColors(drawData, initialParams) {
   let stars1 = numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[0]);
   let stars2 = numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[1]);
 
+  // Total number of bodies
+  let bodies = 2 + stars1 + stars2;
+
   let twoColors = initialParams.colors;
-  // Set two different colors for the galaxy cores
-  var colors = [twoColors[0], twoColors[1]];
+  var colors = new Uint8Array(bodies * 3);
 
-  // Colors of stars in first galaxy
-  colors = colors.concat(Array(stars1).fill(colors[0]));
+  // Core 1
+  colors[0] = twoColors[0][0];
+  colors[1] = twoColors[0][1];
+  colors[2] = twoColors[0][2];
 
-  // ... in second galaxy
-  colors = colors.concat(Array(stars2).fill(colors[1]));
+  // Core 2
+  colors[3] = twoColors[1][0];
+  colors[4] = twoColors[1][1];
+  colors[5] = twoColors[1][2];
 
-  // Make 1D array of numbers
-  colors = colors.flat();
+  // Stars of first galaxy
+  for(let i = 0; i < stars1; i++) {
+    colors[6 + i * 3 + 0] = twoColors[0][0];
+    colors[6 + i * 3 + 1] = twoColors[0][1];
+    colors[6 + i * 3 + 2] = twoColors[0][2];
+  }
+
+  // Stars of second galaxy
+  for(let i = 0; i < stars2; i++) {
+    colors[6 + i * 3 + stars1 * 3 + 0] = twoColors[1][0];
+    colors[6 + i * 3 + stars1 * 3 + 1] = twoColors[1][1];
+    colors[6 + i * 3 + stars1 * 3 + 2] = twoColors[1][2];
+  }
 
   var gl = drawData.gl;
 
@@ -106,5 +123,5 @@ export function loadColors(drawData, initialParams) {
   gl.bindBuffer(gl.ARRAY_BUFFER, drawData.colorBuffer);
 
   // Write colors to the buffer
-  gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(colors), gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
 }
