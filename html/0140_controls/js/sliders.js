@@ -25,7 +25,7 @@ export function setupSlider(initialParams, currentParams, onRestart) {
 
   SickSlider(".TwoGalaxies-sliderRings1", {
     label: 'Number of rings: ',
-    value: initialParams.numberOfRings[0], min: 0, max: 100,
+    value: initialParams.numberOfRings[0], min: 0, max: 150,
     decimalPlaces: 0,
     onChange: didChangeRings(initialParams, currentParams, 0, onRestart),
     visible: false
@@ -33,7 +33,7 @@ export function setupSlider(initialParams, currentParams, onRestart) {
 
   SickSlider(".TwoGalaxies-sliderRings2", {
     label: 'Number of rings: ',
-    value: initialParams.numberOfRings[1], min: 0, max: 100,
+    value: initialParams.numberOfRings[1], min: 0, max: 150,
     decimalPlaces: 0,
     onChange: didChangeRings(initialParams, currentParams, 1, onRestart),
     visible: false

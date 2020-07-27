@@ -15,6 +15,7 @@ function onNextFrame(drawData, initialParams, currentParams, fpsState) {
     if (currentParams.positions === null) { // First frame
       // calculate initial positions of the bodies
       simulation.setInitial(initialParams, currentParams);
+      console.log(`Number of bodies: ${currentParams.positions.length / 3}`);
     } else {
       // Update positions of the bodies at new time
       simulation.update(initialParams, currentParams);
@@ -38,7 +39,7 @@ function restart(drawData, initialParams, currentParams) {
 function main(screenRefreshRateFPS) {
   // Initial parameters of the simulation, they can't be changed without restart
   var initialParams = {
-    numberOfRings: [50, 50],
+    numberOfRings: [150, 150],
     colors: [[255, 127, 0], [0, 100, 255]],
     ringSeparation: 3,
     minimalGalaxySeparation: 25,

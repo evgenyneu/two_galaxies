@@ -16,6 +16,11 @@
 .hasBottomMarginSmall { margin-bottom: var(--iiMarginSmall); }
 .hasMarginSmall { margin: var(--iiMarginSmall); }
 
+.hasHorizontalMarginsSmall {
+    margin-left: var(--iiMarginSmall);
+    margin-right: var(--iiMarginSmall);
+}
+
 /* Horizontal alignment
 ----------------- */
 

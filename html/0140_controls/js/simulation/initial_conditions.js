@@ -309,8 +309,8 @@ export function allPositionsAndVelocities(args) {
     });
 
     // Add positions and velocities of the stars to the array
-    positions.push(...galaxy.positions);
-    velocities.push(...galaxy.velocities);
+    galaxy.positions.forEach((a) => positions.push(a));
+    galaxy.velocities.forEach((a) => velocities.push(a));
   }
 
   return { positions, velocities };
