@@ -313,5 +313,6 @@ export function allPositionsAndVelocities(args) {
     galaxy.velocities.forEach((a) => velocities.push(a));
   }
 
+  positions = new Float32Array(positions);
   return { positions, velocities };
 }

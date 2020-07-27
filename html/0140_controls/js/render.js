@@ -107,7 +107,7 @@ function storePositions(drawData, positions) {
   // Bind ARRAY_BUFFER to the positionBuffer
   // (creates a global variable inside WebGL)
   gl.bindBuffer(gl.ARRAY_BUFFER, drawData.positionBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
 }
 
 function degToRad(d) {
