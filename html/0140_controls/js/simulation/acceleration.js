@@ -70,9 +70,9 @@ export default function getAccelerations(masses, positions, accelerations) {
 
       // Add the acceleration to accelerations from the other cores
       // to find total acceleration of the i-th body
-      accelerations[i*3 + 0] = accelerations[i*3 + 0] + masses[j] / distanceSquared * displacement[0];
-      accelerations[i*3 + 1] = accelerations[i*3 + 1] + masses[j] / distanceSquared * displacement[1];
-      accelerations[i*3 + 2] = accelerations[i*3 + 2] + masses[j] / distanceSquared * displacement[2];
+      accelerations[i*3 + 0] += masses[j] / distanceSquared * displacement[0];
+      accelerations[i*3 + 1] += masses[j] / distanceSquared * displacement[1];
+      accelerations[i*3 + 2] += masses[j] / distanceSquared * displacement[2];
     }
   }
 }

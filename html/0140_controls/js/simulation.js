@@ -24,16 +24,12 @@ function fastForward(initialParams, currentParams) {
                         currentParams.fastForwardSeconds;
 
   for(let i = 0; i < timeSteps; i++) {
-    var result = integrateOneStep(
+    integrateOneStep(
       currentParams.timeStep * timeDirection,
       initialParams.masses,
       currentParams.positions,
       currentParams.velocities,
       currentParams.accelerations);
-
-    currentParams.positions = result.positions;
-    currentParams.velocities = result.velocities;
-    currentParams.accelerations = result.accelerations;
   }
 }
 
