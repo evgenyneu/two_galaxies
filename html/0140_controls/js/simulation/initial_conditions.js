@@ -1,5 +1,21 @@
 import * as vector from './vector.js';
 
+
+
+/**
+ * Calculate the total number of bodies: two galaxy cores plus the stars
+ * in each galaxy
+ *
+ * @param  {number} rings1 Number of rings in first galaxy
+ * @param  {number} rings2 Number of rings in second galaxy
+ * @return {number}        Total number of bodies.
+ */
+export function totalNumberOfBodies(rings1, rings2) {
+  const stars1 = numberOfStarsInAllRingsOneGalaxy(rings1);
+  const stars2 = numberOfStarsInAllRingsOneGalaxy(rings2);
+  return 2 + stars1 + stars2;
+}
+
 /**
  * Calculate the number of stars in a single ring of a galaxy
  *
@@ -211,7 +227,10 @@ export function allPositionsAndVelocities(args) {
   // Positions of galaxy cores
   // --------
 
-  var positions = [];
+  var bodies = totalNumberOfBodies(args.numberOfRings[0],
+                                   args.numberOfRings[1]);
+
+  var positions = new Float32Array(bodies * 3);
 
   // We have two galaxy cores. If we place the origin of coordinate system
   // at the center of their mass, positions are given by the equation:
@@ -241,19 +260,19 @@ export function allPositionsAndVelocities(args) {
   //             = r m2 / (m1 + m2)
   //
   // We use negative of that for the first core as its x coordinate:
-  positions.push(-r * args.masses[1] / totalMass, 0, 0);
+  positions[0] = -r * args.masses[1] / totalMass;
 
   // Similarly, we calculate the r2 distance:
   //
   //          r2 = r m1 / (m1 + m2)
   //
-  positions.push(r * args.masses[0] / totalMass, 0, 0);
+  positions[3] = r * args.masses[0] / totalMass;
 
 
   // Velocities of galaxy cores
   // --------
 
-  var velocities = [];
+  var velocities = Array(bodies * 3).fill(0);
 
   // In the coordinate system with the origin fixed at the first galaxy core,
   // the speed of the second core v0 is given by (from two-body problem):
@@ -289,12 +308,14 @@ export function allPositionsAndVelocities(args) {
   //            v1 = v0 / (1 + m1 / m2)
   //               = v0 m2 / (m1 + m2)
   //
-  velocities.push(0, -v0 * args.masses[1] / totalMass, 0);
+  velocities[1] = -v0 * args.masses[1] / totalMass;
 
   // Similarly, we calculate the speed of the second core:
   //
   //            v2 = r m1 / (m1 + m2)
-  velocities.push(0, v0 * args.masses[0] / totalMass, 0);
+  velocities[4] = v0 * args.masses[0] / totalMass;
+
+  const stars1 = numberOfStarsInAllRingsOneGalaxy(args.numberOfRings[0]);
 
   // Loop through galaxy cores
   for(let galaxyNumber = 0; galaxyNumber < 2; galaxyNumber++) {
@@ -309,10 +330,11 @@ export function allPositionsAndVelocities(args) {
     });
 
     // Add positions and velocities of the stars to the array
-    galaxy.positions.forEach((a) => positions.push(a));
-    galaxy.velocities.forEach((a) => velocities.push(a));
+    for(let i = 0; i < galaxy.positions.length; i++) {
+      positions[6 + i + galaxyNumber * stars1 * 3] = galaxy.positions[i];
+      velocities[6 + i + galaxyNumber * stars1 * 3] = galaxy.velocities[i];
+    }
   }
 
-  positions = new Float32Array(positions);
   return { positions, velocities };
 }
