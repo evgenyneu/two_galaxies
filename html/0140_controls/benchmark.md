@@ -19,4 +19,4 @@ eccentricity: 0.6
 
 |  Mac Chrome   | iPhone Safari | Chrome-android |
 +---------------+---------------+----------------+
-|     49-52     |     31-33     |                |
+|     49-52     |      38       |                |
