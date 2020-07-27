@@ -17,9 +17,9 @@ import getAccelerations from './acceleration.js';
 export default function integrateOneStep(timeStep, masses, positions,
                                          velocities, accelerations) {
 
-  let halfTimeStep = 0.5 * timeStep;
+  const halfTimeStep = 0.5 * timeStep;
 
-  for(let i = 0; i < positions.length; i++) {
+  for(let i = 0; i < positions.length / 3; i++) {
     for(let k = 0; k < 3; k++) {
       velocities[i*3 + k] = velocities[i*3 + k] + halfTimeStep * accelerations[i*3 + k];
       positions[i*3 + k] = positions[i*3 + k] + timeStep * velocities[i*3 + k];
@@ -28,7 +28,7 @@ export default function integrateOneStep(timeStep, masses, positions,
 
   getAccelerations(masses, positions, accelerations);
 
-  for(let i = 0; i < positions.length; i++) {
+  for(let i = 0; i < positions.length / 3; i++) {
     for(let k = 0; k < 3; k++) {
       velocities[i*3 + k] = velocities[i*3 + k] + halfTimeStep * accelerations[i*3 + k];
     }

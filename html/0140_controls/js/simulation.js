@@ -48,7 +48,7 @@ export function update(initialParams, currentParams) {
 
   if (currentParams.paused) return;
 
-  var result = integrateOneStep(
+  integrateOneStep(
     currentParams.timeStep * currentParams.timeDirection,
     initialParams.masses,
     currentParams.positions,

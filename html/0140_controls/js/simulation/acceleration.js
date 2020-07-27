@@ -12,12 +12,12 @@ import * as vector from './vector.js';
  *                            will be updated with new accelerations.
  */
 export default function getAccelerations(masses, positions, accelerations) {
+  // Set accelerations to zero
+  accelerations.fill(0);
+
   // Loop over all bodies
   // The first two bodies are galaxy cores, the rest are stars
   for(let i = 0; i < positions.length / 3; i++) {
-    // Set acceleration of the i-th body to zero
-    accelerations.fill(0, i*3, i*3 + 3);
-
     // Loop over two galaxy cores
     for(let j = 0; j < 2; j++) {
       // Skip the case when the body is the same core,
