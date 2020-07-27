@@ -67,8 +67,10 @@ export function numberOfStarsInAllRingsOneGalaxy(numberOfRings) {
   */
 export function galaxyStarsPositionsAndVelocities(args) {
 
-  var positions = [];
-  var velocities = [];
+  let stars = numberOfStarsInAllRingsOneGalaxy(args.numberOfRings);
+  var positions = Array(stars * 3).fill(0);
+  var velocities = Array(stars * 3).fill(0);
+  var iStar = 0; // Stores index of current star
 
   // Loop over the rings of the galaxy
   for(let ringNumber = 1; ringNumber <= args.numberOfRings; ringNumber++) {
@@ -134,31 +136,37 @@ export function galaxyStarsPositionsAndVelocities(args) {
       let starAngle = (starNumber - 1) * angleBetweenNeighbours;
 
       // Calculate the position of the current star relative to galaxy's centre
-      var position = [
-        distanceFromCenter * Math.cos(starAngle) * Math.cos(args.galaxyAngle),
-        distanceFromCenter * Math.sin(starAngle),
-        -distanceFromCenter * Math.cos(starAngle) * Math.sin(args.galaxyAngle)
-      ];
+      positions[iStar * 3 + 0] = distanceFromCenter * Math.cos(starAngle) *
+                                 Math.cos(args.galaxyAngle);
+
+      positions[iStar * 3 + 1] = distanceFromCenter * Math.sin(starAngle);
+
+      positions[iStar * 3 + 2] = -distanceFromCenter * Math.cos(starAngle) *
+                                 Math.sin(args.galaxyAngle);
 
       // Add star's position to the position of the galaxy to find
       // the star's position in our coordinate system
-      position = vector.add(args.corePosition, position);
+      positions[iStar * 3 + 0] += args.corePosition[0];
+      positions[iStar * 3 + 1] += args.corePosition[1];
+      positions[iStar * 3 + 2] += args.corePosition[2];
 
-      // Add star's position to the list
-      positions.push(...position);
 
       // Calculate the velocity of the star relative to galaxy's centre
-      var velocity = [
-        -starSpeed * Math.sin(starAngle) * Math.cos(args.galaxyAngle),
-        starSpeed * Math.cos(starAngle),
-        starSpeed * Math.sin(starAngle) * Math.sin(args.galaxyAngle)
-      ];
+      velocities[iStar * 3 + 0] = -starSpeed * Math.sin(starAngle) *
+                                  Math.cos(args.galaxyAngle);
+
+      velocities[iStar * 3 + 1] = starSpeed * Math.cos(starAngle);
+
+      velocities[iStar * 3 + 2] = starSpeed * Math.sin(starAngle) *
+                                  Math.sin(args.galaxyAngle);
 
       // Calculate star's velocity in our coordinate system
-      velocity = vector.add(args.coreVelocity, velocity);
+      velocities[iStar * 3 + 0] += args.coreVelocity[0];
+      velocities[iStar * 3 + 1] += args.coreVelocity[1];
+      velocities[iStar * 3 + 2] += args.coreVelocity[2];
 
-      // Store velocity in the list
-      velocities.push(...velocity);
+      // Increment current star index
+      iStar += 1;
     }
   }
 
@@ -329,7 +337,7 @@ export function allPositionsAndVelocities(args) {
         ringSeparation: args.ringSeparation
     });
 
-    // Add positions and velocities of the stars to the array
+    // Store positions and velocities of the stars
     for(let i = 0; i < galaxy.positions.length; i++) {
       positions[6 + i + galaxyNumber * stars1 * 3] = galaxy.positions[i];
       velocities[6 + i + galaxyNumber * stars1 * 3] = galaxy.velocities[i];
