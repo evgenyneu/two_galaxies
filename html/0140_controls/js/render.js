@@ -96,18 +96,19 @@ export default function drawScene(drawData, currentParams) {
   // Draw the geometry.
   var primitiveType = gl.POINTS;
   offset = 0;
-  var numberOfBodies = positions.length;
+  debugger;
+  var numberOfBodies = positions.length / 3;
   gl.drawArrays(primitiveType, offset, numberOfBodies);
 }
 
 // Load positions of stars into GPU memory
 function storePositions(drawData, positions) {
+  debugger;
   var gl = drawData.gl;
 
   // Bind ARRAY_BUFFER to the positionBuffer
   // (creates a global variable inside WebGL)
   gl.bindBuffer(gl.ARRAY_BUFFER, drawData.positionBuffer);
-  positions = positions.flat();
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 }
 
