@@ -18,19 +18,33 @@ export default function integrateOneStep(timeStep, masses, positions,
                                          velocities, accelerations) {
 
   const halfTimeStep = 0.5 * timeStep;
+  let bodies = positions.length / 3;
 
-  for(let i = 0; i < positions.length / 3; i++) {
-    for(let k = 0; k < 3; k++) {
-      velocities[i*3 + k] = velocities[i*3 + k] + halfTimeStep * accelerations[i*3 + k];
-      positions[i*3 + k] = positions[i*3 + k] + timeStep * velocities[i*3 + k];
-    }
+  for(let i = 0; i < bodies; i++) {
+    // The index of the body's coordinates
+    let j = i * 3;
+
+    // Advance velocities with half time step
+    velocities[j + 0] = velocities[j + 0] + halfTimeStep * accelerations[j + 0];
+    velocities[j + 1] = velocities[j + 1] + halfTimeStep * accelerations[j + 1];
+    velocities[j + 2] = velocities[j + 2] + halfTimeStep * accelerations[j + 2];
+
+    // Advance position with full time step
+    positions[j + 0] = positions[j + 0] + timeStep * velocities[j + 0];
+    positions[j + 1] = positions[j + 1] + timeStep * velocities[j + 1];
+    positions[j + 2] = positions[j + 2] + timeStep * velocities[j + 2];
   }
 
+  // Calculate new accelerations of the bodies
   getAccelerations(masses, positions, accelerations);
 
-  for(let i = 0; i < positions.length / 3; i++) {
-    for(let k = 0; k < 3; k++) {
-      velocities[i*3 + k] = velocities[i*3 + k] + halfTimeStep * accelerations[i*3 + k];
-    }
+  // Advance velocities with half time step
+  for(let i = 0; i < bodies; i++) {
+    // The index of the body's coordinates
+    let j = i * 3;
+
+    velocities[j + 0] = velocities[j + 0] + halfTimeStep * accelerations[j + 0];
+    velocities[j + 1] = velocities[j + 1] + halfTimeStep * accelerations[j + 1];
+    velocities[j + 2] = velocities[j + 2] + halfTimeStep * accelerations[j + 2];
   }
 }
