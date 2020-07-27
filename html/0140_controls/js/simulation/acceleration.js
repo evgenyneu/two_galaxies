@@ -8,15 +8,16 @@ import * as vector from './vector.js';
  * @param  {array} masses     Masses of the galaxy cores.
  * @param  {array} positions  Position vectors of all bodies,
  *                            first two are galaxy cores, the rest are stars.
- * @return {array}            Acceleration vectors of all bodies.
+ * @param {array} accelerations Acceleration vectors of all bodies. The array
+ *                            will be updated with new accelerations.
  */
-export default function getAccelerations(masses, positions) {
-  // Create an zero vector that will store the acceleration of all bodies
-  var accelerations = Array.from(Array(positions.length)).map(_ => [0, 0, 0]);
-
+export default function getAccelerations(masses, positions, accelerations) {
   // Loop over all bodies
   // The first two bodies are galaxy cores, the rest are stars
-  for(let i = 0; i < positions.length; i++) {
+  for(let i = 0; i < positions.length / 3; i++) {
+    // Set acceleration of the i-th body to zero
+    accelerations.fill(0, i*3, i*3 + 3);
+
     // Loop over two galaxy cores
     for(let j = 0; j < 2; j++) {
       // Skip the case when the body is the same core,
@@ -24,13 +25,21 @@ export default function getAccelerations(masses, positions) {
       if (i == j) continue;
 
       // Find displacement vector from i-th body to j-th galaxy core
-      let displacement = vector.subtract(positions[j], positions[i]);
+      let displacement = [positions[j*3 + 0] - positions[i*3 + 0],
+                          positions[j*3 + 1] - positions[i*3 + 1],
+                          positions[j*3 + 2] - positions[i*3 + 2]];
 
       // Find the distance from i-th body to j-th galaxy core
-      let distance = vector.length(displacement);
+      let distanceSquared = displacement[0] * displacement[0] +
+                            displacement[1] * displacement[1] +
+                            displacement[2] * displacement[2];
+
+      let distance = Math.sqrt(distanceSquared);
 
       // Find the unit vector in direction from i-th body to j-th core
-      let direction = vector.multiplyByNumber(1 / distance, displacement);
+      for(let k = 0; k < 3; k++) {
+        displacement[k] /= distance;
+      }
 
       // Calculate the acceleration of i-th body cased by gravitational
       // force from j-th galaxy core. We are using two physical laws here:
@@ -58,14 +67,12 @@ export default function getAccelerations(masses, positions) {
       //
       //            a = M d / r^2.
       //
-      let acceleration = vector.multiplyByNumber(
-        masses[j] / Math.pow(distance, 2), direction);
 
       // Add the acceleration to accelerations from the other cores
       // to find total acceleration of the i-th body
-      accelerations[i] = vector.add(acceleration, accelerations[i]);
+      for(let k = 0; k < 3; k++) {
+        accelerations[i*3 + k] = accelerations[i*3 + k] + masses[j] / distanceSquared * displacement[k];
+      }
     }
   }
-
-  return accelerations;
 }

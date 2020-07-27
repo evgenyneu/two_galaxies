@@ -7,8 +7,10 @@ import integrateOneStep from './simulation/integrator.js';
 export function setInitial(initialParams, currentParams) {
   var { positions, velocities } = init.allPositionsAndVelocities(initialParams);
 
-  currentParams.accelerations = getAccelerations(initialParams.masses,
-                                                 positions);
+  // Create an array to store accelerations, willed with zeros
+  currentParams.accelerations = Array(positions.length).fill(0);
+
+  getAccelerations(initialParams.masses, positions, currentParams.accelerations);
 
   currentParams.positions = positions;
   currentParams.velocities = velocities;
@@ -52,10 +54,6 @@ export function update(initialParams, currentParams) {
     currentParams.positions,
     currentParams.velocities,
     currentParams.accelerations);
-
-  currentParams.positions = result.positions;
-  currentParams.velocities = result.velocities;
-  currentParams.accelerations = result.accelerations;
 }
 
 /**

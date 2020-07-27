@@ -129,7 +129,7 @@ export function galaxyStarsPositionsAndVelocities(args) {
       position = vector.add(args.corePosition, position);
 
       // Add star's position to the list
-      positions.push(position);
+      positions.concat(position);
 
       // Calculate the velocity of the star relative to galaxy's centre
       var velocity = [
@@ -142,7 +142,7 @@ export function galaxyStarsPositionsAndVelocities(args) {
       velocity = vector.add(args.coreVelocity, velocity);
 
       // Store velocity in the list
-      velocities.push(velocity);
+      velocities.concat(velocity);
     }
   }
 
@@ -241,13 +241,13 @@ export function allPositionsAndVelocities(args) {
   //             = r m2 / (m1 + m2)
   //
   // We use negative of that for the first core as its x coordinate:
-  positions.push([-r * args.masses[1] / totalMass, 0, 0]);
+  positions.push(-r * args.masses[1] / totalMass, 0, 0);
 
   // Similarly, we calculate the r2 distance:
   //
   //          r2 = r m1 / (m1 + m2)
   //
-  positions.push([r * args.masses[0] / totalMass, 0, 0]);
+  positions.push(r * args.masses[0] / totalMass, 0, 0);
 
 
   // Velocities of galaxy cores
@@ -289,19 +289,19 @@ export function allPositionsAndVelocities(args) {
   //            v1 = v0 / (1 + m1 / m2)
   //               = v0 m2 / (m1 + m2)
   //
-  velocities.push([0, -v0 * args.masses[1] / totalMass, 0]);
+  velocities.push(0, -v0 * args.masses[1] / totalMass, 0);
 
   // Similarly, we calculate the speed of the second core:
   //
   //            v2 = r m1 / (m1 + m2)
-  velocities.push([0, v0 * args.masses[0] / totalMass, 0]);
+  velocities.push(0, v0 * args.masses[0] / totalMass, 0);
 
   // Loop through galaxy cores
   for(let galaxyNumber = 0; galaxyNumber < 2; galaxyNumber++) {
     // Calculate positions and velocities of the stars the galaxy
     let galaxy = galaxyStarsPositionsAndVelocities({
-        corePosition: positions[galaxyNumber],
-        coreVelocity: velocities[galaxyNumber],
+        corePosition: positions.slice(galaxyNumber*3, galaxyNumber*3 + 3),
+        coreVelocity: velocities.slice(galaxyNumber*3, galaxyNumber*3 + 3),
         coreMass: args.masses[galaxyNumber],
         galaxyAngle: args.galaxyInclinationAngles[galaxyNumber],
         numberOfRings: args.numberOfRings[galaxyNumber],
