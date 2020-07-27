@@ -129,7 +129,7 @@ export function galaxyStarsPositionsAndVelocities(args) {
       position = vector.add(args.corePosition, position);
 
       // Add star's position to the list
-      positions.concat(position);
+      positions.push(...position);
 
       // Calculate the velocity of the star relative to galaxy's centre
       var velocity = [
@@ -142,7 +142,7 @@ export function galaxyStarsPositionsAndVelocities(args) {
       velocity = vector.add(args.coreVelocity, velocity);
 
       // Store velocity in the list
-      velocities.concat(velocity);
+      velocities.push(...velocity);
     }
   }
 
@@ -309,8 +309,8 @@ export function allPositionsAndVelocities(args) {
     });
 
     // Add positions and velocities of the stars to the array
-    positions = positions.concat(galaxy.positions);
-    velocities = velocities.concat(galaxy.velocities);
+    positions.push(...galaxy.positions);
+    velocities.push(...galaxy.velocities);
   }
 
   return { positions, velocities };
