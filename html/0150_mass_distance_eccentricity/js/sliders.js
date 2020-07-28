@@ -11,7 +11,8 @@ function didChangeTimeStep(currentParams) {
 function didChangeRings(initialParams, currentParams, galaxyIndex, onRestart) {
   return function(value, position) {
     initialParams.numberOfRings[galaxyIndex] = value;
-    onRestart();
+    const reloadColors = true;
+    onRestart(reloadColors);
   };
 }
 

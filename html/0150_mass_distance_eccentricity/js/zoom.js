@@ -57,6 +57,7 @@ function stopTouch(state) {
  * @param  {object} currentParams Current parameters
  */
 export function updateCameraDistance(currentParams) {
+  if (currentParams.zoomState.cameraDistance !== null) return;
   // Find min and max x coordinates
   var xMin = 1e10;
   var xMax = -1e10;
@@ -79,7 +80,7 @@ export function updateCameraDistance(currentParams) {
 export function init(hudContainer) {
   var state = {
     touching: false,
-    cameraDistance: 100,
+    cameraDistance: null,
     fieldOfViewRadians: 60 * Math.PI / 180,
     maxCameraDistance: 50000,
     minCameraDistance: 10,

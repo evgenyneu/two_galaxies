@@ -31,11 +31,15 @@ function onNextFrame(drawData, initialParams, currentParams, fpsState) {
 }
 
 // Restart the simulation
-function restart(drawData, initialParams, currentParams) {
+function restart(drawData, initialParams, currentParams, reloadColors=false) {
   currentParams.positions = null;
   currentParams.velocities = null;
   currentParams.accelerations = null;
-  loadColors(drawData, initialParams);
+
+  // Recalculate the zoom
+  currentParams.zoomState.cameraDistance = null;
+
+  if (reloadColors) loadColors(drawData, initialParams);
 }
 
 function main(screenRefreshRateFPS) {
@@ -87,7 +91,7 @@ function main(screenRefreshRateFPS) {
   var drawData = initGraphics(initialParams);
 
   initUserInput(drawData, initialParams, currentParams,
-                onRestart => restart(drawData, initialParams, currentParams));
+    (reloadColors) => restart(drawData, initialParams, currentParams, reloadColors));
 
   var fpsState = showFps.init();
 

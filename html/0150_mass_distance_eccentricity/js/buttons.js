@@ -15,8 +15,6 @@ function stopClickPropagation(event, selector) {
   });
 }
 
-
-
 /**
  * Toggle visibility of the HTML elements: i.e. hide element if it's visible,
  * and show if it's hidden.
