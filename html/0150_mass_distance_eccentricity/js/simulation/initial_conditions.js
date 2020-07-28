@@ -238,7 +238,7 @@ export function allPositionsAndVelocities(args) {
   var bodies = totalNumberOfBodies(args.numberOfRings[0],
                                    args.numberOfRings[1]);
 
-  var positions = new Float32Array(bodies * 3);
+  var positions = new Float64Array(bodies * 3);
 
   // We have two galaxy cores. If we place the origin of coordinate system
   // at the center of their mass, positions are given by the equation:
