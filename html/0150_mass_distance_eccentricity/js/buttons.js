@@ -147,6 +147,7 @@ export function init(currentParams) {
       ".TwoGalaxies-sliderMass2"
     ],
     ".TwoGalaxies-distanceButton": [".TwoGalaxies-sliderDistance"],
+    ".TwoGalaxies-eccentricityButton": [".TwoGalaxies-sliderEccentricity"],
   };
 
   for (let buttonSelector in sliderButtonSelectors) {
