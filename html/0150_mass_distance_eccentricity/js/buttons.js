@@ -147,7 +147,8 @@ export function init(currentParams) {
     ".TwoGalaxies-massButton": [
       ".TwoGalaxies-sliderMass1",
       ".TwoGalaxies-sliderMass2"
-    ]
+    ],
+    ".TwoGalaxies-distanceButton": [".TwoGalaxies-sliderDistance"],
   };
 
   for (let buttonSelector in sliderButtonSelectors) {

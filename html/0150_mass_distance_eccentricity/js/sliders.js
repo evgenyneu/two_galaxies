@@ -21,6 +21,13 @@ function didChangeMass(initialParams, currentParams, galaxyIndex) {
   };
 }
 
+function didChangeDistance(initialParams, currentParams, onRestart) {
+  return function(value, position) {
+    initialParams.minimalGalaxySeparation = value;
+    onRestart();
+  };
+}
+
 export function setupSlider(initialParams, currentParams, onRestart) {
   SickSlider(".TwoGalaxies-sliderTimeStep", {
     label: 'Time step: ',
@@ -63,6 +70,17 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     value: initialParams.masses[1], min: 0, max: 10,
     decimalPlaces: 2,
     onChange: didChangeMass(initialParams, currentParams, 1),
+    visible: false
+  });
+
+  // Min distance between cores
+  // --------
+
+  SickSlider(".TwoGalaxies-sliderDistance", {
+    label: 'Galaxy separation: ',
+    value: initialParams.minimalGalaxySeparation, min: 0, max: 100,
+    decimalPlaces: 2,
+    onChange: didChangeDistance(initialParams, currentParams, onRestart),
     visible: false
   });
 }
