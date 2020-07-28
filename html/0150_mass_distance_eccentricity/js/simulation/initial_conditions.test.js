@@ -77,8 +77,6 @@ describe('Initial conditions', () => {
     expect(Array.from(positions.slice(0, 3))).to.deep.closeTo(
       [-2.2941176470588234, 0, 0], 1e-13);
 
-    return
-
     // Core 2
     expect(positions.slice(3, 6)).to.deep.closeTo(
       [3.2773109243697478, 0, 0], 1e-13);
@@ -92,18 +90,18 @@ describe('Initial conditions', () => {
     // --------
 
     // Two cores plus 120 stars in each galaxies
-    expect(velocities.length).to.equal(242);
+    expect(velocities.length).to.equal(726);
 
     // Core 1
-    expect(velocities[0]).to.deep.closeTo(
+    expect(velocities.slice(0, 3)).to.deep.closeTo(
       [0, -0.19030023115825126, 0], 1e-13);
 
     // Core 2
-    expect(velocities[1]).to.deep.closeTo(
+    expect(velocities.slice(3, 6)).to.deep.closeTo(
       [0, 0.2718574730832161, 0], 1e-13);
 
     // Last star
-    expect(velocities[241]).to.deep.closeTo(
+    expect(velocities.slice(241 * 3, 241 * 3 + 3)).to.deep.closeTo(
       [0.03722888956660431, 0.48460026258500988, -0.0046023866960218348], 1e-13);
   });
 });
