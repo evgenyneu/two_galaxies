@@ -143,6 +143,10 @@ export function init(currentParams) {
     ".TwoGalaxies-numberOfRingsButton": [
       ".TwoGalaxies-sliderRings1",
       ".TwoGalaxies-sliderRings2"
+    ],
+    ".TwoGalaxies-massButton": [
+      ".TwoGalaxies-sliderMass1",
+      ".TwoGalaxies-sliderMass2"
     ]
   };
 

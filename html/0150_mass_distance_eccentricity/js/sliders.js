@@ -15,6 +15,12 @@ function didChangeRings(initialParams, currentParams, galaxyIndex, onRestart) {
   };
 }
 
+function didChangeMass(initialParams, currentParams, galaxyIndex) {
+  return function(value, position) {
+    initialParams.masses[galaxyIndex] = value;
+  };
+}
+
 export function setupSlider(initialParams, currentParams, onRestart) {
   SickSlider(".TwoGalaxies-sliderTimeStep", {
     label: 'Time step: ',
@@ -22,6 +28,8 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     onChange: didChangeTimeStep(currentParams)
   });
 
+  // Number of rings
+  // --------
 
   SickSlider(".TwoGalaxies-sliderRings1", {
     label: 'Number of rings: ',
@@ -36,6 +44,25 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     value: initialParams.numberOfRings[1], min: 0, max: 150,
     decimalPlaces: 0,
     onChange: didChangeRings(initialParams, currentParams, 1, onRestart),
+    visible: false
+  });
+
+  // Mass
+  // --------
+
+  SickSlider(".TwoGalaxies-sliderMass1", {
+    label: 'Core mass: ',
+    value: initialParams.masses[0], min: 0, max: 10,
+    decimalPlaces: 2,
+    onChange: didChangeMass(initialParams, currentParams, 0),
+    visible: false
+  });
+
+  SickSlider(".TwoGalaxies-sliderMass2", {
+    label: 'Core mass: ',
+    value: initialParams.masses[1], min: 0, max: 10,
+    decimalPlaces: 2,
+    onChange: didChangeMass(initialParams, currentParams, 1),
     visible: false
   });
 }
