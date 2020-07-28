@@ -68,8 +68,9 @@ export default function drawScene(drawData, currentParams) {
   var aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
   var zNear = 1;
   var zFar = 100000;
-  var fieldOfViewRadians = degToRad(60);
-  var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
+
+  var projectionMatrix = m4.perspective(
+    currentParams.zoomState.fieldOfViewRadians, aspect, zNear, zFar);
 
   // Compute a matrix for the camera
   // ------------
@@ -108,8 +109,4 @@ function storePositions(drawData, positions) {
   // (creates a global variable inside WebGL)
   gl.bindBuffer(gl.ARRAY_BUFFER, drawData.positionBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-}
-
-function degToRad(d) {
-  return d * Math.PI / 180;
 }

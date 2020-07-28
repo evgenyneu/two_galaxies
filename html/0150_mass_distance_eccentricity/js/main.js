@@ -7,6 +7,7 @@ import * as simulation from './simulation.js';
 import { measureRefreshRate } from './refresh_rate.js';
 import {init as initUserInput} from './user_input.js';
 import * as showFps from './show_fps.js';
+import { updateCameraDistance } from './zoom.js';
 
 function onNextFrame(drawData, initialParams, currentParams, fpsState) {
   return function(now) {
@@ -15,6 +16,7 @@ function onNextFrame(drawData, initialParams, currentParams, fpsState) {
     if (currentParams.positions === null) { // First frame
       // calculate initial positions of the bodies
       simulation.setInitial(initialParams, currentParams);
+      updateCameraDistance(currentParams);
       console.log(`Number of bodies: ${currentParams.positions.length / 3}`);
     } else {
       // Update positions of the bodies at new time
@@ -75,7 +77,11 @@ function main(screenRefreshRateFPS) {
     fastForwardSeconds: 0,
 
     // Direction of time. 1 for forward, -1 for backward.
-    timeDirection: 1
+    timeDirection: 1,
+
+    // Objects containing zoom and rotation information
+    rotateState: null,
+    zoomState: null
   };
 
   var drawData = initGraphics(initialParams);
