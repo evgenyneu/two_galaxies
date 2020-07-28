@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>number_of_rings_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="45.0266925" cy="44.8952637" r="29.5"></circle>
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="44.913696" cy="44.9866243" r="10.0564773"></circle>
+        <circle id="Oval" stroke="#FFFFFF" stroke-dasharray="2,3" cx="44.1710339" cy="44.1710339" r="38.0863667"></circle>
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="44.908944" cy="44.8019443" r="19.8846593"></circle>
+    </g>
+</svg>
