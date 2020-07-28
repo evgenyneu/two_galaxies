@@ -22,7 +22,7 @@ describe('Initial conditions', () => {
       corePosition: [1, 0, 0],
       coreVelocity: [0, 1, 0],
       coreMass: 1,
-      galaxyAngle: 0.1,
+      galaxyAngleDegree: 0.1 * 180 / Math.PI,
       numberOfRings: 5,
       ringSeparation: 3
     };
@@ -64,7 +64,7 @@ describe('Initial conditions', () => {
       numberOfRings: [5, 5],
       ringSeparation: 3,
       minimalGalaxySeparation: 3,
-      galaxyInclinationAngles: [0.123, 0.123],
+      galaxyInclinationAnglesDegree: [0.123 * 180 / Math.PI, 0.123 * 180 / Math.PI],
       masses: [1, 0.7],
       eccentricity: 0.3
     };

@@ -57,8 +57,8 @@ export function numberOfStarsInAllRingsOneGalaxy(numberOfRings) {
   * @param  {array} corePosition  Position of the core
   * @param  {array} coreVelocity  Core velocity
   * @param  {number} coreMass     Mass of the core
-  * @param  {number} galaxyAngle  Inclination angle of the galaxy relative
-  *                               to the orbital plane of the core, in radians.
+  * @param  {number} galaxyAngleDegree  Inclination angle of the galaxy relative
+  *                               to the orbital plane of the core.
   * @param  {number} numberOfRings Number of rings in the galaxy
   * @param  {number} ringSeparation Separation between two rings
   * @return {object} An object { positions: [], velocities: [] }
@@ -71,6 +71,9 @@ export function galaxyStarsPositionsAndVelocities(args) {
   var positions = Array(stars * 3).fill(0);
   var velocities = Array(stars * 3).fill(0);
   var iStar = 0; // Stores index of current star
+
+  // Galaxy inclination angle
+  var galaxyAngleRadians = args.galaxyAngleDegree * Math.PI / 180;
 
   // Loop over the rings of the galaxy
   for(let ringNumber = 1; ringNumber <= args.numberOfRings; ringNumber++) {
@@ -137,12 +140,12 @@ export function galaxyStarsPositionsAndVelocities(args) {
 
       // Calculate the position of the current star relative to galaxy's centre
       positions[iStar * 3 + 0] = distanceFromCenter * Math.cos(starAngle) *
-                                 Math.cos(args.galaxyAngle);
+                                 Math.cos(galaxyAngleRadians);
 
       positions[iStar * 3 + 1] = distanceFromCenter * Math.sin(starAngle);
 
       positions[iStar * 3 + 2] = -distanceFromCenter * Math.cos(starAngle) *
-                                 Math.sin(args.galaxyAngle);
+                                 Math.sin(galaxyAngleRadians);
 
       // Add star's position to the position of the galaxy to find
       // the star's position in our coordinate system
@@ -153,12 +156,12 @@ export function galaxyStarsPositionsAndVelocities(args) {
 
       // Calculate the velocity of the star relative to galaxy's centre
       velocities[iStar * 3 + 0] = -starSpeed * Math.sin(starAngle) *
-                                  Math.cos(args.galaxyAngle);
+                                  Math.cos(galaxyAngleRadians);
 
       velocities[iStar * 3 + 1] = starSpeed * Math.cos(starAngle);
 
       velocities[iStar * 3 + 2] = starSpeed * Math.sin(starAngle) *
-                                  Math.sin(args.galaxyAngle);
+                                  Math.sin(galaxyAngleRadians);
 
       // Calculate star's velocity in our coordinate system
       velocities[iStar * 3 + 0] += args.coreVelocity[0];
@@ -185,9 +188,9 @@ export function galaxyStarsPositionsAndVelocities(args) {
  * @param  {number} ringSeparation  Distance between the rings.
  * @param  {number} minimalGalaxySeparation Minimal separation (periastron)
  *                      between the cores of two galaxies.
- * @param  {array} galaxyInclinationAngles Array containing inclination
+ * @param  {array} galaxyInclinationAnglesDegree Array containing inclination
  *                      angles two galaxies relative to orbital plane
- *                      of two cores, in radians, i.e. [0.1, 0.2].
+ *                      of two cores, i.e. [30, 60].
  * @param  {array} masses         The masses of the two cores, i.e. [1, 1.5]
  * @param  {type} eccentricity    The eccentricity of orbit of one core when
  *                                viewed from the other core.
@@ -332,7 +335,7 @@ export function allPositionsAndVelocities(args) {
         corePosition: positions.slice(galaxyNumber*3, galaxyNumber*3 + 3),
         coreVelocity: velocities.slice(galaxyNumber*3, galaxyNumber*3 + 3),
         coreMass: args.masses[galaxyNumber],
-        galaxyAngle: args.galaxyInclinationAngles[galaxyNumber],
+        galaxyAngleDegree: args.galaxyInclinationAnglesDegree[galaxyNumber],
         numberOfRings: args.numberOfRings[galaxyNumber],
         ringSeparation: args.ringSeparation
     });

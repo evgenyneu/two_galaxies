@@ -148,6 +148,10 @@ export function init(currentParams) {
     ],
     ".TwoGalaxies-distanceButton": [".TwoGalaxies-sliderDistance"],
     ".TwoGalaxies-eccentricityButton": [".TwoGalaxies-sliderEccentricity"],
+    ".TwoGalaxies-angleButton": [
+      ".TwoGalaxies-sliderAngle1",
+      ".TwoGalaxies-sliderAngle2"
+    ]
   };
 
   for (let buttonSelector in sliderButtonSelectors) {

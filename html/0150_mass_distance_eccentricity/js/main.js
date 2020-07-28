@@ -49,7 +49,7 @@ function main(screenRefreshRateFPS) {
     colors: [[255, 127, 0], [0, 100, 255]],
     ringSeparation: 3,
     minimalGalaxySeparation: 25,
-    galaxyInclinationAngles: [60 * Math.PI / 180, 60 * Math.PI / 180],
+    galaxyInclinationAnglesDegree: [60, 60],
     masses: [1, 1],
     eccentricity: 0.6
   };

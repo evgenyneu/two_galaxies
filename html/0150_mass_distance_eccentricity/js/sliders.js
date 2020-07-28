@@ -25,14 +25,24 @@ function didChangeMass(initialParams, currentParams, galaxyIndex) {
 function didChangeDistance(initialParams, currentParams, onRestart) {
   return function(value, position) {
     initialParams.minimalGalaxySeparation = value;
-    onRestart();
+    const reloadColors = false;
+    onRestart(reloadColors);
   };
 }
 
 function didChangeEccentricity(initialParams, currentParams, onRestart) {
   return function(value, position) {
     initialParams.eccentricity = value;
-    onRestart();
+    const reloadColors = false;
+    onRestart(reloadColors);
+  };
+}
+
+function didChangeAngle(initialParams, currentParams, galaxyIndex, onRestart) {
+  return function(value, position) {
+    initialParams.galaxyInclinationAnglesDegree[galaxyIndex] = value;
+    const reloadColors = false;
+    onRestart(reloadColors);
   };
 }
 
@@ -100,6 +110,28 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     value: initialParams.eccentricity, min: 0, max: 0.99,
     decimalPlaces: 2,
     onChange: didChangeEccentricity(initialParams, currentParams, onRestart),
+    visible: false
+  });
+
+
+  // Galaxy inclination
+  // --------
+
+  SickSlider(".TwoGalaxies-sliderAngle1", {
+    label: 'Galaxy inclination: ',
+    labelSuffix: '°',
+    value: initialParams.galaxyInclinationAnglesDegree[0], min: 0, max: 360,
+    decimalPlaces: 0,
+    onChange: didChangeAngle(initialParams, currentParams, 0, onRestart),
+    visible: false
+  });
+
+  SickSlider(".TwoGalaxies-sliderAngle2", {
+    label: 'Galaxy inclination: ',
+    labelSuffix: '°',
+    value: initialParams.galaxyInclinationAnglesDegree[1], min: 0, max: 360,
+    decimalPlaces: 0,
+    onChange: didChangeAngle(initialParams, currentParams, 1, onRestart),
     visible: false
   });
 }
