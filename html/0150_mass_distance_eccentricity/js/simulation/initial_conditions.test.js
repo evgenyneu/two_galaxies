@@ -13,6 +13,10 @@ describe('Initial conditions', () => {
     expect(init.numberOfStarsInAllRingsOneGalaxy(5)).to.equal(120);
   });
 
+  it('totalNumberOfBodies', () => {
+    expect(init.totalNumberOfBodies(3, 8)).to.equal(320);
+  });
+
   it('galaxyStarsPositionsAndVelocities', () => {
     const args = {
       corePosition: [1, 0, 0],
