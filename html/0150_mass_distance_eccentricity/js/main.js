@@ -39,7 +39,7 @@ function restart(drawData, initialParams, currentParams) {
 function main(screenRefreshRateFPS) {
   // Initial parameters of the simulation, they can't be changed without restart
   var initialParams = {
-    numberOfRings: [150, 150],
+    numberOfRings: [5, 5],
     colors: [[255, 127, 0], [0, 100, 255]],
     ringSeparation: 3,
     minimalGalaxySeparation: 25,
