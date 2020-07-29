@@ -9,6 +9,8 @@
   display: block;
 }
 
+.TwoGalaxies--isHidden { display: none; }
+
 /*
   Hud display
   ---------
@@ -116,4 +118,22 @@
   Share
   ---------
 */
-.TwoGalaxies-shareContainer--isHidden { display: none; }
+
+.TwoGalaxies-shareText {
+    width: 100%;
+    min-height:60px;
+    color: #555;
+
+    /* large font to prevent iOS from zooming in */
+    font-size: 12px;
+}
+
+.TwoGalaxies-copyToClipboardButton {
+    -webkit-appearance: none;
+    height: 40px;
+    font-size: 16px;
+    color: #555;
+    background-color:#fff;
+    border: solid #555 1px;
+    border-radius: 5px;
+}

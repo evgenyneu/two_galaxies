@@ -12,8 +12,10 @@
 /* Margins
 ----------------- */
 
+.hasTopMarginNormal { margin-top: var(--iiMarginNormal); }
 .hasTopMarginSmall { margin-top: var(--iiMarginSmall); }
 .hasBottomMarginSmall { margin-bottom: var(--iiMarginSmall); }
+.hasBottomMarginMini { margin-bottom: var(--iiMarginMini); }
 .hasMarginSmall { margin: var(--iiMarginSmall); }
 
 .hasHorizontalMarginsSmall {
