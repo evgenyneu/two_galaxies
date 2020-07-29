@@ -7,7 +7,7 @@ import * as buttons from './buttons.js';
 
 export function init(drawData, initialParams, currentParams, onRestart) {
   sliders.setupSlider(initialParams, currentParams, onRestart);
-  buttons.init(currentParams);
+  buttons.init(initialParams, currentParams);
 
   // Rotation
   // --------

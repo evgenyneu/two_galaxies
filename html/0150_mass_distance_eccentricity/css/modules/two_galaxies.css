@@ -110,3 +110,10 @@
 
 .TwoGalaxies-sliderColor1 .SickSlider-head { border-color: #ff9900; }
 .TwoGalaxies-sliderColor2 .SickSlider-head { border-color: #0099ff; }
+
+
+/*
+  Share
+  ---------
+*/
+.TwoGalaxies-shareContainer--isHidden { display: none; }

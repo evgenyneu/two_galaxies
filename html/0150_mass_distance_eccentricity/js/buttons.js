@@ -78,12 +78,31 @@ function didClickFastForward(currentParams, fastForwardSeconds) {
   };
 }
 
+function didClickShare(currentParams) {
+  return (e) => {
+    hideAllControls();
+
+    var container = document.querySelector(".TwoGalaxies-shareContainer");
+    container.classList.remove("TwoGalaxies-shareContainer--isHidden");
+
+    return false; // Prevent default
+  };
+}
+
+function hideAllControls() {
+  var sliders = document.querySelectorAll(".SickSlider");
+
+  // Hide all sliders
+  sliders.forEach((slider) => slider.classList.add("SickSlider--isHidden"));
+
+  // Hide share container
+  var container = document.querySelector(".TwoGalaxies-shareContainer");
+  container.classList.add("TwoGalaxies-shareContainer--isHidden");
+}
+
 function didClickSliderButton(selectors) {
   return (e) => {
-    var sliders = document.querySelectorAll(".SickSlider");
-
-    // Hide all sliders
-    sliders.forEach((slider) => slider.classList.add("SickSlider--isHidden"));
+    hideAllControls();
 
     // Show the current sliders
     selectors.forEach((selector) => {
@@ -99,7 +118,7 @@ function initSliderButton(buttonSelector, sliderSelectors) {
   button.onclick = didClickSliderButton(sliderSelectors);
 }
 
-export function init(currentParams) {
+export function init(initialParams, currentParams) {
   var button = document.querySelector(".TwoGalaxies-reloadButton");
   button.onclick = didClickReload(currentParams);
 
@@ -132,6 +151,12 @@ export function init(currentParams) {
   fastForwardSeconds = -5;
   button = document.querySelector(".TwoGalaxies-fastBackwardButton");
   button.onclick = didClickFastForward(currentParams, fastForwardSeconds);
+
+  // Share
+  // --------
+
+  button = document.querySelector(".TwoGalaxies-shareButton");
+  button.onclick = didClickShare(currentParams);
 
   // Buttons for showing sliders
   // -----------
