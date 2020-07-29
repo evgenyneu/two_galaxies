@@ -46,6 +46,14 @@ function didChangeAngle(initialParams, currentParams, galaxyIndex, onRestart) {
   };
 }
 
+function didChangeRingSeparation(initialParams, currentParams, onRestart) {
+  return function(value, position) {
+    initialParams.ringSeparation = value;
+    const reloadColors = false;
+    onRestart(reloadColors);
+  };
+}
+
 export function setupSlider(initialParams, currentParams, onRestart) {
   SickSlider(".TwoGalaxies-sliderTimeStep", {
     label: 'Time step: ',
@@ -132,6 +140,17 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     value: initialParams.galaxyInclinationAnglesDegree[1], min: 0, max: 360,
     decimalPlaces: 0,
     onChange: didChangeAngle(initialParams, currentParams, 1, onRestart),
+    visible: false
+  });
+
+  // Ring separation
+  // --------
+
+  SickSlider(".TwoGalaxies-sliderRingSeparation", {
+    label: 'Ring separation: ',
+    value: initialParams.ringSeparation, min: 0.1, max: 10,
+    decimalPlaces: 1,
+    onChange: didChangeRingSeparation(initialParams, currentParams, onRestart),
     visible: false
   });
 }

@@ -6,12 +6,10 @@
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <text id="d" font-family="Palatino-Bold, Palatino" font-size="30" font-weight="bold" fill="#FFFFFF">
-            <tspan x="35.0194455" y="40.7894631">d</tspan>
+            <tspan x="35.0194455" y="39.7894631">d</tspan>
         </text>
-        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="16" cy="45" r="5"></circle>
-        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="74" cy="45" r="5"></circle>
-        <path d="M25.9965755,45.5 L64.003289,45.5" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
-        <polyline id="Path-2" stroke="#FFFFFF" stroke-width="2" points="58.9247149 40.5434892 65.1666677 45.364911 58.9247149 51.0507609"></polyline>
-        <polyline id="Path-2" stroke="#FFFFFF" stroke-width="2" transform="translate(28.120976, 45.797125) scale(-1, 1) translate(-28.120976, -45.797125) " points="25 40.5434892 31.2419527 45.364911 25 51.0507609"></polyline>
+        <path d="M14,45.5 L76,45.5" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+        <polyline id="Path-2" stroke="#FFFFFF" stroke-width="2" points="71.9247149 40.5434892 78.1666677 45.364911 71.9247149 51.0507609"></polyline>
+        <polyline id="Path-2" stroke="#FFFFFF" stroke-width="2" transform="translate(15.120976, 45.797125) scale(-1, 1) translate(-15.120976, -45.797125) " points="12 40.5434892 18.2419527 45.364911 12 51.0507609"></polyline>
     </g>
 </svg>
