@@ -1,3 +1,4 @@
+// Charing the URL to the simulation with all selected parameters
 
 /**
  * Parse a string into a float.
@@ -35,6 +36,12 @@ let permittedInitialKeys = {
   "ringSeparation": readFloat
 };
 
+
+/**
+ * Returns the full URL to the simulation for sharing containing
+ * all the selected parameters
+ *
+ */
 export function getShareURL(initialParams, currentParams) {
   let urlParams = getUrlParameters(initialParams, currentParams);
   let urlStart = getCurrentUrlWithoutParameters();
