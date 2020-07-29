@@ -8,6 +8,7 @@ import { measureRefreshRate } from './refresh_rate.js';
 import {init as initUserInput} from './user_input.js';
 import * as showFps from './show_fps.js';
 import { updateCameraDistance } from './zoom.js';
+import { getInitialParameters } from './share.js';
 
 function onNextFrame(drawData, initialParams, currentParams, fpsState) {
   return function(now) {
@@ -53,6 +54,8 @@ function main(screenRefreshRateFPS) {
     masses: [1, 1],
     eccentricity: 0.6
   };
+
+  initialParams = getInitialParameters(initialParams);
 
   // Parameters that can change during the simulation
   var currentParams = {

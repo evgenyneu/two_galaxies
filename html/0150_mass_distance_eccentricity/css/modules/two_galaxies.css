@@ -123,8 +123,6 @@
     width: 100%;
     min-height:60px;
     color: #555;
-
-    /* large font to prevent iOS from zooming in */
     font-size: 12px;
 }
 
