@@ -15,7 +15,7 @@ export function init() {
     fpsAverage: 1
   };
 
-  state.label = document.querySelector(".TwoGalaxies-rightTopFPS");
+  state.label = document.querySelector(".TwoGalaxies-FPS");
 
   return state;
 }

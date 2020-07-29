@@ -52,12 +52,12 @@
   ---------
 */
 
-.TwoGalaxies-rightTopFPS {
-    color: #ffffff88;
-    font-size: 12px;
+.TwoGalaxies-FPS {
+    color: #666666;
+    font-size: 11px;
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: 3px;
+    bottom: -14px;
 }
 
 /*
@@ -65,18 +65,12 @@
   ---------
 */
 
-.TwoGalaxies-leftBottomButtonContainer,
-.TwoGalaxies-rightBottomButtonContainer {
+.TwoGalaxies-leftBottomButtonContainer {
   position: absolute;
   display: block;
   left: 5px;
   bottom: 5px;
   height: 45px;
-}
-
-.TwoGalaxies-rightBottomButtonContainer {
-    right: 5px;
-    left: auto;
 }
 
 .TwoGalaxies-doesChangeOpacityOnHover {
@@ -94,12 +88,18 @@
   ---------
 */
 
-.TwoGalaxies-leftTopButtonContainer {
+.TwoGalaxies-leftTopButtonContainer,
+.TwoGalaxies-rightTopButtonContainer {
     position: absolute;
     display: block;
     left: 5px;
     top: 5px;
     height: 45px;
+}
+
+.TwoGalaxies-rightTopButtonContainer {
+    right: 5px;
+    left: auto;
 }
 
 
