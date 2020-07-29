@@ -1,5 +1,8 @@
 // Handle button clicks
 
+import { getShareURL } from './share.js';
+
+
 /**
   * Stop propagation of events from elements defined by `selector`
   * to their parents.
@@ -78,12 +81,16 @@ function didClickFastForward(currentParams, fastForwardSeconds) {
   };
 }
 
-function didClickShare(currentParams) {
+function didClickShare(initialParams, currentParams) {
   return (e) => {
     hideAllControls();
 
     var container = document.querySelector(".TwoGalaxies-shareContainer");
     container.classList.remove("TwoGalaxies-shareContainer--isHidden");
+
+    let url = getShareURL(initialParams, currentParams);
+
+    container.innerText = url;
 
     return false; // Prevent default
   };
@@ -156,7 +163,7 @@ export function init(initialParams, currentParams) {
   // --------
 
   button = document.querySelector(".TwoGalaxies-shareButton");
-  button.onclick = didClickShare(currentParams);
+  button.onclick = didClickShare(initialParams, currentParams);
 
   // Buttons for showing sliders
   // -----------
