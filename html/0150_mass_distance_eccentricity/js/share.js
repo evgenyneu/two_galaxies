@@ -94,7 +94,9 @@ export function getShareURL(initialParams, currentParams) {
  */
 export function getUrlParameters(initialParams, currentParams) {
   initialParams = filterInitialParams(initialParams);
+  initialParams = prepareParamsForSharing(initialParams, sharedInitialParams);
   currentParams = filterCurrentParams(currentParams);
+  currentParams = prepareParamsForSharing(currentParams, sharedCurrentParams);
   var allParams = Object.assign(initialParams, currentParams);
   return new URLSearchParams(allParams).toString();
 }
@@ -120,7 +122,6 @@ export function filterCurrentParams(currentParams) {
   return filterParams(sharedCurrentParams, currentParams);
 }
 
-
 /**
  * Keeps only parameters permitted for sharing.
  *
@@ -139,6 +140,25 @@ function filterParams(sharedParams, allParams) {
   }
 
   return filtered;
+}
+
+export function prepareParamsForSharing(params, sharedParams) {
+  let result = {};
+
+  for (let key in params) {
+    if (key in sharedParams) {
+      let sharedSettings = sharedParams[key];
+      if ("storeFunction" in sharedSettings) {
+        result[key] = sharedSettings.storeFunction(params[key]);
+      } else {
+        result[key] = params[key];
+      }
+    } else {
+      result[key] = params[key];
+    }
+  }
+
+  return result;
 }
 
 function getCurrentUrlWithoutParameters() {

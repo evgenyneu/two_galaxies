@@ -2,7 +2,8 @@ import {
   getShareURL, filterInitialParams, filterCurrentParams,
   getUrlParameters, getInitialParameters,
   getInitialParametersFromUrl, getCurrentParametersFromUrl,
-  readArrayOfFloats, readFloat, roundArray, roundN
+  readArrayOfFloats, readFloat, roundArray, roundN,
+  prepareParamsForSharing
 } from './share.js';
 
 import m4 from './simulation/m4.js';
@@ -231,5 +232,26 @@ describe('roundArray', () => {
     let result = fn([1.234567, 2.6789012345]);
 
     expect(result).to.deep.equal([1.23, 2.68]);
+  });
+});
+
+describe('prepareParamsForSharing', () => {
+  it('rounds values in the array', () => {
+    let params = {
+      "name": [1.234567, 2.345]
+    };
+
+    let sharedParams = {
+      "name": {
+        storeFunction: roundArray(2)
+      }
+    };
+
+    let result = prepareParamsForSharing(params, sharedParams);
+
+    expect(result.name).to.deep.equal([1.23, 2.35]);
+
+    // Input is unchanged
+    expect(params.name).to.deep.equal([1.234567, 2.345]);
   });
 });
