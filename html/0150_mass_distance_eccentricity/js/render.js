@@ -91,7 +91,7 @@ export default function drawScene(drawData, currentParams) {
   var viewProjectionMatrix = m4.multiply(projectionMatrix, viewMatrix);
 
   // Set the matrix.
-  var uMatrix = m4.multiply(viewProjectionMatrix, currentParams.rotateState.worldMatrix);
+  var uMatrix = m4.multiply(viewProjectionMatrix, currentParams.rotationMatrix);
   gl.uniformMatrix4fv(drawData.matrixLocation, false, uMatrix);
 
   // Draw the geometry.

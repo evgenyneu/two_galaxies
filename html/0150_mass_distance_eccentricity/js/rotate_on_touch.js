@@ -19,7 +19,7 @@ function startTouching(state, e) {
   if (e.targetTouches.length === 1) startMoving(state, e.targetTouches[0]);
 }
 
-function move(state, e) {
+function move(state, currentParams, e) {
   if (!state.moving) return;
   if (!state.lastPosition) return;
 
@@ -28,13 +28,16 @@ function move(state, e) {
     e.pageY - state.lastPosition[1]
   ];
 
-  state.worldMatrix = m4.multiply(m4.xRotation(delta[1] / 100), state.worldMatrix);
-  state.worldMatrix = m4.multiply(m4.yRotation(delta[0] / 100), state.worldMatrix);
+  currentParams.rotationMatrix = m4.multiply(m4.xRotation(delta[1] / 100),
+                                             currentParams.rotationMatrix);
+
+  currentParams.rotationMatrix = m4.multiply(m4.yRotation(delta[0] / 100),
+                                             currentParams.rotationMatrix);
 
   state.lastPosition = [e.pageX, e.pageY];
 }
 
-function touchMove(state, e) {
+function touchMove(state, currentParams, e) {
   if (e.targetTouches.length === 2) {
     // Touching with two fingers.
     // This is a pinch/zoom gesture, not rotation
@@ -42,7 +45,9 @@ function touchMove(state, e) {
   }
 
   // Single finger touch
-  if (e.targetTouches.length === 1) move(state, e.targetTouches[0]);
+  if (e.targetTouches.length === 1) {
+    move(state, currentParams, e.targetTouches[0]);
+  }
 }
 
 function stopMoving(state) {
@@ -50,14 +55,15 @@ function stopMoving(state) {
   if (state.didStopRotating) state.didStopRotating();
 }
 
-export function init(hudContainer) {
+export function init(hudContainer, currentParams) {
   var state = {
     moving: false,
     lastPosition: null,
-    worldMatrix: m4.indentity(),
     didStartRotating: null, // callback
     didStopRotating: null // callback
   };
+
+  currentParams.rotationMatrix = m4.indentity();
 
   // Start moving
   // -----------------
@@ -68,8 +74,8 @@ export function init(hudContainer) {
   // Move
   // -----------------
 
-  document.addEventListener("mousemove", (e) => move(state, e));
-  document.addEventListener("touchmove", (e) => touchMove(state, e));
+  document.addEventListener("mousemove", (e) => move(state, currentParams, e));
+  document.addEventListener("touchmove", (e) => touchMove(state, currentParams, e));
 
   hudContainer.addEventListener("touchmove", (e) => {
     if (typeof e.preventDefault !== 'undefined' && e.preventDefault !== null) {

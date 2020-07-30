@@ -13,10 +13,9 @@ export function init(drawData, initialParams, currentParams, onRestart) {
   // --------
 
   var hudContainer = document.querySelector(".TwoGalaxies-hudContainer");
-  var rotateState = rotate.init(hudContainer);
+  var rotateState = rotate.init(hudContainer, currentParams);
   rotateState.didStartRotating = () => currentParams.rotating = true;
   rotateState.didStopRotating = () => currentParams.rotating = false;
-  currentParams.rotateState = rotateState;
 
   // Zoom
   // -------
