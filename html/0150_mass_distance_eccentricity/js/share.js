@@ -136,7 +136,7 @@ export function getInitialParametersFromUrl(urlParams, defaultParams) {
  * Get the current parameters from the URL string.
  *
  * @param  {object} defaultParams  Default parameters used when  absent in URL.
- * @return {object} Parameters that will be used in the simulation.
+ * @return {object} Parsed parameters that will be used in the simulation
  */
 export function getCurrentParameters(defaultParams) {
   return getCurrentParametersFromUrl(location.search, defaultParams);
@@ -148,12 +148,23 @@ export function getCurrentParameters(defaultParams) {
  * @param  {string} urlParams URL parameters,
  *    for example "rotationMatrix=1%2C0%2C0%2C0"
  * @param  {object} defaultParams Default parameters used when absent in URL.
- * @return {object} Parameters that will be used in the simulation.
+ * @return {object} Parsed parameters that will be used in the simulation
  */
 export function getCurrentParametersFromUrl(urlParams, defaultParams) {
   return getParametersFromUrl(urlParams, defaultParams, sharedCurrentParams);
 }
 
+
+/**
+ * Parse parameters from the URL string.
+ *
+ * @param  {string} urlParams URL parameters,
+ *    for example "rotationMatrix=1%2C0%2C0%2C0"
+ * @param  {object} defaultParams Default parameters used when absent in URL.
+ * @param  {object} sharedParams Parameters permitted for sharing and parsing
+ *      functions. Can be sharedCurrentParams or sharedInitialParams object.
+ * @return {object} Parsed parameters that will be used in the simulation.
+ */
 function getParametersFromUrl(urlParams, defaultParams, sharedParams) {
   let parsed = new URLSearchParams(urlParams);
 
