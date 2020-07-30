@@ -1,8 +1,11 @@
 import {
   getShareURL, filterInitialParams, filterCurrentParams,
-  getUrlParameters, getInitialParameters, getInitialParameterFromUrl,
+  getUrlParameters, getInitialParameters,
+  getInitialParameterFromUrl, getCurrentParameterFromUrl,
   readArrayOfFloats, readFloat
 } from './share.js';
+
+import m4 from './simulation/m4.js';
 
 var expect = chai.expect;
 
@@ -139,6 +142,46 @@ describe('getInitialParameterFromUrl', () => {
 
     expect(result.ringSeparation).to.equal(8);
     expect(result.numberOfRings).to.deep.equal([5, 6]);
+    expect(result.another).to.equal(23);
+  });
+});
+
+describe('getCurrentParameterFromUrl', () => {
+  it('load current parameters from URL', () => {
+    let currentParams = {
+      rotationMatrix: m4.identity(),
+      another: 23
+    };
+
+    let urlParams = "?rotationMatrix=1.2%2C0%2C0%2C0%2C0%2C1.3%2C0%2C0%2C0%2C0%2C1%2C0%2C0%2C0%2C0.9%2C1";
+    let result = getCurrentParameterFromUrl(urlParams, currentParams);
+
+    console.log(result.rotationMatrix);
+
+    expect(result.rotationMatrix).to.deep.closeTo([
+       1.2,  0,  0,  0,
+       0,  1.3,  0,  0,
+       0,  0,    1,  0,
+       0,  0,  0.9,  1
+    ], 1e-13);
+
+    expect(result.another).to.equal(23);
+
+    // Keep default unchanged
+    expect(currentParams.rotationMatrix).to.deep.equal(m4.identity());
+    expect(currentParams.another).to.equal(23);
+  });
+
+  it('used default when empty', () => {
+    let currentParams = {
+      rotationMatrix: m4.identity(),
+      another: 23
+    };
+
+    let urlParams = "?rotationMatrix=";
+    let result = getCurrentParameterFromUrl(urlParams, currentParams);
+
+    expect(result.rotationMatrix).to.deep.equal(m4.identity());
     expect(result.another).to.equal(23);
   });
 });

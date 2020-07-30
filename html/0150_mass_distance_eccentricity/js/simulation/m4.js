@@ -32,7 +32,7 @@ function subtractVectors(a, b) {
 }
 
 var m4 = {
-  indentity: function() {
+  identity: function() {
     return [
        1,  0,  0,  0,
        0,  1,  0,  0,

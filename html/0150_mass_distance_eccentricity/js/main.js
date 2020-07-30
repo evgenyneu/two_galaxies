@@ -8,7 +8,7 @@ import { measureRefreshRate } from './refresh_rate.js';
 import {init as initUserInput} from './user_input.js';
 import * as showFps from './show_fps.js';
 import { updateCameraDistance } from './zoom.js';
-import { getInitialParameters } from './share.js';
+import { getInitialParameters, getCurrentParameters } from './share.js';
 import m4 from './simulation/m4.js';
 
 
@@ -89,9 +89,11 @@ function main(screenRefreshRateFPS) {
     timeDirection: 1,
 
     // Matrix for handling rotation of the scene by the user
-    rotationMatrix: m4.indentity(),
+    rotationMatrix: m4.identity(),
     zoomState: null
   };
+
+  // currentParams = getCurrentParameters(currentParams);
 
   var drawData = initGraphics(initialParams);
 

@@ -64,20 +64,23 @@ export function getUrlParameters(initialParams, currentParams) {
   return new URLSearchParams(allParams).toString();
 }
 
-
+/**
+ * Get the initial parameters from the URL string.
+ *
+ * @param  {object} defaultParams  Default initial parameter used when absent in URL.
+ * @return {object} Parameters that will be used in the simulation.
+ */
 export function getInitialParameters(defaultParams) {
   return getInitialParameterFromUrl(location.search, defaultParams);
 }
-
 
 /**
  * Get the initial parameters from the URL string.
  *
  * @param  {string} urlParams URL parameters,
  *    for example "numberOfRings=24%2C2&ringSeparation=2"
- * @param  {object} defaultParams Default initial parameter used when
- *    absent in URL.
- * @return {object} Initial parameters that will be used in the simulation.
+ * @param  {object} defaultParams Default parameters used when absent in URL.
+ * @return {object} Parameters that will be used in the simulation.
  */
 export function getInitialParameterFromUrl(urlParams, defaultParams) {
   let parsed = new URLSearchParams(urlParams);
@@ -97,6 +100,44 @@ export function getInitialParameterFromUrl(urlParams, defaultParams) {
   }
 
   return initialParams;
+}
+
+/**
+ * Get the current parameters from the URL string.
+ *
+ * @param  {object} defaultParams  Default parameters used when  absent in URL.
+ * @return {object} Parameters that will be used in the simulation.
+ */
+export function getCurrentParameters(defaultParams) {
+  return getCurrentParameterFromUrl(location.search, defaultParams);
+}
+
+/**
+ * Get the current parameters from the URL string.
+ *
+ * @param  {string} urlParams URL parameters,
+ *    for example "rotationMatrix=1%2C0%2C0%2C0"
+ * @param  {object} defaultParams Default parameters used when absent in URL.
+ * @return {object} Parameters that will be used in the simulation.
+ */
+export function getCurrentParameterFromUrl(urlParams, defaultParams) {
+  let parsed = new URLSearchParams(urlParams);
+
+  var currentParams = Object.assign({}, defaultParams);
+
+  for (let key in sharedCurrentParams) {
+    let parseFunction = sharedCurrentParams[key];
+
+    if (parsed.has(key)) {
+      let parsedValue = parseFunction(parsed.get(key));
+
+      if (parsedValue !== null) {
+        currentParams[key] = parsedValue;
+      }
+    }
+  }
+
+  return currentParams;
 }
 
 
