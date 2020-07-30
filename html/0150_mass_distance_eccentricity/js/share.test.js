@@ -1,7 +1,7 @@
 import {
   getShareURL, filterInitialParams, filterCurrentParams,
   getUrlParameters, getInitialParameters,
-  getInitialParameterFromUrl, getCurrentParameterFromUrl,
+  getInitialParametersFromUrl, getCurrentParametersFromUrl,
   readArrayOfFloats, readFloat
 } from './share.js';
 
@@ -110,7 +110,7 @@ describe('filterCurrentParams', () => {
   });
 });
 
-describe('getInitialParameterFromUrl', () => {
+describe('getInitialParametersFromUrl', () => {
   it('load initial parameters from URL', () => {
     let initialParams = {
       numberOfRings: [5, 6],
@@ -119,7 +119,7 @@ describe('getInitialParameterFromUrl', () => {
     };
 
     let urlParams = "?numberOfRings=3%2C5&ringSeparation=2.8";
-    let result = getInitialParameterFromUrl(urlParams, initialParams);
+    let result = getInitialParametersFromUrl(urlParams, initialParams);
 
     expect(result.ringSeparation).to.equal(2.8);
     expect(result.numberOfRings).to.deep.equal([3, 5]);
@@ -138,7 +138,7 @@ describe('getInitialParameterFromUrl', () => {
     };
 
     let urlParams = "?numberOfRings=&ringSeparation=";
-    let result = getInitialParameterFromUrl(urlParams, initialParams);
+    let result = getInitialParametersFromUrl(urlParams, initialParams);
 
     expect(result.ringSeparation).to.equal(8);
     expect(result.numberOfRings).to.deep.equal([5, 6]);
@@ -146,7 +146,7 @@ describe('getInitialParameterFromUrl', () => {
   });
 });
 
-describe('getCurrentParameterFromUrl', () => {
+describe('getCurrentParametersFromUrl', () => {
   it('load current parameters from URL', () => {
     let currentParams = {
       rotationMatrix: m4.identity(),
@@ -154,7 +154,7 @@ describe('getCurrentParameterFromUrl', () => {
     };
 
     let urlParams = "?rotationMatrix=1.2%2C0%2C0%2C0%2C0%2C1.3%2C0%2C0%2C0%2C0%2C1%2C0%2C0%2C0%2C0.9%2C1";
-    let result = getCurrentParameterFromUrl(urlParams, currentParams);
+    let result = getCurrentParametersFromUrl(urlParams, currentParams);
 
     console.log(result.rotationMatrix);
 
@@ -179,7 +179,7 @@ describe('getCurrentParameterFromUrl', () => {
     };
 
     let urlParams = "?rotationMatrix=";
-    let result = getCurrentParameterFromUrl(urlParams, currentParams);
+    let result = getCurrentParametersFromUrl(urlParams, currentParams);
 
     expect(result.rotationMatrix).to.deep.equal(m4.identity());
     expect(result.another).to.equal(23);

@@ -64,6 +64,52 @@ export function getUrlParameters(initialParams, currentParams) {
   return new URLSearchParams(allParams).toString();
 }
 
+
+/**
+ * Keeps only permitted initial parameters that will be used for sharing.
+ *
+ * @param  {object} initialParams The initial parameters.
+ * @return {object} Initial parameters containing only permitted attributes.
+ */
+export function filterInitialParams(initialParams) {
+  return filterParams(sharedInitialParams, initialParams);
+}
+
+/**
+ * Keeps only permitted current parameters that will be used for sharing.
+ *
+ * @param  {object} currentParams The current parameters.
+ * @return {object} Current parameters containing only permitted attributes.
+ */
+export function filterCurrentParams(currentParams) {
+  return filterParams(sharedCurrentParams, currentParams);
+}
+
+
+/**
+ * Keeps only parameters permitted for sharing.
+ *
+ * @param  {object} sharedParams Object with keys that are the names of
+ *   parameters that are suitable for sharing.
+ * @param  {object} allParams Object containing all parameters
+ * @return {object} Clone of `allParams` that only contains permitted parameters.
+ */
+function filterParams(sharedParams, allParams) {
+  let filtered = {};
+
+  for (let key in sharedParams) {
+    if (key in allParams) {
+      filtered[key] = allParams[key];
+    }
+  }
+
+  return filtered;
+}
+
+function getCurrentUrlWithoutParameters() {
+  return location.protocol + '//' + location.host + location.pathname;
+}
+
 /**
  * Get the initial parameters from the URL string.
  *
@@ -71,7 +117,7 @@ export function getUrlParameters(initialParams, currentParams) {
  * @return {object} Parameters that will be used in the simulation.
  */
 export function getInitialParameters(defaultParams) {
-  return getInitialParameterFromUrl(location.search, defaultParams);
+  return getInitialParametersFromUrl(location.search, defaultParams);
 }
 
 /**
@@ -82,7 +128,7 @@ export function getInitialParameters(defaultParams) {
  * @param  {object} defaultParams Default parameters used when absent in URL.
  * @return {object} Parameters that will be used in the simulation.
  */
-export function getInitialParameterFromUrl(urlParams, defaultParams) {
+export function getInitialParametersFromUrl(urlParams, defaultParams) {
   let parsed = new URLSearchParams(urlParams);
 
   var initialParams = Object.assign({}, defaultParams);
@@ -109,7 +155,7 @@ export function getInitialParameterFromUrl(urlParams, defaultParams) {
  * @return {object} Parameters that will be used in the simulation.
  */
 export function getCurrentParameters(defaultParams) {
-  return getCurrentParameterFromUrl(location.search, defaultParams);
+  return getCurrentParametersFromUrl(location.search, defaultParams);
 }
 
 /**
@@ -120,7 +166,7 @@ export function getCurrentParameters(defaultParams) {
  * @param  {object} defaultParams Default parameters used when absent in URL.
  * @return {object} Parameters that will be used in the simulation.
  */
-export function getCurrentParameterFromUrl(urlParams, defaultParams) {
+export function getCurrentParametersFromUrl(urlParams, defaultParams) {
   let parsed = new URLSearchParams(urlParams);
 
   var currentParams = Object.assign({}, defaultParams);
@@ -138,41 +184,4 @@ export function getCurrentParameterFromUrl(urlParams, defaultParams) {
   }
 
   return currentParams;
-}
-
-
-/**
- * Keeps only permitted initial parameters that will be used for sharing.
- *
- * @param  {object} initialParams The initial parameters.
- * @return {object} Initial parameters containing only permitted attributes.
- */
-export function filterInitialParams(initialParams) {
-  return filterParams(sharedInitialParams, initialParams);
-}
-
-/**
- * Keeps only permitted current parameters that will be used for sharing.
- *
- * @param  {object} currentParams The current parameters.
- * @return {object} Current parameters containing only permitted attributes.
- */
-export function filterCurrentParams(currentParams) {
-  return filterParams(sharedCurrentParams, currentParams);
-}
-
-function filterParams(sharedParams, allParams) {
-  let filtered = {};
-
-  for (let key in sharedParams) {
-    if (key in allParams) {
-      filtered[key] = allParams[key];
-    }
-  }
-
-  return filtered;
-}
-
-function getCurrentUrlWithoutParameters() {
-  return location.protocol + '//' + location.host + location.pathname;
 }
