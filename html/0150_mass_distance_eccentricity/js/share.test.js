@@ -32,8 +32,8 @@ describe('getUrlParameters', () => {
 
     let currentParams = {
       rotationMatrix: [
-         1.3,  0,  2,  0,
-         0,  1.2,  0,  0,
+         1.345678990,  0,  2,  0,
+         0,  1.28345456,  0,  0,
          0,  0,  1.1,  0,
          0,  0,  0,  0.9,
       ]
@@ -42,7 +42,7 @@ describe('getUrlParameters', () => {
     let result = getUrlParameters(initialParams, currentParams);
 
     expect(result).to.equal("numberOfRings=3%2C5&ringSeparation=2.8\
-&rotationMatrix=1.3%2C0%2C2%2C0%2C0%2C1.2%2C0%2C0%2C0%2C0%2C1.1%2C0%2C0%2C0%2C0%2C0.9");
+&rotationMatrix=1.35%2C0%2C2%2C0%2C0%2C1.28%2C0%2C0%2C0%2C0%2C1.1%2C0%2C0%2C0%2C0%2C0.9");
   });
 
   it('ignore unknown parameters', () => {

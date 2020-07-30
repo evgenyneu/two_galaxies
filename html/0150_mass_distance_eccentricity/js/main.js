@@ -93,7 +93,7 @@ function main(screenRefreshRateFPS) {
     zoomState: null
   };
 
-  // currentParams = getCurrentParameters(currentParams);
+  currentParams = getCurrentParameters(currentParams);
 
   var drawData = initGraphics(initialParams);
 
