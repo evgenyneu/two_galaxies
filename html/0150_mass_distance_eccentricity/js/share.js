@@ -129,23 +129,7 @@ export function getInitialParameters(defaultParams) {
  * @return {object} Parameters that will be used in the simulation.
  */
 export function getInitialParametersFromUrl(urlParams, defaultParams) {
-  let parsed = new URLSearchParams(urlParams);
-
-  var initialParams = Object.assign({}, defaultParams);
-
-  for (let key in sharedInitialParams) {
-    let parseFunction = sharedInitialParams[key];
-
-    if (parsed.has(key)) {
-      let parsedValue = parseFunction(parsed.get(key));
-
-      if (parsedValue !== null) {
-        initialParams[key] = parsedValue;
-      }
-    }
-  }
-
-  return initialParams;
+  return getParametersFromUrl(urlParams, defaultParams, sharedInitialParams);
 }
 
 /**
@@ -167,21 +151,25 @@ export function getCurrentParameters(defaultParams) {
  * @return {object} Parameters that will be used in the simulation.
  */
 export function getCurrentParametersFromUrl(urlParams, defaultParams) {
+  return getParametersFromUrl(urlParams, defaultParams, sharedCurrentParams);
+}
+
+function getParametersFromUrl(urlParams, defaultParams, sharedParams) {
   let parsed = new URLSearchParams(urlParams);
 
-  var currentParams = Object.assign({}, defaultParams);
+  var params = Object.assign({}, defaultParams);
 
-  for (let key in sharedCurrentParams) {
-    let parseFunction = sharedCurrentParams[key];
+  for (let key in sharedParams) {
+    let parseFunction = sharedParams[key];
 
     if (parsed.has(key)) {
       let parsedValue = parseFunction(parsed.get(key));
 
       if (parsedValue !== null) {
-        currentParams[key] = parsedValue;
+        params[key] = parsedValue;
       }
     }
   }
 
-  return currentParams;
+  return params;
 }
