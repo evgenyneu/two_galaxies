@@ -1,6 +1,8 @@
-import { getShareURL, filterInitialParams, getUrlParameters,
-         getInitialParameters, getInitialParameterFromUrl,
-         readArrayOfFloats, readFloat } from './share.js';
+import {
+  getShareURL, filterInitialParams, filterCurrentParams,
+  getUrlParameters, getInitialParameters, getInitialParameterFromUrl,
+  readArrayOfFloats, readFloat
+} from './share.js';
 
 var expect = chai.expect;
 
@@ -18,14 +20,35 @@ describe('getUrlParameters', () => {
     expect(result).to.equal("numberOfRings=3%2C5&ringSeparation=2.8");
   });
 
-  it('ingnore unknown parameters', () => {
+  it('returns URL parameters with rotation', () => {
+    let initialParams = {
+      numberOfRings: [3, 5],
+      ringSeparation: 2.8
+    };
+
+    let currentParams = {
+      rotationMatrix: [
+         1.3,  0,  2,  0,
+         0,  1.2,  0,  0,
+         0,  0,  1.1,  0,
+         0,  0,  0,  0.9,
+      ]
+    };
+
+    let result = getUrlParameters(initialParams, currentParams);
+
+    expect(result).to.equal("numberOfRings=3%2C5&ringSeparation=2.8\
+&rotationMatrix=1.3%2C0%2C2%2C0%2C0%2C1.2%2C0%2C0%2C0%2C0%2C1.1%2C0%2C0%2C0%2C0%2C0.9");
+  });
+
+  it('ignore unknown parameters', () => {
     let initialParams = {
       numberOfRings: [3, 5],
       ringSeparation: 2.8,
       unknown: 23
     };
 
-    let currentParams = {};
+    let currentParams = { unknownTwo: 2 };
 
     let result = getUrlParameters(initialParams, currentParams);
 
@@ -61,6 +84,25 @@ describe('filterInitialParams', () => {
 
     expect(result).to.have.property('numberOfRings');
     expect(result).to.have.property('ringSeparation');
+    expect(result).not.to.have.property('unknown');
+  });
+});
+
+describe('filterCurrentParams', () => {
+  it('keeps only permitted parameters', () => {
+    let currentParams = {
+      rotationMatrix: [
+         1.3,  0,  2,  0,
+         0,  1.2,  0,  0,
+         0,  0,  1.1,  0,
+         0,  0,  0,  0.9,
+      ],
+      unknown: 23
+    };
+
+    let result = filterCurrentParams(currentParams);
+
+    expect(result).to.have.property('rotationMatrix');
     expect(result).not.to.have.property('unknown');
   });
 });

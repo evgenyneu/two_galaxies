@@ -9,6 +9,8 @@ import {init as initUserInput} from './user_input.js';
 import * as showFps from './show_fps.js';
 import { updateCameraDistance } from './zoom.js';
 import { getInitialParameters } from './share.js';
+import m4 from './simulation/m4.js';
+
 
 function onNextFrame(drawData, initialParams, currentParams, fpsState) {
   return function(now) {
@@ -86,8 +88,8 @@ function main(screenRefreshRateFPS) {
     // Direction of time. 1 for forward, -1 for backward.
     timeDirection: 1,
 
-    // Objects containing zoom and rotation information
-    rotateState: null,
+    // Matrix for handling rotation of the scene by the user
+    rotationMatrix: m4.indentity(),
     zoomState: null
   };
 

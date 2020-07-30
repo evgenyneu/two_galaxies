@@ -63,8 +63,6 @@ export function init(hudContainer, currentParams) {
     didStopRotating: null // callback
   };
 
-  currentParams.rotationMatrix = m4.indentity();
-
   // Start moving
   // -----------------
 

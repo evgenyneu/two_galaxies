@@ -31,16 +31,22 @@ export function readArrayOfFloats(str) {
   return parsed;
 }
 
-let permittedInitialKeys = {
+// The keys are names of initial parameters that can be shared.
+// The values are functions for parsing string value from URL.
+let sharedInitialParams = {
   "numberOfRings": readArrayOfFloats,
   "ringSeparation": readFloat
 };
 
+// The keys are names of current parameters that can be shared.
+// The values are functions for parsing string value from URL.
+let sharedCurrentParams = {
+  "rotationMatrix": readArrayOfFloats
+};
 
 /**
  * Returns the full URL to the simulation for sharing containing
  * all the selected parameters
- *
  */
 export function getShareURL(initialParams, currentParams) {
   let urlParams = getUrlParameters(initialParams, currentParams);
@@ -53,7 +59,9 @@ export function getShareURL(initialParams, currentParams) {
  */
 export function getUrlParameters(initialParams, currentParams) {
   initialParams = filterInitialParams(initialParams);
-  return new URLSearchParams(initialParams).toString();
+  currentParams = filterCurrentParams(currentParams);
+  var allParams = Object.assign(initialParams, currentParams);
+  return new URLSearchParams(allParams).toString();
 }
 
 
@@ -76,8 +84,8 @@ export function getInitialParameterFromUrl(urlParams, defaultParams) {
 
   var initialParams = Object.assign({}, defaultParams);
 
-  for (let key in permittedInitialKeys) {
-    let parseFunction = permittedInitialKeys[key];
+  for (let key in sharedInitialParams) {
+    let parseFunction = sharedInitialParams[key];
 
     if (parsed.has(key)) {
       let parsedValue = parseFunction(parsed.get(key));
@@ -99,11 +107,25 @@ export function getInitialParameterFromUrl(urlParams, defaultParams) {
  * @return {object} Initial parameters containing only permitted attributes.
  */
 export function filterInitialParams(initialParams) {
+  return filterParams(sharedInitialParams, initialParams);
+}
+
+/**
+ * Keeps only permitted current parameters that will be used for sharing.
+ *
+ * @param  {object} currentParams The current parameters.
+ * @return {object} Current parameters containing only permitted attributes.
+ */
+export function filterCurrentParams(currentParams) {
+  return filterParams(sharedCurrentParams, currentParams);
+}
+
+function filterParams(sharedParams, allParams) {
   let filtered = {};
 
-  for (let key in permittedInitialKeys) {
-    if (key in initialParams) {
-      filtered[key] = initialParams[key];
+  for (let key in sharedParams) {
+    if (key in allParams) {
+      filtered[key] = allParams[key];
     }
   }
 
