@@ -31,17 +31,52 @@ export function readArrayOfFloats(str) {
   return parsed;
 }
 
+
+/**
+ * Rounds a float number of given number of decimal places
+ * Source: https://stackoverflow.com/a/56632526/297131
+ */
+export function roundN(value, digits) {
+   var tenToN = Math.pow(10, digits);
+   return (Math.round(value * tenToN)) / tenToN;
+}
+
+export function roundArray(decimalPlaces) {
+  return (arr) => arr.map((a) => roundN(a, decimalPlaces));
+}
+
+
 // The keys are names of initial parameters that can be shared.
-// The values are functions for parsing string value from URL.
+// The values are:
+//    parseFunction: function for parsing string value from URL.
+//    storeFunction: (optional) function for transforming parameter value before storing
+//                   in the URL. For example, if parameter value is float
+//                   1.234567890123456, we might want to round it to 1.23,
+//                   to make the URL shorter. If function is not supplied,
+//                   the parameter is stored in the URL as it is.
 let sharedInitialParams = {
-  "numberOfRings": readArrayOfFloats,
-  "ringSeparation": readFloat
+  "numberOfRings": {
+    parseFunction: readArrayOfFloats
+  },
+  "ringSeparation": {
+    parseFunction: readFloat
+  }
 };
 
 // The keys are names of current parameters that can be shared.
 // The values are functions for parsing string value from URL.
+// The values are:
+//    parseFunction: function for parsing string value from URL.
+//    storeFunction: (optional) function for transforming parameter value before storing
+//                   in the URL. For example, if parameter value is float
+//                   1.234567890123456, we might want to round it to 1.23,
+//                   to make the URL shorter. If function is not supplied,
+//                   the parameter is stored in the URL as it is.
 let sharedCurrentParams = {
-  "rotationMatrix": readArrayOfFloats
+  "rotationMatrix": {
+    storeFunction: roundArray(2),
+    parseFunction: readArrayOfFloats
+  }
 };
 
 /**
@@ -171,7 +206,7 @@ function getParametersFromUrl(urlParams, defaultParams, sharedParams) {
   var params = Object.assign({}, defaultParams);
 
   for (let key in sharedParams) {
-    let parseFunction = sharedParams[key];
+    let parseFunction = sharedParams[key].parseFunction;
 
     if (parsed.has(key)) {
       let parsedValue = parseFunction(parsed.get(key));

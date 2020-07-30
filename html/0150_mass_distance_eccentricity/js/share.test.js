@@ -2,7 +2,7 @@ import {
   getShareURL, filterInitialParams, filterCurrentParams,
   getUrlParameters, getInitialParameters,
   getInitialParametersFromUrl, getCurrentParametersFromUrl,
-  readArrayOfFloats, readFloat
+  readArrayOfFloats, readFloat, roundArray, roundN
 } from './share.js';
 
 import m4 from './simulation/m4.js';
@@ -211,5 +211,25 @@ describe('readArrayOfFloats', () => {
     let result = readArrayOfFloats("sdfd,fdgf");
 
     expect(result).to.deep.equal(null);
+  });
+});
+
+it('roundN', () => {
+  expect(roundN(1.356234, 0)).to.equal(1);
+  expect(roundN(1.356234, 1)).to.equal(1.4);
+  expect(roundN(1.356234, 2)).to.equal(1.36);
+  expect(roundN(1.356234, 3)).to.equal(1.356);
+  expect(roundN(0, 2)).to.equal(0);
+  expect(roundN(1.000001, 2)).to.equal(1);
+  expect(roundN(-1.2134, 2)).to.equal(-1.21);
+});
+
+
+describe('roundArray', () => {
+  it('round', () => {
+    let fn = roundArray(2);
+    let result = fn([1.234567, 2.6789012345]);
+
+    expect(result).to.deep.equal([1.23, 2.68]);
   });
 });
