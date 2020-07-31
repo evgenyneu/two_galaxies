@@ -2,6 +2,15 @@
 
 import m4 from './simulation/m4.js';
 
+
+/**
+ * Draw trajectories of the two galaxy cores.
+ *
+ * @param  {object} drawData      Drawing data
+ * @param  {object} initialParams Initial parameters of the animation.
+ * @param  {object} currentParams Current parameters of the animation.
+ * @param  {array} uMatrix Matrix for transforming coordinates.
+ */
 function drawTrajectories(drawData, initialParams, currentParams, uMatrix) {
   let gl = drawData.gl;
   var program = drawData.trajectories.program;
@@ -28,11 +37,10 @@ function drawTrajectories(drawData, initialParams, currentParams, uMatrix) {
     drawData.trajectories.positionLocation, size, type,
     normalize, stride, offset);
 
-  // Translate, scale and rotate
-  // ---------
-
+  // Store the transformation matrix
   gl.uniformMatrix4fv(drawData.trajectories.matrixLocation, false, uMatrix);
 
+  // Draw the trajectory of each galaxy core
   for (let iTrajectory = 0; iTrajectory < 2; iTrajectory++) {
     storeTrajectories(drawData, currentParams, iTrajectory);
 
@@ -41,7 +49,7 @@ function drawTrajectories(drawData, initialParams, currentParams, uMatrix) {
     // Set the color
     gl.uniform4fv(drawData.trajectories.colorLocation, color);
 
-    // Draw the geometry.
+    // Draw the path of the core with lines
     var primitiveType = gl.LINE_STRIP;
     offset = 0;
     var numberOfPoints = currentParams.trajectoriesState.points;
@@ -49,13 +57,14 @@ function drawTrajectories(drawData, initialParams, currentParams, uMatrix) {
   }
 }
 
-// Load positions of stars into GPU memory
+// Load trajectories of galaxy cores into GPU memory
 function storeTrajectories(drawData, currentParams, coreId) {
   var gl = drawData.gl;
 
   // Bind ARRAY_BUFFER to the positionBuffer
   // (creates a global variable inside WebGL)
   gl.bindBuffer(gl.ARRAY_BUFFER, drawData.trajectories.positionBuffer);
+
   let positions = new Float32Array(currentParams.trajectoriesState.trajectories[coreId]);
   gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
 }
@@ -119,7 +128,7 @@ export default function drawScene(drawData, initialParams, currentParams) {
   gl.vertexAttribPointer(
     drawData.colorLocation, size, type, normalize, stride, offset);
 
-  // Translate, scale and rotate
+  // Compute transformation matrix
   // ---------
 
   // Compute the projection matrix

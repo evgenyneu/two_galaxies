@@ -34,6 +34,12 @@ function fitToContainer(drawData){
   }
 }
 
+
+/**
+ * Prepare for drawing trajectories of the two galaxy cores.
+ *
+ * @param  {object} drawData Object containing information used for drawing.
+ */
 function initTrajectories(drawData) {
   // Create two shaders for drawing trajectories
   // ---------
