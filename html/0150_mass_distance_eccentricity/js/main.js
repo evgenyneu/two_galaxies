@@ -90,7 +90,10 @@ function main(screenRefreshRateFPS) {
 
     // Matrix for handling rotation of the scene by the user
     rotationMatrix: m4.identity(),
-    zoomState: null
+
+    // The zoom level that can be adjusted by the user.
+    // Determined automatically initially to make galaxies fit the screen
+    cameraDistance: null
   };
 
   currentParams = getCurrentParameters(currentParams);

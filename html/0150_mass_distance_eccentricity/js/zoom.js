@@ -7,16 +7,16 @@ function distanceBetweenFingers(e) {
       e.targetTouches[0].pageY - e.targetTouches[1].pageY);
 }
 
-function onWheel(state, e) {
+function onWheel(state, e, currentParams) {
   e.preventDefault();
-  state.cameraDistance += e.deltaY / 100 * state.cameraDistance;
+  currentParams.cameraDistance += e.deltaY / 100 * currentParams.cameraDistance;
 
-  if (state.cameraDistance > state.maxCameraDistance) {
-    state.cameraDistance = state.maxCameraDistance;
+  if (currentParams.cameraDistance > state.maxCameraDistance) {
+    currentParams.cameraDistance = state.maxCameraDistance;
   }
 
-  if (state.cameraDistance < state.minCameraDistance) {
-    state.cameraDistance = state.minCameraDistance;
+  if (currentParams.cameraDistance < state.minCameraDistance) {
+    currentParams.cameraDistance = state.minCameraDistance;
   }
 }
 
@@ -27,21 +27,23 @@ function startTouch(state, e) {
   state.lastDistance = distanceBetweenFingers(e);
 }
 
-function touchMove(state, e) {
+function touchMove(state, e, currentParams) {
   if (!state.touching) return;
   if (!state.lastDistance) return;
   if (e.targetTouches.length !== 2) return;
 
   const distance = distanceBetweenFingers(e);
-  state.cameraDistance += (state.lastDistance - distance) / 100 * state.cameraDistance;
+  currentParams.cameraDistance += (state.lastDistance - distance) /
+                                    100 * currentParams.cameraDistance;
+
   state.lastDistance = distance;
 
-  if (state.cameraDistance > state.maxCameraDistance) {
-    state.cameraDistance = state.maxCameraDistance;
+  if (currentParams.cameraDistance > state.maxCameraDistance) {
+    currentParams.cameraDistance = state.maxCameraDistance;
   }
 
-  if (state.cameraDistance < state.minCameraDistance) {
-    state.cameraDistance = state.minCameraDistance;
+  if (currentParams.cameraDistance < state.minCameraDistance) {
+    currentParams.cameraDistance = state.minCameraDistance;
   }
 }
 
@@ -57,7 +59,7 @@ function stopTouch(state) {
  * @param  {object} currentParams Current parameters
  */
 export function updateCameraDistance(currentParams) {
-  if (currentParams.zoomState.cameraDistance !== null) return;
+  if (currentParams.cameraDistance !== null) return;
   // Find min and max x coordinates
   var xMin = 1e10;
   var xMax = -1e10;
@@ -74,13 +76,12 @@ export function updateCameraDistance(currentParams) {
 
   // Find the z distance needed to show the galaxies
   var zDistance = maxXDistance / Math.tan(currentParams.zoomState.fieldOfViewRadians * 0.5);
-  currentParams.zoomState.cameraDistance = zDistance;
+  currentParams.cameraDistance = zDistance;
 }
 
-export function init(hudContainer) {
+export function init(hudContainer, currentParams) {
   var state = {
     touching: false,
-    cameraDistance: null,
     fieldOfViewRadians: 60 * Math.PI / 180,
     maxCameraDistance: 50000,
     minCameraDistance: 10,
@@ -88,19 +89,16 @@ export function init(hudContainer) {
   };
 
   // Mouse wheel / scroll event
-  hudContainer.addEventListener('wheel',(e) => onWheel(state, e));
+  hudContainer.addEventListener('wheel',(e) => onWheel(state, e, currentParams));
 
   // Start touching
   hudContainer.addEventListener("touchstart", (e) => startTouch(state, e));
 
   // Touch is moving
-  document.addEventListener("touchmove", (e) => touchMove(state, e));
+  document.addEventListener("touchmove", (e) => touchMove(state, e, currentParams));
 
   // Stopped touching
   document.addEventListener("touchend", () => stopTouch(state));
-
-  // Prevent right click menu
-  // hudContainer.addEventListener('contextmenu', (e) => { e.preventDefault(); }, true);
 
   return state;
 }

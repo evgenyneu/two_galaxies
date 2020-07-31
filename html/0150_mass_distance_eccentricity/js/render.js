@@ -76,7 +76,7 @@ export default function drawScene(drawData, currentParams) {
   // ------------
 
   // Get the camera's position from the matrix we computed
-  var cameraPosition = [ 0, 0, currentParams.zoomState.cameraDistance ];
+  var cameraPosition = [ 0, 0, currentParams.cameraDistance ];
 
   var up = [0, 1, 0];
 

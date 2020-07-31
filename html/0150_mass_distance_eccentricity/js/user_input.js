@@ -20,6 +20,6 @@ export function init(drawData, initialParams, currentParams, onRestart) {
   // Zoom
   // -------
 
-  var zoomState = zoom.init(hudContainer);
+  var zoomState = zoom.init(hudContainer, currentParams);
   currentParams.zoomState = zoomState;
 }
