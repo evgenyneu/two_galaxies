@@ -11,13 +11,23 @@ import { updateCameraDistance } from './zoom.js';
 import { getInitialParameters, getCurrentParameters } from './share.js';
 import m4 from './simulation/m4.js';
 
-
+/**
+ * Calculate positions of stars at the next time stamp and redraw the
+ * stars on screen. This function is called at each frame of the animation,
+ * e.g. 60 times per second on 60 Hz screens.
+ *
+ * @param  {object} drawData Drawing data.
+ * @param  {object} initialParams Initial parameters of the simulation.
+ * @param  {object} currentParams Current parameters of the simulation.
+ * @param  {object} fpsState Data needed to show current refresh rate on screen.
+ */
 function onNextFrame(drawData, initialParams, currentParams, fpsState) {
   return function(now) {
+    // Show current refresh rate
     showFps.update(now, fpsState);
 
-    if (currentParams.positions === null) { // First frame
-      // calculate initial positions of the bodies
+    if (currentParams.positions === null) {
+      // First frame of the animation: calculate initial positions of the bodies
       simulation.setInitial(initialParams, currentParams);
       updateCameraDistance(currentParams);
       console.log(`Number of bodies: ${currentParams.positions.length / 3}`);
@@ -26,14 +36,24 @@ function onNextFrame(drawData, initialParams, currentParams, fpsState) {
       simulation.update(initialParams, currentParams);
     }
 
+    // Draw star on screen
     drawScene(drawData, currentParams);
 
+    // Call onNextFrame function on the next animation frame
     requestAnimationFrame(onNextFrame(drawData, initialParams,
                                       currentParams, fpsState));
   };
 }
 
-// Restart the simulation
+
+/**
+ * Restart the simulation from time zero using current parameter values.
+ *
+ * @param  {object} drawData Drawing data.
+ * @param  {object} initialParams Initial parameters of the simulation.
+ * @param  {object} currentParams Current parameters of the simulation.
+ * @param  {boolean} reloadColors=false Load the colors into GPU if true.
+ */
 function restart(drawData, initialParams, currentParams, reloadColors=false) {
   currentParams.positions = null;
   currentParams.velocities = null;
@@ -48,11 +68,13 @@ function restart(drawData, initialParams, currentParams, reloadColors=false) {
 
 
 /**
- * The entry point of the simulation
+ * The entry function of the simulation. Initialises the simulation and
+ * then runs it.
  *
- * @param  {number} screenRefreshRateFPS Measured approximate
- *      refresh rate of the screen. It is used to set the time step of the animation
- *      so that it runs visually at the same speed for people with different monitors
+ * @param  {number} screenRefreshRateFPS Estimated refresh rate
+ *      refresh rate of the screen. It is used to set the time step
+ *      of the animation so that it runs visually at the same speed for
+ *      people with different monitors
  *      (i.e. 60 Hz and 144 Hz).
  */
 function main(screenRefreshRateFPS) {
@@ -80,6 +102,7 @@ function main(screenRefreshRateFPS) {
     // User is rotating the scene
     rotating: false,
 
+    // Is simulation paused by the user
     paused: false,
 
     // The approximate detected refresh rate of the screen, in
@@ -110,11 +133,14 @@ function main(screenRefreshRateFPS) {
   // Load current parameters if they were shared through the URL
   currentParams = getCurrentParameters(currentParams);
 
+  // Prepare for drawing
   var drawData = initGraphics(initialParams);
 
+  // Allow user to rotate and zoom the sceen.
   initUserInput(drawData, initialParams, currentParams,
     (reloadColors) => restart(drawData, initialParams, currentParams, reloadColors));
 
+  // Prepare to calculate the current refresh rate of the animation.
   var fpsState = showFps.init();
 
   // Run the animation

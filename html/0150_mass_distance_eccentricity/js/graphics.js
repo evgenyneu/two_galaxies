@@ -36,7 +36,7 @@ function fitToContainer(drawData){
 
 
 /**
- * Do all necessary steps needed for drawing stuff on scree:
+ * Prepare for drawing stars on screen:
  * initialize WebGL, create buffers for loading positions and colors of stars
  * into the GPU etc.
  *
