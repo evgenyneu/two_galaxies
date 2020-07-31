@@ -34,6 +34,33 @@ function fitToContainer(drawData){
   }
 }
 
+function initTrajectories(drawData) {
+  // Create two shaders for drawing trajectories
+  // ---------
+
+  let gl = drawData.gl;
+
+  var program = createProgramFromScripts(gl,
+    [
+      ".Webgl-vertexShader-trajectory",
+      ".Webgl-fragmentShader-trajectory"
+    ]);
+
+  // Lookup location of the position attribute for the program
+  var positionLocation = gl.getAttribLocation(program, "a_position");
+  var matrixLocation = gl.getUniformLocation(program, "u_matrix");
+
+  // Create a buffer (attributes get their data from buffers)
+  var positionBuffer = gl.createBuffer();
+
+  drawData.trajectories = {
+    program: program,
+    positionLocation: positionLocation,
+    positionBuffer: positionBuffer,
+    matrixLocation: matrixLocation
+  };
+}
+
 
 /**
  * Prepare for drawing stars on screen:
@@ -54,11 +81,11 @@ export function initGraphics(initialParams) {
     return;
   }
 
-  // Create two shaders
+  // Create two shaders for drawing stars
   // ---------
 
   var program = createProgramFromScripts(
-    gl, [".Webgl-vertexShader2d", ".Webgl-fragmentShader2d"]);
+    gl, [".Webgl-vertexShader", ".Webgl-fragmentShader"]);
 
   // Lookup location of the position attribute for the program
   var positionLocation = gl.getAttribLocation(program, "a_position");
@@ -81,6 +108,8 @@ export function initGraphics(initialParams) {
 
   // Load the colors of the stars into the GPU
   loadColors(drawData, initialParams);
+
+  initTrajectories(drawData);
 
   // Adjust the size of the drawing region based on the size of the
   // web browser window

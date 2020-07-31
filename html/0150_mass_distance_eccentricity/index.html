@@ -139,7 +139,7 @@
 
       <!-- WebGL program for drawing stars -->
 
-      <script class="Webgl-vertexShader2d" type="notjs">
+      <script class="Webgl-vertexShader" type="notjs">
         attribute vec4 a_position;
         attribute vec4 a_color;
         uniform mat4 u_matrix;
@@ -158,7 +158,7 @@
         }
       </script>
 
-      <script class="Webgl-fragmentShader2d" type="notjs">
+      <script class="Webgl-fragmentShader" type="notjs">
         // Precision of the fragment shader
         precision mediump float;
 
@@ -195,7 +195,7 @@
 
       <!-- WebGL program for drawing trajectories of galaxy cores -->
 
-      <script class="Webgl-vertexShader2d-Trajectory" type="notjs">
+      <script class="Webgl-vertexShader-trajectory" type="notjs">
         attribute vec4 a_position;
         uniform mat4 u_matrix;
 
@@ -205,7 +205,7 @@
         }
       </script>
 
-      <script class="Webgl-fragmentShader-Trajectory" type="notjs">
+      <script class="Webgl-fragmentShader-trajectory" type="notjs">
         // Precision of the fragment shader
         precision mediump float;
 
