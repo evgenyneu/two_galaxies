@@ -48,6 +48,7 @@ function initTrajectories(drawData) {
 
   // Lookup location of the position attribute for the program
   var positionLocation = gl.getAttribLocation(program, "a_position");
+  var colorLocation = gl.getUniformLocation(program, "u_color");
   var matrixLocation = gl.getUniformLocation(program, "u_matrix");
 
   // Create a buffer (attributes get their data from buffers)
@@ -57,7 +58,8 @@ function initTrajectories(drawData) {
     program: program,
     positionLocation: positionLocation,
     positionBuffer: positionBuffer,
-    matrixLocation: matrixLocation
+    matrixLocation: matrixLocation,
+    colorLocation: colorLocation
   };
 }
 

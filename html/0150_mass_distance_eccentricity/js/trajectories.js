@@ -1,4 +1,4 @@
-export function init(positions, size=100) {
+export function init(positions, size=5000) {
   let trajectories1 = Array(size * 3).fill(0);
   let trajectories2 = Array(size * 3).fill(0);
 
@@ -23,9 +23,13 @@ export function init(positions, size=100) {
 }
 
 export function update(state, positions) {
-  if (state.point == state.trajectories[0].length / 3) {
+  if (state.points == state.trajectories[0].length / 3) {
     // Arrays are full, remove the first positions to make room for the new ones
     state.trajectories[0].shift();
+    state.trajectories[0].shift();
+    state.trajectories[0].shift();
+    state.trajectories[1].shift();
+    state.trajectories[1].shift();
     state.trajectories[1].shift();
     state.points -= 1;
   }

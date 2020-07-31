@@ -37,7 +37,7 @@ function onNextFrame(drawData, initialParams, currentParams, fpsState) {
     }
 
     // Draw star on screen
-    drawScene(drawData, currentParams);
+    drawScene(drawData, initialParams, currentParams);
 
     // Call onNextFrame function on the next animation frame
     requestAnimationFrame(onNextFrame(drawData, initialParams,
@@ -83,6 +83,7 @@ function main(screenRefreshRateFPS) {
   var initialParams = {
     numberOfRings: [5, 5],
     colors: [[255, 127, 0], [0, 100, 255]],
+    trajectoryColors: [[0.5, 0.4, 0, 1], [0.0, 0.3, 0.7, 1]],
     ringSeparation: 3,
     minimalGalaxySeparation: 25,
     galaxyInclinationAnglesDegree: [60, 60],

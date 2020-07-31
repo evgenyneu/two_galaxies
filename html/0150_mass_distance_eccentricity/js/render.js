@@ -2,9 +2,7 @@
 
 import m4 from './simulation/m4.js';
 
-function drawTrajectories(drawData, currentParams, uMatrix) {
-  storeTrajectories(drawData, currentParams);
-
+function drawTrajectories(drawData, initialParams, currentParams, uMatrix) {
   let gl = drawData.gl;
   var program = drawData.trajectories.program;
 
@@ -35,25 +33,34 @@ function drawTrajectories(drawData, currentParams, uMatrix) {
 
   gl.uniformMatrix4fv(drawData.trajectories.matrixLocation, false, uMatrix);
 
-  // Draw the geometry.
-  var primitiveType = gl.LINE_STRIP;
-  offset = 0;
-  var numberOfPoints = currentParams.trajectoriesState.points;
-  gl.drawArrays(primitiveType, offset, numberOfPoints);
+  for (let iTrajectory = 0; iTrajectory < 2; iTrajectory++) {
+    storeTrajectories(drawData, currentParams, iTrajectory);
+
+    var color = initialParams.trajectoryColors[iTrajectory];
+
+    // Set the color
+    gl.uniform4fv(drawData.trajectories.colorLocation, color);
+
+    // Draw the geometry.
+    var primitiveType = gl.LINE_STRIP;
+    offset = 0;
+    var numberOfPoints = currentParams.trajectoriesState.points;
+    gl.drawArrays(primitiveType, offset, numberOfPoints);
+  }
 }
 
 // Load positions of stars into GPU memory
-function storeTrajectories(drawData, currentParams) {
+function storeTrajectories(drawData, currentParams, coreId) {
   var gl = drawData.gl;
 
   // Bind ARRAY_BUFFER to the positionBuffer
   // (creates a global variable inside WebGL)
   gl.bindBuffer(gl.ARRAY_BUFFER, drawData.trajectories.positionBuffer);
-  let positions = new Float32Array(currentParams.trajectoriesState.trajectories[0]);
+  let positions = new Float32Array(currentParams.trajectoriesState.trajectories[coreId]);
   gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
 }
 
-export default function drawScene(drawData, currentParams) {
+export default function drawScene(drawData, initialParams, currentParams) {
   var positions = currentParams.positions;
   storePositions(drawData, positions);
 
@@ -151,7 +158,7 @@ export default function drawScene(drawData, currentParams) {
   var numberOfBodies = positions.length / 3;
   gl.drawArrays(primitiveType, offset, numberOfBodies);
 
-  drawTrajectories(drawData, currentParams, uMatrix);
+  drawTrajectories(drawData, initialParams, currentParams, uMatrix);
 }
 
 // Load positions of stars into GPU memory
