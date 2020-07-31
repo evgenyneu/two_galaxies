@@ -80,7 +80,17 @@ export function roundArray(decimalPlaces) {
 //                   the parameter is stored in the URL as it is.
 let sharedInitialParams = {
   "numberOfRings": { parseFunction: readArrayOfInts },
-  "ringSeparation": { parseFunction: readFloat }
+  "masses": {
+    storeFunction: roundArray(2),
+    parseFunction: readArrayOfFloats
+  },
+  "minimalGalaxySeparation": { parseFunction: readFloat },
+  "eccentricity": { parseFunction: readFloat },
+  "ringSeparation": { parseFunction: readFloat },
+  "galaxyInclinationAnglesDegree": {
+    storeFunction: roundArray(2),
+    parseFunction: readArrayOfFloats
+  }
 };
 
 // The keys are names of current parameters that can be shared.
