@@ -1,5 +1,5 @@
 // Zoom the stars in and out by using the mouse scroll wheel
-// or pinch gensture
+// or pinch gesture
 
 function distanceBetweenFingers(e) {
   return Math.hypot(

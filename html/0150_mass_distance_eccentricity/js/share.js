@@ -21,7 +21,28 @@ export function readFloat(str) {
  * @return {array}     Array of parsed values, null if unsuccessful.
  */
 export function readArrayOfFloats(str) {
-  let parsed = str.split(",").map((a) => parseFloat(a));
+  return readArrayOfNumbers(str, parseFloat);
+}
+
+/**
+ * Parse comma separated values into an array of integers.
+ *
+ * @param  {string} str Comma separated values: "1,2,3"
+ * @return {array}     Array of parsed values, null if unsuccessful.
+ */
+export function readArrayOfInts(str) {
+  return readArrayOfNumbers(str, parseInt);
+}
+
+/**
+ * Parse comma separated values into an array of integers.
+ *
+ * @param  {string} str   Comma separated values: "1,2,3"
+ * @param  {function} parseFn A function for parsing a single value.
+ * @return {array} Array of parsed values, null if unsuccessful.
+ */
+export function readArrayOfNumbers(str, parseFn) {
+  let parsed = str.split(",").map((a) => parseFn(a));
 
   for(let i = 0; i < parsed.length; i++) {
     let value = parsed[i];
@@ -30,7 +51,6 @@ export function readArrayOfFloats(str) {
 
   return parsed;
 }
-
 
 /**
  * Rounds a float number of given number of decimal places
@@ -59,7 +79,7 @@ export function roundArray(decimalPlaces) {
 //                   to make the URL shorter. If function is not supplied,
 //                   the parameter is stored in the URL as it is.
 let sharedInitialParams = {
-  "numberOfRings": { parseFunction: readArrayOfFloats },
+  "numberOfRings": { parseFunction: readArrayOfInts },
   "ringSeparation": { parseFunction: readFloat }
 };
 

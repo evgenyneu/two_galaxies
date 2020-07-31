@@ -120,7 +120,7 @@ describe('getInitialParametersFromUrl', () => {
       another: 23
     };
 
-    let urlParams = "?numberOfRings=3%2C5&ringSeparation=2.8";
+    let urlParams = "?numberOfRings=3.3%2C5&ringSeparation=2.8";
     let result = getInitialParametersFromUrl(urlParams, initialParams);
 
     expect(result.ringSeparation).to.equal(2.8);
