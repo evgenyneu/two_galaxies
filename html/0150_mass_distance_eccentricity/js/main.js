@@ -78,7 +78,8 @@ function restart(drawData, initialParams, currentParams, reloadColors=false) {
  *      (i.e. 60 Hz and 144 Hz).
  */
 function main(screenRefreshRateFPS) {
-  // Initial parameters of the simulation, they can't be changed without restart
+  // Initial parameters of the simulation, they can't be changed without
+  // restart (except for masses)
   var initialParams = {
     numberOfRings: [5, 5],
     colors: [[255, 127, 0], [0, 100, 255]],
