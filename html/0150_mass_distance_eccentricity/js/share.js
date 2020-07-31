@@ -107,7 +107,10 @@ let sharedCurrentParams = {
     storeFunction: roundArray(2),
     parseFunction: readArrayOfFloats
   },
-  "cameraDistance": { parseFunction: roundFloat(2) }
+  "cameraDistance": {
+    storeFunction: roundFloat(2),
+    parseFunction: readFloat
+  }
 };
 
 /**
