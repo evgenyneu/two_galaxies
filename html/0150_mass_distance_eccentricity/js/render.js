@@ -3,6 +3,8 @@
 import m4 from './simulation/m4.js';
 
 function drawTrajectories(drawData, currentParams, uMatrix) {
+  storeTrajectories(drawData, currentParams);
+
   let gl = drawData.gl;
   var program = drawData.trajectories.program;
 
@@ -33,11 +35,22 @@ function drawTrajectories(drawData, currentParams, uMatrix) {
 
   gl.uniformMatrix4fv(drawData.trajectories.matrixLocation, false, uMatrix);
 
-  // // Draw the geometry.
-  // var primitiveType = gl.POINTS;
-  // offset = 0;
-  // var numberOfBodies = positions.length / 3;
-  // gl.drawArrays(primitiveType, offset, numberOfBodies);
+  // Draw the geometry.
+  var primitiveType = gl.LINE_STRIP;
+  offset = 0;
+  var numberOfPoints = currentParams.trajectoriesState.points;
+  gl.drawArrays(primitiveType, offset, numberOfPoints);
+}
+
+// Load positions of stars into GPU memory
+function storeTrajectories(drawData, currentParams) {
+  var gl = drawData.gl;
+
+  // Bind ARRAY_BUFFER to the positionBuffer
+  // (creates a global variable inside WebGL)
+  gl.bindBuffer(gl.ARRAY_BUFFER, drawData.trajectories.positionBuffer);
+  let positions = new Float32Array(currentParams.trajectoriesState.trajectories[0]);
+  gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
 }
 
 export default function drawScene(drawData, currentParams) {
