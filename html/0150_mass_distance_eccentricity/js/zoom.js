@@ -79,6 +79,14 @@ export function updateCameraDistance(currentParams) {
   currentParams.cameraDistance = zDistance;
 }
 
+/**
+ * Start detecting zoom.
+ *
+ * @param  {object} hudContainer HTML element located in front of the drawn area
+ *    with which the user touches to zoom in and out.
+ * @param  {object} currentParams Current parameters of the simulation.
+ * @return {object} Zoom state
+ */
 export function init(hudContainer, currentParams) {
   var state = {
     touching: false,

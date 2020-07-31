@@ -23,10 +23,15 @@ function move(state, currentParams, e) {
   if (!state.moving) return;
   if (!state.lastPosition) return;
 
+  // Calculate the x and y shifts of the finger on screen
+  // from previous positions
   const delta = [
     e.pageX - state.lastPosition[0],
     e.pageY - state.lastPosition[1]
   ];
+
+  // Rotate the scene around the x and y axes based on the finger shifts
+  // ----
 
   currentParams.rotationMatrix = m4.multiply(m4.xRotation(delta[1] / 100),
                                              currentParams.rotationMatrix);
@@ -34,6 +39,7 @@ function move(state, currentParams, e) {
   currentParams.rotationMatrix = m4.multiply(m4.yRotation(delta[0] / 100),
                                              currentParams.rotationMatrix);
 
+  // Remember the position of the finger
   state.lastPosition = [e.pageX, e.pageY];
 }
 
@@ -55,6 +61,14 @@ function stopMoving(state) {
   if (state.didStopRotating) state.didStopRotating();
 }
 
+/**
+ * Start detecting rotation of the scene.
+ *
+ * @param  {object} hudContainer HTML element located in front of the drawn area
+ *    with which the user touches to rotate the scene.
+ * @param  {object} currentParams Current parameters of the simulation.
+ * @return {object} Rotation state
+ */
 export function init(hudContainer, currentParams) {
   var state = {
     moving: false,
