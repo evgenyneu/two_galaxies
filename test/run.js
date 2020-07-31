@@ -9,5 +9,6 @@ import '../html/0150_mass_distance_eccentricity/js/simulation/vector.test.js';
 import '../html/0150_mass_distance_eccentricity/js/simulation/initial_conditions.test.js';
 import '../html/0150_mass_distance_eccentricity/js/simulation/integrator.test.js';
 import '../html/0150_mass_distance_eccentricity/js/share.test.js';
+import '../html/0150_mass_distance_eccentricity/js/trajectories.test.js';
 
 mocha.run();
