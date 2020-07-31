@@ -2,6 +2,44 @@
 
 import m4 from './simulation/m4.js';
 
+function drawTrajectories(drawData, currentParams, uMatrix) {
+  let gl = drawData.gl;
+  var program = drawData.trajectories.program;
+
+  // Tell it to use our program (pair of shaders)
+  gl.useProgram(program);
+
+  // Position
+  // ----------
+
+  // Turn on the attribute
+  gl.enableVertexAttribArray(drawData.trajectories.positionLocation);
+
+  // Bind the position buffer.
+  gl.bindBuffer(gl.ARRAY_BUFFER, drawData.trajectories.positionBuffer);
+
+  // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
+  var size = 3;          // 3 components per iteration
+  var type = gl.FLOAT;   // the data is 32bit floats
+  var normalize = false; // don't normalize the data
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(
+    drawData.trajectories.positionLocation, size, type,
+    normalize, stride, offset);
+
+  // Translate, scale and rotate
+  // ---------
+
+  gl.uniformMatrix4fv(drawData.trajectories.matrixLocation, false, uMatrix);
+
+  // // Draw the geometry.
+  // var primitiveType = gl.POINTS;
+  // offset = 0;
+  // var numberOfBodies = positions.length / 3;
+  // gl.drawArrays(primitiveType, offset, numberOfBodies);
+}
+
 export default function drawScene(drawData, currentParams) {
   var positions = currentParams.positions;
   storePositions(drawData, positions);
@@ -99,6 +137,8 @@ export default function drawScene(drawData, currentParams) {
   offset = 0;
   var numberOfBodies = positions.length / 3;
   gl.drawArrays(primitiveType, offset, numberOfBodies);
+
+  drawTrajectories(drawData, currentParams, uMatrix);
 }
 
 // Load positions of stars into GPU memory
