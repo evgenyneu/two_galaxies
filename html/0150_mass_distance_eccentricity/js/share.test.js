@@ -2,7 +2,8 @@ import {
   getShareURL, filterInitialParams, filterCurrentParams,
   getUrlParameters, getInitialParameters,
   getInitialParametersFromUrl, getCurrentParametersFromUrl,
-  readArrayOfFloats, readFloat, roundArray, roundN,
+  readArrayOfFloats, readFloat,
+  roundArray, roundFloat, roundN,
   prepareParamsForSharing
 } from './share.js';
 
@@ -223,6 +224,15 @@ it('roundN', () => {
   expect(roundN(0, 2)).to.equal(0);
   expect(roundN(1.000001, 2)).to.equal(1);
   expect(roundN(-1.2134, 2)).to.equal(-1.21);
+});
+
+describe('roundFloat', () => {
+  it('round', () => {
+    let fn = roundFloat(2);
+    let result = fn(1.345);
+
+    expect(result).to.deep.equal(1.35);
+  });
 });
 
 

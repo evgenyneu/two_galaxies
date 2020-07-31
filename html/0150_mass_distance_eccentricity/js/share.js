@@ -41,6 +41,10 @@ export function roundN(value, digits) {
    return (Math.round(value * tenToN)) / tenToN;
 }
 
+export function roundFloat(decimalPlaces) {
+  return (value) => roundN(value, decimalPlaces);
+}
+
 export function roundArray(decimalPlaces) {
   return (arr) => arr.map((a) => roundN(a, decimalPlaces));
 }
@@ -55,12 +59,8 @@ export function roundArray(decimalPlaces) {
 //                   to make the URL shorter. If function is not supplied,
 //                   the parameter is stored in the URL as it is.
 let sharedInitialParams = {
-  "numberOfRings": {
-    parseFunction: readArrayOfFloats
-  },
-  "ringSeparation": {
-    parseFunction: readFloat
-  }
+  "numberOfRings": { parseFunction: readArrayOfFloats },
+  "ringSeparation": { parseFunction: readFloat }
 };
 
 // The keys are names of current parameters that can be shared.
@@ -76,7 +76,8 @@ let sharedCurrentParams = {
   "rotationMatrix": {
     storeFunction: roundArray(2),
     parseFunction: readArrayOfFloats
-  }
+  },
+  "cameraDistance": { parseFunction: roundFloat(2) }
 };
 
 /**
