@@ -136,6 +136,9 @@
         <div class="TwoGalaxies-copyOutcome">&nbsp;</div>
       </div>
 
+
+      <!-- WebGL program for drawing stars -->
+
       <script class="Webgl-vertexShader2d" type="notjs">
         attribute vec4 a_position;
         attribute vec4 a_color;
@@ -156,8 +159,7 @@
       </script>
 
       <script class="Webgl-fragmentShader2d" type="notjs">
-        // fragment shaders don't have a default precision so we need
-        // to pick one. mediump is a good default
+        // Precision of the fragment shader
         precision mediump float;
 
         // Passed in from the vertex shader.
@@ -186,6 +188,29 @@
           // Draw the pixels inside the disk with the supplied color
           // Make middle brighter to make it look like a sphere
           gl_FragColor = v_color * r + vec4(1, 1, 1, 1) * (1.0 - r);
+        }
+
+      </script>
+
+
+      <!-- WebGL program for drawing trajectories of galaxy cores -->
+
+      <script class="Webgl-vertexShader2d-Trajectory" type="notjs">
+        attribute vec4 a_position;
+        uniform mat4 u_matrix;
+
+        void main() {
+          // Multiply the position by the matrix.
+          gl_Position = u_matrix * a_position;
+        }
+      </script>
+
+      <script class="Webgl-fragmentShader-Trajectory" type="notjs">
+        // Precision of the fragment shader
+        precision mediump float;
+
+        void main() {
+          gl_FragColor = vec4(1, 0, 0.5, 1);
         }
 
       </script>
