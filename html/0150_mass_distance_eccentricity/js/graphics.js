@@ -4,9 +4,13 @@ import { createProgramFromScripts } from '../../../js/web_gl_utils.js';
 import m4 from './simulation/m4.js';
 import { numberOfStarsInAllRingsOneGalaxy } from './simulation/initial_conditions.js';
 
-// Adjust the canvas to the size of the screen
+// Adjust the size of the drawing region (canvas) based on the size of
+// the web browser window
 function fitToContainer(drawData){
   var canvas = drawData.gl.canvas;
+  // If in landscape mode (e.g. big monitor), make the height 150 pixels
+  // smaller than the window to make room for the slider controls at the bottom
+  // If in portrait (e.g. on a phone), make height equal to width.
   const canvasHeight = Math.min(window.innerHeight - 150, window.innerWidth);
   document.querySelector(".TwoGalaxies-container").style.height = canvasHeight + 'px';
 
@@ -30,6 +34,16 @@ function fitToContainer(drawData){
   }
 }
 
+
+/**
+ * Do all necessary steps needed for drawing stuff on scree:
+ * initialize WebGL, create buffers for loading positions and colors of stars
+ * into the GPU etc.
+ *
+ * @param  {object} initialParams Initial parameters of the simulation.
+ * @return {object} Information that will be used later at each animation
+ *                  frame for drawing stars on screen.
+ */
 export function initGraphics(initialParams) {
   // Get canvas object
   var canvas = document.querySelector(".TwoGalaxies-canvas");
@@ -65,7 +79,11 @@ export function initGraphics(initialParams) {
     matrixLocation: matrixLocation
   };
 
+  // Load the colors of the stars into the GPU
   loadColors(drawData, initialParams);
+
+  // Adjust the size of the drawing region based on the size of the
+  // web browser window
   fitToContainer(drawData);
 
   // Adjust the canvas size when the browser window is resized

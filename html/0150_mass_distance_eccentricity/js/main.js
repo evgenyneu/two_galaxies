@@ -45,6 +45,16 @@ function restart(drawData, initialParams, currentParams, reloadColors=false) {
   if (reloadColors) loadColors(drawData, initialParams);
 }
 
+
+
+/**
+ * The entry point of the simulation
+ *
+ * @param  {number} screenRefreshRateFPS Measured approximate
+ *      refresh rate of the screen. It is used to set the time step of the animation
+ *      so that it runs visually at the same speed for people with different monitors
+ *      (i.e. 60 Hz and 144 Hz).
+ */
 function main(screenRefreshRateFPS) {
   // Initial parameters of the simulation, they can't be changed without restart
   var initialParams = {
@@ -57,6 +67,7 @@ function main(screenRefreshRateFPS) {
     eccentricity: 0.6
   };
 
+  // Load initial parameters if they were shared through the URL
   initialParams = getInitialParameters(initialParams);
 
   // Parameters that can change during the simulation
@@ -96,6 +107,7 @@ function main(screenRefreshRateFPS) {
     cameraDistance: null
   };
 
+  // Load current parameters if they were shared through the URL
   currentParams = getCurrentParameters(currentParams);
 
   var drawData = initGraphics(initialParams);

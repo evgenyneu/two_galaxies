@@ -157,9 +157,20 @@ function initSliderButton(buttonSelector, sliderSelectors) {
   button.onclick = didClickSliderButton(sliderSelectors);
 }
 
+
+/**
+ * Start detecting the button click.
+ *
+ * @param  {object} initialParams Initial parameters of the simulation.
+ * @param  {object} currentParams Current parameters of the simulation.
+ */
 export function init(initialParams, currentParams) {
+  // Reload simulation button
   var button = document.querySelector(".TwoGalaxies-reloadButton");
   button.onclick = didClickReload(currentParams);
+
+  // Reverse time button
+  // ------------
 
   var reverseTimeButton = document.querySelector(".TwoGalaxies-reverseTimeButton");
   var reverseTime2Button = document.querySelector(".TwoGalaxies-reverseTime2Button");
@@ -202,6 +213,7 @@ export function init(initialParams, currentParams) {
 
   button = document.querySelector(".TwoGalaxies-copyToClipboardButton");
   button.onclick = didClickCopyToClipboard;
+
 
   // Buttons for showing sliders
   // -----------
