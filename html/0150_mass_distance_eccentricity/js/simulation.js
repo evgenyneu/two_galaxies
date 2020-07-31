@@ -1,11 +1,14 @@
 // Get positions of stars from the physics simulation
 
+import * as trajectories from './trajectories.js';
 import * as init from './simulation/initial_conditions.js';
 import getAccelerations from './simulation/acceleration.js';
 import integrateOneStep from './simulation/integrator.js';
 
 export function setInitial(initialParams, currentParams) {
   var { positions, velocities } = init.allPositionsAndVelocities(initialParams);
+
+  currentParams.trajectoriesState = trajectories.init(positions);
 
   // Create an array to store accelerations, willed with zeros
   currentParams.accelerations = Array(positions.length).fill(0);
@@ -30,6 +33,8 @@ function fastForward(initialParams, currentParams) {
       currentParams.positions,
       currentParams.velocities,
       currentParams.accelerations);
+
+    trajectories.update(currentParams.trajectoriesState, currentParams.positions);
   }
 }
 
@@ -50,6 +55,8 @@ export function update(initialParams, currentParams) {
     currentParams.positions,
     currentParams.velocities,
     currentParams.accelerations);
+
+  trajectories.update(currentParams.trajectoriesState, currentParams.positions);
 }
 
 /**
