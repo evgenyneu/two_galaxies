@@ -1,6 +1,5 @@
 // Store the trajectories of the two galaxy cores
 
-
 /**
  * Store initial trajectories
  *

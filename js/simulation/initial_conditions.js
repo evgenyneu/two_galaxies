@@ -1,3 +1,6 @@
+/* Setup the initial conditions of the simulation: positions, velocities
+and accelerations of the stars */
+
 /**
  * Calculate the total number of bodies: two galaxy cores plus the stars
  * in each galaxy

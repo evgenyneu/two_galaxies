@@ -1,4 +1,4 @@
-// Taking input from the user
+// Taking input from the user: buttons clicks, zoom, rotation.
 
 import * as rotate from './rotate_on_touch.js';
 import * as zoom from './zoom.js';
