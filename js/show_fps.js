@@ -1,5 +1,6 @@
 // Shows current FPS (frames per second) to check the performance of the system
 
+
 export function init() {
   var state = {
     // The time stamp of the previous frame

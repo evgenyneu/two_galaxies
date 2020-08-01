@@ -43,6 +43,7 @@ function measure(measurements) {
   return Math.round(1000 / medium);
 }
 
+
 /**
  * Stores time of the animation frame. The method is called multiple time
  * for each animation frame until the number of `tries` is exceeded.

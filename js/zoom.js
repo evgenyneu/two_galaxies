@@ -1,11 +1,13 @@
 // Zoom the stars in and out by using the mouse scroll wheel
 // or pinch gesture
 
+
 function distanceBetweenFingers(e) {
   return Math.hypot(
       e.targetTouches[0].pageX - e.targetTouches[1].pageX,
       e.targetTouches[0].pageY - e.targetTouches[1].pageY);
 }
+
 
 function onWheel(state, e, currentParams) {
   e.preventDefault();
@@ -20,12 +22,14 @@ function onWheel(state, e, currentParams) {
   }
 }
 
+
 function startTouch(state, e) {
   state.touching = true;
   if (e.targetTouches.length !== 2) return;
 
   state.lastDistance = distanceBetweenFingers(e);
 }
+
 
 function touchMove(state, e, currentParams) {
   if (!state.touching) return;
@@ -46,6 +50,7 @@ function touchMove(state, e, currentParams) {
     currentParams.cameraDistance = state.minCameraDistance;
   }
 }
+
 
 function stopTouch(state) {
   state.touching = false;
@@ -78,6 +83,7 @@ export function updateCameraDistance(currentParams) {
   var zDistance = maxXDistance / Math.tan(currentParams.zoomState.fieldOfViewRadians * 0.5);
   currentParams.cameraDistance = zDistance;
 }
+
 
 /**
  * Start detecting zoom.

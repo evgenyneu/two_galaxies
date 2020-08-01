@@ -14,6 +14,7 @@ export function readFloat(str) {
   return parsed;
 }
 
+
 /**
  * Parse comma separated values into an array of floats.
  *
@@ -24,6 +25,7 @@ export function readArrayOfFloats(str) {
   return readArrayOfNumbers(str, parseFloat);
 }
 
+
 /**
  * Parse comma separated values into an array of integers.
  *
@@ -33,6 +35,7 @@ export function readArrayOfFloats(str) {
 export function readArrayOfInts(str) {
   return readArrayOfNumbers(str, parseInt);
 }
+
 
 /**
  * Parse comma separated values into an array of integers.
@@ -52,6 +55,7 @@ export function readArrayOfNumbers(str, parseFn) {
   return parsed;
 }
 
+
 /**
  * Rounds a float number of given number of decimal places
  * Source: https://stackoverflow.com/a/56632526/297131
@@ -61,9 +65,11 @@ export function roundN(value, digits) {
    return (Math.round(value * tenToN)) / tenToN;
 }
 
+
 export function roundFloat(decimalPlaces) {
   return (value) => roundN(value, decimalPlaces);
 }
+
 
 export function roundArray(decimalPlaces) {
   return (arr) => arr.map((a) => roundN(a, decimalPlaces));
@@ -93,6 +99,7 @@ let sharedInitialParams = {
   }
 };
 
+
 // The keys are names of current parameters that can be shared.
 // The values are functions for parsing string value from URL.
 // The values are:
@@ -113,6 +120,7 @@ let sharedCurrentParams = {
   }
 };
 
+
 /**
  * Returns the full URL to the simulation for sharing containing
  * all the selected parameters
@@ -122,6 +130,7 @@ export function getShareURL(initialParams, currentParams) {
   let urlStart = getCurrentUrlWithoutParameters();
   return  `${urlStart}?${urlParams}`;
 }
+
 
 /**
  * Returns the last part of the URL containing the parameters
@@ -146,6 +155,7 @@ export function filterInitialParams(initialParams) {
   return filterParams(sharedInitialParams, initialParams);
 }
 
+
 /**
  * Keeps only permitted current parameters that will be used for sharing.
  *
@@ -155,6 +165,7 @@ export function filterInitialParams(initialParams) {
 export function filterCurrentParams(currentParams) {
   return filterParams(sharedCurrentParams, currentParams);
 }
+
 
 /**
  * Keeps only parameters permitted for sharing.
@@ -176,6 +187,7 @@ function filterParams(sharedParams, allParams) {
   return filtered;
 }
 
+
 export function prepareParamsForSharing(params, sharedParams) {
   let result = {};
 
@@ -195,9 +207,11 @@ export function prepareParamsForSharing(params, sharedParams) {
   return result;
 }
 
+
 function getCurrentUrlWithoutParameters() {
   return location.protocol + '//' + location.host + location.pathname;
 }
+
 
 /**
  * Get the initial parameters from the URL string.
@@ -208,6 +222,7 @@ function getCurrentUrlWithoutParameters() {
 export function getSharedInitialParameters(defaultParams) {
   return getSharedInitialParametersFromUrl(location.search, defaultParams);
 }
+
 
 /**
  * Get the initial parameters from the URL string.
@@ -221,6 +236,7 @@ export function getSharedInitialParametersFromUrl(urlParams, defaultParams) {
   return getParametersFromUrl(urlParams, defaultParams, sharedInitialParams);
 }
 
+
 /**
  * Get the current parameters from the URL string.
  *
@@ -230,6 +246,7 @@ export function getSharedInitialParametersFromUrl(urlParams, defaultParams) {
 export function getSharedCurrentParameters(defaultParams) {
   return getSharedCurrentParametersFromUrl(location.search, defaultParams);
 }
+
 
 /**
  * Get the current parameters from the URL string.

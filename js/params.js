@@ -5,8 +5,6 @@ import m4 from './simulation/m4.js';
 import * as simulation from './simulation.js';
 
 
-
-
 /**
  * Return initial parameters of the simulation, they can't be changed without
  * restart (except for masses)
@@ -28,7 +26,6 @@ export function getInitialParameters() {
   // Load initial parameters if they were shared through the URL
   return getSharedInitialParameters(initialParams);
 }
-
 
 
 /**

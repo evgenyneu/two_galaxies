@@ -1,10 +1,14 @@
-// Get positions of stars from the physics simulation
+// Calculate positions of stars using the physics simulation
 
 import * as trajectories from './trajectories.js';
 import * as init from './simulation/initial_conditions.js';
 import getAccelerations from './simulation/acceleration.js';
 import integrateOneStep from './simulation/integrator.js';
 
+
+/**
+ * Calculate initial positions of stars
+ */
 export function setInitial(initialParams, currentParams) {
   var { positions, velocities } = init.allPositionsAndVelocities(initialParams);
 
@@ -19,6 +23,10 @@ export function setInitial(initialParams, currentParams) {
   currentParams.velocities = velocities;
 }
 
+
+/**
+ * Evolves the simulation by given number of seconds (fastForwardSeconds).
+ */
 function fastForward(initialParams, currentParams) {
   var timeSteps = Math.round(Math.abs(currentParams.fastForwardSeconds *
                           currentParams.screenRefreshRateFPS));
@@ -38,6 +46,10 @@ function fastForward(initialParams, currentParams) {
   }
 }
 
+
+/**
+ * Evolves the simulation by one time step.
+ */
 export function update(initialParams, currentParams) {
   if (currentParams.rotating) return;
 
@@ -58,6 +70,7 @@ export function update(initialParams, currentParams) {
 
   trajectories.update(currentParams.trajectoriesState, currentParams.positions);
 }
+
 
 /**
  * Calculate the time step given the screen refresh rate.

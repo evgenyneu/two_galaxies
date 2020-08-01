@@ -2,11 +2,13 @@
 
 import m4 from './simulation/m4.js';
 
+
 function startMoving(state, e) {
   state.moving = true;
   state.lastPosition = [e.pageX, e.pageY];
   if (state.didStartRotating) state.didStartRotating();
 }
+
 
 function startTouching(state, e) {
   if (e.targetTouches.length === 2) {
@@ -18,6 +20,7 @@ function startTouching(state, e) {
   // Single finger touch
   if (e.targetTouches.length === 1) startMoving(state, e.targetTouches[0]);
 }
+
 
 function move(state, currentParams, e) {
   if (!state.moving) return;
@@ -43,6 +46,7 @@ function move(state, currentParams, e) {
   state.lastPosition = [e.pageX, e.pageY];
 }
 
+
 function touchMove(state, currentParams, e) {
   if (e.targetTouches.length === 2) {
     // Touching with two fingers.
@@ -56,10 +60,12 @@ function touchMove(state, currentParams, e) {
   }
 }
 
+
 function stopMoving(state) {
   state.moving = false;
   if (state.didStopRotating) state.didStopRotating();
 }
+
 
 /**
  * Start detecting rotation of the scene.

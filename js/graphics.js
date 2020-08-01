@@ -6,6 +6,7 @@ import m4 from './simulation/m4.js';
 import { numberOfStarsInAllRingsOneGalaxy, totalNumberOfBodies }
   from './simulation/initial_conditions.js';
 
+
 // Adjust the size of the drawing region (canvas) based on the size of
 // the web browser window
 function fitToContainer(drawData){
@@ -189,6 +190,7 @@ export function loadColors(drawData, initialParams) {
   // Write colors to the buffer
   gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
 }
+
 
 /**
  * Load star star sizes into the GPU buffer

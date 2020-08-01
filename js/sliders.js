@@ -2,11 +2,13 @@
 
 import SickSlider from './sick_slider.js';
 
+
 function didChangeTimeStep(currentParams) {
   return function(value, position) {
     currentParams.timeStep = value;
   };
 }
+
 
 function didChangeRings(initialParams, currentParams, galaxyIndex, onRestart) {
   return function(value, position) {
@@ -22,6 +24,7 @@ function didChangeRings(initialParams, currentParams, galaxyIndex, onRestart) {
   };
 }
 
+
 function didChangeMass(initialParams, currentParams, galaxyIndex, onRestart) {
   return function(value, position) {
     initialParams.masses[galaxyIndex] = value;
@@ -35,6 +38,7 @@ function didChangeMass(initialParams, currentParams, galaxyIndex, onRestart) {
     onRestart(restartParams);
   };
 }
+
 
 function didChangeDistance(initialParams, currentParams, onRestart) {
   return function(value, position) {
@@ -50,6 +54,7 @@ function didChangeDistance(initialParams, currentParams, onRestart) {
   };
 }
 
+
 function didChangeEccentricity(initialParams, currentParams, onRestart) {
   return function(value, position) {
     initialParams.eccentricity = value;
@@ -63,6 +68,7 @@ function didChangeEccentricity(initialParams, currentParams, onRestart) {
     onRestart(restartParams);
   };
 }
+
 
 function didChangeAngle(initialParams, currentParams, galaxyIndex, onRestart) {
   return function(value, position) {
@@ -78,6 +84,7 @@ function didChangeAngle(initialParams, currentParams, galaxyIndex, onRestart) {
   };
 }
 
+
 function didChangeRingSeparation(initialParams, currentParams, onRestart) {
   return function(value, position) {
     initialParams.ringSeparation = value;
@@ -91,6 +98,7 @@ function didChangeRingSeparation(initialParams, currentParams, onRestart) {
     onRestart(restartParams);
   };
 }
+
 
 export function setupSlider(initialParams, currentParams, onRestart) {
   SickSlider(".TwoGalaxies-sliderTimeStep", {

@@ -10,6 +10,7 @@ import {init as initUserInput} from './user_input.js';
 import * as showFps from './show_fps.js';
 import { updateCameraDistance } from './zoom.js';
 
+
 /**
  * Calculate positions of stars at the next time stamp and redraw the
  * stars on screen. This function is called at each frame of the animation,
