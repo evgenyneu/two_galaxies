@@ -11,38 +11,70 @@ function didChangeTimeStep(currentParams) {
 function didChangeRings(initialParams, currentParams, galaxyIndex, onRestart) {
   return function(value, position) {
     initialParams.numberOfRings[galaxyIndex] = value;
-    const reloadColors = true;
-    onRestart(reloadColors);
+
+    var restartParams = {
+      restart: true,
+      reloadColors: true,
+      reloadStarSizes: true
+    };
+
+    onRestart(restartParams);
   };
 }
 
-function didChangeMass(initialParams, currentParams, galaxyIndex) {
+function didChangeMass(initialParams, currentParams, galaxyIndex, onRestart) {
   return function(value, position) {
     initialParams.masses[galaxyIndex] = value;
+
+    var restartParams = {
+      restart: false,
+      reloadColors: false,
+      reloadStarSizes: true
+    };
+
+    onRestart(restartParams);
   };
 }
 
 function didChangeDistance(initialParams, currentParams, onRestart) {
   return function(value, position) {
     initialParams.minimalGalaxySeparation = value;
-    const reloadColors = false;
-    onRestart(reloadColors);
+
+    var restartParams = {
+      restart: true,
+      reloadColors: false,
+      reloadStarSizes: false
+    };
+
+    onRestart(restartParams);
   };
 }
 
 function didChangeEccentricity(initialParams, currentParams, onRestart) {
   return function(value, position) {
     initialParams.eccentricity = value;
-    const reloadColors = false;
-    onRestart(reloadColors);
+
+    var restartParams = {
+      restart: true,
+      reloadColors: false,
+      reloadStarSizes: false
+    };
+
+    onRestart(restartParams);
   };
 }
 
 function didChangeAngle(initialParams, currentParams, galaxyIndex, onRestart) {
   return function(value, position) {
     initialParams.galaxyInclinationAnglesDegree[galaxyIndex] = value;
-    const reloadColors = false;
-    onRestart(reloadColors);
+
+    var restartParams = {
+      restart: true,
+      reloadColors: false,
+      reloadStarSizes: false
+    };
+
+    onRestart(restartParams);
   };
 }
 
@@ -87,7 +119,7 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     label: 'Core mass: ',
     value: initialParams.masses[0], min: 0, max: 10,
     decimalPlaces: 2,
-    onChange: didChangeMass(initialParams, currentParams, 0),
+    onChange: didChangeMass(initialParams, currentParams, 0, onRestart),
     visible: false
   });
 
@@ -95,7 +127,7 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     label: 'Core mass: ',
     value: initialParams.masses[1], min: 0, max: 10,
     decimalPlaces: 2,
-    onChange: didChangeMass(initialParams, currentParams, 1),
+    onChange: didChangeMass(initialParams, currentParams, 1, onRestart),
     visible: false
   });
 

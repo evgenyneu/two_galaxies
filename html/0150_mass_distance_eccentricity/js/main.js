@@ -1,7 +1,7 @@
 // The entry point of the program.
 // Initialises graphics and runs the simulation.
 
-import { initGraphics, loadColors } from './graphics.js';
+import { initGraphics, loadColors, loadStarSizes } from './graphics.js';
 import drawScene from './render.js';
 import * as simulation from './simulation.js';
 import { measureRefreshRate } from './refresh_rate.js';
@@ -52,17 +52,23 @@ function onNextFrame(drawData, initialParams, currentParams, fpsState) {
  * @param  {object} drawData Drawing data.
  * @param  {object} initialParams Initial parameters of the simulation.
  * @param  {object} currentParams Current parameters of the simulation.
- * @param  {boolean} reloadColors=false Load the colors into GPU if true.
+ * @param  {object} restartParams An object with following restart settings:
+ *    restart           Start the simulation form the beginning.
+ *    reloadColors      Reload the colors of the stars.
+ *    reloadStarSizes   Reload the star sizes.
  */
-function restart(drawData, initialParams, currentParams, reloadColors=false) {
-  currentParams.positions = null;
-  currentParams.velocities = null;
-  currentParams.accelerations = null;
+function restart(drawData, initialParams, currentParams, restartParams) {
+  if (restartParams.restart) {
+    currentParams.positions = null;
+    currentParams.velocities = null;
+    currentParams.accelerations = null;
 
-  // Recalculate the zoom
-  currentParams.zoomState.cameraDistance = null;
+    // Recalculate the zoom
+    currentParams.zoomState.cameraDistance = null;
+  }
 
-  if (reloadColors) loadColors(drawData, initialParams);
+  if (restartParams.reloadColors) loadColors(drawData, initialParams);
+  if (restartParams.reloadStarSizes) loadStarSizes(drawData, initialParams);
 }
 
 
@@ -142,7 +148,7 @@ function main(screenRefreshRateFPS) {
 
   // Allow user to rotate and zoom the sceen.
   initUserInput(drawData, initialParams, currentParams,
-    (reloadColors) => restart(drawData, initialParams, currentParams, reloadColors));
+    (restartParams) => restart(drawData, initialParams, currentParams, restartParams));
 
   // Prepare to calculate the current refresh rate of the animation.
   var fpsState = showFps.init();
