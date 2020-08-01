@@ -1,7 +1,3 @@
-import * as vector from './vector.js';
-
-
-
 /**
  * Calculate the total number of bodies: two galaxy cores plus the stars
  * in each galaxy

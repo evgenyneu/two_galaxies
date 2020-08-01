@@ -1,6 +1,3 @@
-import * as vector from './vector.js';
-
-
 /**
  * Calculate accelerations of all bodies (cores and stars) due
  * to gravitational forces of the galaxy cores. We ignore forces from stars.

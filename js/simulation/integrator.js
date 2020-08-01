@@ -1,4 +1,3 @@
-import * as vector from './vector.js';
 import getAccelerations from './acceleration.js';
 
 
