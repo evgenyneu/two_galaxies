@@ -81,8 +81,14 @@ function didChangeAngle(initialParams, currentParams, galaxyIndex, onRestart) {
 function didChangeRingSeparation(initialParams, currentParams, onRestart) {
   return function(value, position) {
     initialParams.ringSeparation = value;
-    const reloadColors = false;
-    onRestart(reloadColors);
+
+    var restartParams = {
+      restart: true,
+      reloadColors: false,
+      reloadStarSizes: false
+    };
+
+    onRestart(restartParams);
   };
 }
 
@@ -90,7 +96,8 @@ export function setupSlider(initialParams, currentParams, onRestart) {
   SickSlider(".TwoGalaxies-sliderTimeStep", {
     label: 'Time step: ',
     value: currentParams.timeStep, min: 0, max: 3,
-    onChange: didChangeTimeStep(currentParams)
+    onChange: didChangeTimeStep(currentParams),
+    visible: false
   });
 
   // Number of rings
@@ -101,7 +108,7 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     value: initialParams.numberOfRings[0], min: 0, max: 150,
     decimalPlaces: 0,
     onChange: didChangeRings(initialParams, currentParams, 0, onRestart),
-    visible: false
+    visible: true
   });
 
   SickSlider(".TwoGalaxies-sliderRings2", {
@@ -109,7 +116,7 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     value: initialParams.numberOfRings[1], min: 0, max: 150,
     decimalPlaces: 0,
     onChange: didChangeRings(initialParams, currentParams, 1, onRestart),
-    visible: false
+    visible: true
   });
 
   // Mass
