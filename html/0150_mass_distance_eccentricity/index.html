@@ -142,6 +142,7 @@
       <script class="Webgl-vertexShader" type="notjs">
         attribute vec4 a_position;
         attribute vec4 a_color;
+        attribute float a_star_size;
         uniform mat4 u_matrix;
         varying vec4 v_color;
 
@@ -151,7 +152,7 @@
 
           // Make stars that are further away appear smaller
           // but not smaller than minimum size
-          gl_PointSize = max(1200.0 / gl_Position.z, 4.0);
+          gl_PointSize = max(a_star_size / gl_Position.z, 4.0);
 
           // Pass the color to the fragment shader
           v_color = a_color;

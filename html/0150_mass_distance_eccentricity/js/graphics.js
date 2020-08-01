@@ -2,7 +2,9 @@
 
 import { createProgramFromScripts } from '../../../js/web_gl_utils.js';
 import m4 from './simulation/m4.js';
-import { numberOfStarsInAllRingsOneGalaxy } from './simulation/initial_conditions.js';
+
+import { numberOfStarsInAllRingsOneGalaxy, totalNumberOfBodies }
+  from './simulation/initial_conditions.js';
 
 // Adjust the size of the drawing region (canvas) based on the size of
 // the web browser window
@@ -98,11 +100,13 @@ export function initGraphics(initialParams) {
   // Lookup location of the position attribute for the program
   var positionLocation = gl.getAttribLocation(program, "a_position");
   var colorLocation = gl.getAttribLocation(program, "a_color");
+  var starSizeLocation = gl.getAttribLocation(program, "a_star_size");
   var matrixLocation = gl.getUniformLocation(program, "u_matrix");
 
   // Create a buffer (attributes get their data from buffers)
   var positionBuffer = gl.createBuffer();
   var colorBuffer = gl.createBuffer();
+  var starSizeBuffer = gl.createBuffer();
 
   var drawData = {
     gl: gl,
@@ -111,11 +115,16 @@ export function initGraphics(initialParams) {
     positionBuffer: positionBuffer,
     colorLocation: colorLocation,
     colorBuffer: colorBuffer,
+    starSizeLocation: starSizeLocation,
+    starSizeBuffer: starSizeBuffer,
     matrixLocation: matrixLocation
   };
 
   // Load the colors of the stars into the GPU
   loadColors(drawData, initialParams);
+
+  // Load the sizes of the stars in the GPU
+  loadStarSizes(drawData, initialParams);
 
   initTrajectories(drawData);
 
@@ -149,14 +158,14 @@ export function loadColors(drawData, initialParams) {
   var colors = new Uint8Array(bodies * 3);
 
   // Core 1
-  colors[0] = twoColors[0][0];
-  colors[1] = twoColors[0][1];
-  colors[2] = twoColors[0][2];
+  colors[0] = initialParams.coreColors[0][0];
+  colors[1] = initialParams.coreColors[0][1];
+  colors[2] = initialParams.coreColors[0][2];
 
   // Core 2
-  colors[3] = twoColors[1][0];
-  colors[4] = twoColors[1][1];
-  colors[5] = twoColors[1][2];
+  colors[3] = initialParams.coreColors[1][0];
+  colors[4] = initialParams.coreColors[1][1];
+  colors[5] = initialParams.coreColors[1][2];
 
   // Stars of first galaxy
   for(let i = 0; i < stars1; i++) {
@@ -179,4 +188,41 @@ export function loadColors(drawData, initialParams) {
 
   // Write colors to the buffer
   gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
+}
+
+/**
+ * Load star star sizes into the GPU buffer
+ *
+ * @param  {object} drawData Draw data
+ * @param  {object} initialParams Initial parameters of the simulation
+ * @param  {array} twoColors  Colors of the two galaxies
+ */
+export function loadStarSizes(drawData, initialParams) {
+  // Total number of bodies (stars plus two galaxy cores)
+  let bodies = totalNumberOfBodies(initialParams.numberOfRings[0],
+                                   initialParams.numberOfRings[1]);
+
+  let size = initialParams.starSize;
+  var sizes =  new Float32Array(bodies);
+
+  // Size of the galaxy core. Make them dependent on their masses
+  let coreSize = 1.5 * size;
+
+  // The size of a constant density star is proportional to its mass
+  // to the 1/3 power
+  sizes[0] = Math.pow(coreSize * initialParams.masses[0], 1/3);
+  sizes[1] = Math.pow(coreSize * initialParams.masses[0], 1/3);
+
+  // Stars of first galaxy
+  for(let i = 2; i < bodies; i++) {
+    sizes[i] = size;
+  }
+
+  var gl = drawData.gl;
+
+  // Bind ARRAY_BUFFER to the starSizeBuffer (creates a global variable inside WebGL)
+  gl.bindBuffer(gl.ARRAY_BUFFER, drawData.starSizeBuffer);
+
+  // Write sizes to the buffer
+  gl.bufferData(gl.ARRAY_BUFFER, sizes, gl.STATIC_DRAW);
 }
