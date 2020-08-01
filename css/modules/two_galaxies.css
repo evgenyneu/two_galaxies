@@ -1,0 +1,137 @@
+.TwoGalaxies-container {
+  background-color: #000000;
+  position: relative;
+  height: 600px;
+}
+
+.TwoGalaxies-canvas {
+  width: 100%;
+  display: block;
+}
+
+.TwoGalaxies--isHidden { display: none; }
+
+/*
+  Hud display
+  ---------
+*/
+
+.TwoGalaxies-hudContainer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+}
+
+.TwoGalaxies-hudContainerChild {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.TwoGalaxies-bottomImage {
+  height: 100%;
+  border : 0;
+}
+
+.TwoGalaxies-button {
+    display: block;
+    height: 45px;
+    width: 45px;
+}
+
+.TwoGalaxies-leftButton { float: left; }
+
+.TwoGalaxies-button.TwoGalaxies-button--isHidden { display: none; }
+
+/*
+  Left buttons
+  ---------
+*/
+
+.TwoGalaxies-FPS {
+    color: #666666;
+    font-size: 11px;
+    position: absolute;
+    left: 10px;
+    bottom: -14px;
+}
+
+/*
+  Left buttons
+  ---------
+*/
+
+.TwoGalaxies-leftBottomButtonContainer {
+  position: absolute;
+  display: block;
+  left: 5px;
+  bottom: 5px;
+  height: 45px;
+}
+
+.TwoGalaxies-doesChangeOpacityOnHover {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+.TwoGalaxies-doesChangeOpacityOnHover:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
+}
+
+/*
+  Top buttons
+  ---------
+*/
+
+.TwoGalaxies-leftTopButtonContainer,
+.TwoGalaxies-rightTopButtonContainer {
+    position: absolute;
+    display: block;
+    left: 5px;
+    top: 5px;
+    height: 45px;
+}
+
+.TwoGalaxies-rightTopButtonContainer {
+    right: 5px;
+    left: auto;
+}
+
+
+/*
+  Sliders
+  ---------
+*/
+
+.TwoGalaxies-sliderColor1 .SickSlider-head { border-color: #ff9900; }
+.TwoGalaxies-sliderColor2 .SickSlider-head { border-color: #0099ff; }
+
+
+/*
+  Share
+  ---------
+*/
+
+.TwoGalaxies-shareText {
+    width: 100%;
+    min-height:60px;
+    color: #555;
+    font-size: 12px;
+}
+
+.TwoGalaxies-copyToClipboardButton {
+    -webkit-appearance: none;
+    height: 40px;
+    font-size: 16px;
+    color: #555;
+    background-color:#fff;
+    border: solid #555 1px;
+    border-radius: 5px;
+}

@@ -51,19 +51,23 @@ export default function SickSlider(sliderElementSelector, settings) {
     labelSuffix: null,
 
     // Number of decimal places for position to show in label
-    decimalPlaces: 2,
+    labelDecimalPlaces: 2,
 
-    // Store the current slider position, a number from 0 to 1
-    position: -42,
+    // Use scientific notation for label (i.e. 1.23E3) when
+    // log10 of abs(position) is larger than this value
+    // (or smaller than its negative)
+    labelLogUseScientic: 5,
+
+    // Store the previous slider position from 0 to 1
+    // in order to prevent calling onChange
+    // function with the same argument
+    previousSliderPosition: -42,
 
     // If false the slider position and label will be updated
     // on next animation frame. This is used to improve performance
     // and only update the slider no faster than 60 frames per second, as user
     // moves the slider.
-    didRequestUpdateOnNextFrame: false,
-
-    // If false the slider is hidden
-    visible: true
+    didRequestUpdateOnNextFrame: false
   };
 
 
@@ -78,40 +82,28 @@ export default function SickSlider(sliderElementSelector, settings) {
     that.labelElement = that.sliderContainer.querySelector(".SickSlider-label");
     that.slider = that.sliderContainer.querySelector(".SickSlider-slider");
     that.sliderHead = that.slider.querySelector(".SickSlider-head");
-    that.sliderStripe = that.slider.querySelector(".SickSlider-stripeLeft");
     var sliding = false;
 
     // Assign settings
     // -------
 
-    that.value = settings.value;
     that.min = settings.min;
     that.max = settings.max;
     that.label = settings.label;
     that.onChange = settings.onChange;
     that.labelSuffix = settings.labelSuffix;
-    if ('visible' in settings) that.visible = settings.visible;
-
-    if (that.value < that.min) that.value = that.min;
-    if (that.value > that.max) that.value = that.max;
 
     // Set decimal places for the label
-    if ('decimalPlaces' in settings) {
+    if ('labelDecimalPlaces' in settings) {
       // Given by the user
-      that.decimalPlaces = settings.decimalPlaces;
+      that.labelDecimalPlaces = settings.labelDecimalPlaces;
     } else {
       // Show decimal places if the range is larger than 10.
-      if (Math.abs(that.max - that.min) > 10) { that.decimalPlaces = 0; }
+      if (Math.abs(that.max - that.min) > 10) { that.labelDecimalPlaces = 0; }
     }
 
-    // Make slider visible in order to calculate its size
     that.sliderContainer.classList.remove("SickSlider--isHidden");
-
     that.updatePositionAndLabel(that.value);
-
-    if (!that.visible) {
-      that.sliderContainer.classList.add("SickSlider--isHidden");
-    }
 
     // Start dragging slider
     // -----------------
@@ -170,7 +162,7 @@ export default function SickSlider(sliderElementSelector, settings) {
 
       // The width of the slider has change, update its position
       that.previousSliderWidth = that.sliderContainer.offsetWidth;
-      that.changePosition(that.position);
+      that.changePosition(that.previousSliderPosition);
     });
   };
 
@@ -180,7 +172,7 @@ export default function SickSlider(sliderElementSelector, settings) {
    * @param e a touch event
    * @return {number}   slider value (a number form 0 to 1) from the cursor position
    */
-  that.sliderPositionFromCursor = function(e) {
+  that.sliderValueFromCursor = function(e) {
     var pointerX = e.pageX;
 
     if (e.touches && e.touches.length > 0) {
@@ -197,29 +189,26 @@ export default function SickSlider(sliderElementSelector, settings) {
 
     // Calculate slider value from head position
     var sliderWidthWithoutHead = that.slider.offsetWidth - that.sliderHead.offsetWidth;
-    var sliderPosition = 1;
+    var sliderValue = 1;
 
     if (sliderWidthWithoutHead !== 0) {
-      sliderPosition = headLeft / sliderWidthWithoutHead;
+      sliderValue = headLeft / sliderWidthWithoutHead;
     }
 
-    return sliderPosition;
+    return sliderValue;
   };
 
   /**
-   * Update the slider position and call the callback function.
+   * Update the slider position and call the callback function
    *
    * @param  e A touch event
    */
   that.updateHeadPositionOnTouch = function(e) {
-    var newPosition = that.sliderPositionFromCursor(e);
+    var sliderValue = that.sliderValueFromCursor(e);
 
-    // Respond the head change only if it changed significantly (more than 0.1%)
-    if (Math.round(that.position * 10000) === Math.round(newPosition * 10000)) { return; }
-    that.position = newPosition;
-
-    that.value = that.positionToValue(that.position, that.decimalPlaces,
-                                        that.min, that.max);
+    // Handle the head change only if it changed significantly (more than 0.1%)
+    if (Math.round(that.previousSliderPosition * 10000) === Math.round(sliderValue * 10000)) { return; }
+    that.previousSliderPosition = sliderValue;
 
     if (!that.didRequestUpdateOnNextFrame) {
       // Update the slider on next redraw, to improve performance
@@ -229,49 +218,38 @@ export default function SickSlider(sliderElementSelector, settings) {
   };
 
   /**
-   * Convert slider position (number from 0 to 1) to slider value
-   * (a number from min to max),
+   * Convert to slider position value using the positino value.
+   * 0 position is mapped to min and 1 is mapped to max.
    *
-   * @param  {number} position Slider position from 0 to 1.
-   * @return {number}          Slider value from min to max.
+   * @param  {number} value slider position from 0 to 1.
+   * @return {number}       slider value from min to max.
    */
-  that.positionToValue = function(position, decimalPlaces, min, max) {
-    var value = min + position * (max - min);
-    return roundNumber(value, decimalPlaces);
+  that.mapSliderValue = function(value) {
+    return that.min + value * (that.max - that.min);
   };
-
-  /**
-   * Convert slider value (a number from min to max) to position
-   * (a number from 0 to 1).
-   *
-   * @param  {number} value Slider value from min to max.
-   * @return {number}       Slider position from 0 to 1.
-   */
-  that.valueToPosition = function(value) {
-    return Math.abs(value - that.min) / Math.abs(that.max - that.min);
-  };
-
-  /**
-   * Round a number to specified decimal places.
-   * Source: https://stackoverflow.com/a/61961630/297131
-   *
-   * @param  {number} number A number.
-   * @param  {number} places Number of decimal places.
-   * @return {number} Rounded number.
-   */
-  function roundNumber(number, places) {
-    return Math.round((number + Number.EPSILON) * Math.pow(10, places)) / Math.pow(10, places);
-  }
 
   /**
    * Make the text of the label.
    *
-   * @param  {number} value Current slider position (between min and max)
+   * @param  {number} value Corrent slider position (between min and max)
    * @return {string}       Label text to be shown. If null, label is hidden.
    */
   that.makeLabelText = function(value) {
-    var text = Number(value).toFixed(that.decimalPlaces);
-    text = `${that.label}${text}`;
+    var abs_value = Math.abs(value);
+    var rounded = "";
+
+    if (abs_value < 1e-30) {
+      rounded = 0;
+    } else if (Math.log10(abs_value) > that.labelLogUseScientic ||
+        Math.log10(abs_value) < -that.labelLogUseScientic) {
+      // Use exponential notation (i.i. 2.12e2 for 212)
+      // if number is very large or small
+      rounded = abs_value.toExponential(that.labelDecimalPlaces);
+    } else {
+      rounded = Number(value).toFixed(that.labelDecimalPlaces);
+    }
+
+    var text = `${that.label}${rounded}`;
 
     if (that.labelSuffix != null) {
       text += that.labelSuffix;
@@ -285,7 +263,7 @@ export default function SickSlider(sliderElementSelector, settings) {
    * the label stays the same as it's updated with new position values
    * to prevent text from shifting on screen.
    *
-   * @param  {number} value Current slider value (between min and max)
+   * @param  {number} value Corrent slider position (between min and max)
    * @return {string}       Label text to be shown. If null, label is hidden.
    */
   that.makeLabel = function(value) {
@@ -314,42 +292,28 @@ export default function SickSlider(sliderElementSelector, settings) {
    * Updates the text label.
    */
   that.updateLabel = function() {
-    var labelText = that.makeLabel(that.value);
+    var value = that.mapSliderValue(that.previousSliderPosition);
+    var labelText = that.makeLabel(value);
     that.labelElement.innerHTML = labelText;
   };
 
 
   /**
    * Updates the slider, label and called the that.onChange callback.
-   * This method is called on each animation frame when the slider is moved
+   * This method is called on each animatino frame when the slider is moved
    * by the user.
    *
    */
   that.updateOnFrame = function() {
-    that.changePosition(that.position);
+    that.value = that.mapSliderValue(that.previousSliderPosition);
+    that.changePosition(that.previousSliderPosition);
     that.updateLabel();
 
     if (that.onChange) {
-      if (that.onChangePreviousValue !== that.value) {
-        // Call the change function only if the value has changed.
-        that.onChange(that.value, that.position);
-      }
-
-      that.onChangePreviousValue = that.value;
+      that.onChange(that.value, that.previousSliderPosition);
     }
 
     that.didRequestUpdateOnNextFrame = false;
-  };
-
-  /**
-   * Changes the position of the slider
-   *
-   * @param  {type} sliderValue a value between 0 and 1
-   */
-  that.changePosition = function(sliderPosition) {
-    var headLeft = (that.slider.offsetWidth - that.sliderHead.offsetWidth) * sliderPosition;
-    that.sliderHead.style.left = headLeft + "px";
-    that.sliderStripe.style.width = headLeft + "px";
   };
 
   /**
@@ -359,9 +323,20 @@ export default function SickSlider(sliderElementSelector, settings) {
    */
   that.updatePositionAndLabel = function(value) {
     that.value = value;
-    that.position = that.valueToPosition(value);
-    that.changePosition(that.position);
+    var position = Math.abs(that.value - that.min) / Math.abs(that.max - that.min);
+    that.previousSliderPosition = position;
+    that.changePosition(position);
     that.updateLabel();
+  };
+
+  /**
+   * Changes the position of the slider
+   *
+   * @param  {type} sliderValue a value between 0 and 1
+   */
+  that.changePosition = function(sliderValue) {
+    var headLeft = (that.slider.offsetWidth - that.sliderHead.offsetWidth) * sliderValue;
+    that.sliderHead.style.left = headLeft + "px";
   };
 
   that.init(sliderElementSelector, settings);

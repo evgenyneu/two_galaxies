@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>eccentricity_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="55.8372396" cy="55.664388" r="12"></circle>
+        <ellipse id="Oval" stroke="#FFFFFF" stroke-width="2" transform="translate(44.982441, 44.895620) rotate(-45.000000) translate(-44.982441, -44.895620) " cx="44.9824409" cy="44.8956201" rx="22.1608073" ry="31.4911832"></ellipse>
+        <circle id="Oval-2" fill="#FFFFFF" cx="56.1328125" cy="56.0416667" r="4.5"></circle>
+        <ellipse id="Oval-2" fill="#FFFFFF" cx="47.6321615" cy="47.2317708" rx="3.44986979" ry="3.48697917"></ellipse>
+        <ellipse id="Oval-2" fill="#FFFFFF" cx="23.061849" cy="22.5247396" rx="3.44986979" ry="3.48697917"></ellipse>
+    </g>
+</svg>

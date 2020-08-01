@@ -18,4 +18,7 @@
   --iiMarginNormal:  15px;
   --iiMarginLarge:   20px;
   --iiMargin2x:      30px;
+
+  /* Responsive Breakpoints */
+  --fixedBreakpoint: 600px;
 }
