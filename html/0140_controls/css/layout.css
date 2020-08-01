@@ -1,8 +1,0 @@
-@media screen and (min-width: 600px) {
-  .layout-fixed {
-    width: var(--fixedBreakpoint);
-    margin: 0 auto;
-  }
-}
-
-.layout-padding { padding: var(--iiMarginNormal); }
