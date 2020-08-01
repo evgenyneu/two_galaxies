@@ -83,7 +83,7 @@ function main(screenRefreshRateFPS) {
   var initialParams = {
     numberOfRings: [5, 5],
     colors: [[255, 127, 0], [0, 100, 255]],
-    trajectoryColors: [[0.5, 0.4, 0, 1], [0.0, 0.3, 0.7, 1]],
+    trajectoryColors: [[0.7, 0.5, 0, 1], [0.0, 0.5, 0.9, 1]],
     ringSeparation: 3,
     minimalGalaxySeparation: 25,
     galaxyInclinationAnglesDegree: [60, 60],

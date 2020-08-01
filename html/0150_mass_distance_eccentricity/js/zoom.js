@@ -90,6 +90,8 @@ export function updateCameraDistance(currentParams) {
 export function init(hudContainer, currentParams) {
   var state = {
     touching: false,
+    // The larger field of view increases the effect of 3D perspective:
+    // objects that are farther away appear smaller
     fieldOfViewRadians: 60 * Math.PI / 180,
     maxCameraDistance: 50000,
     minCameraDistance: 10,
