@@ -109,28 +109,3 @@ export function createProgramFromScripts(
   var fragmentShader = createShaderFromScript(gl, shaderScriptSelectors[1], gl.FRAGMENT_SHADER);
   return createProgram(gl, vertexShader, fragmentShader);
 }
-
-
-/**
- * Set the number of pixels in the canvas equal to its size
- *
- * @param  {!WebGLRenderingContext} canvas Canvas object
- */
-export function resizeCanvasToDisplaySize(canvas) {
-  var realToCSSPixels = window.devicePixelRatio;
-
-  // Lookup the size the browser is displaying the canvas in CSS pixels
-  // and compute a size needed to make our drawingbuffer match it in
-  // device pixels.
-  var displayWidth  = Math.floor(canvas.clientWidth  * realToCSSPixels);
-  var displayHeight = Math.floor(canvas.clientHeight * realToCSSPixels);
-
-  // Check if the canvas is not the same size.
-  if (canvas.width  !== displayWidth ||
-      canvas.height !== displayHeight) {
-
-    // Make the canvas the same size
-    canvas.width  = displayWidth;
-    canvas.height = displayHeight;
-  }
-}

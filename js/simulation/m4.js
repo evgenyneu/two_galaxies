@@ -1,4 +1,4 @@
-// Code for working with 3D 4x4 matrices for translation, rotation and scaling
+// Code for working with 3D 4x4 matrices for translation, rotation and scaling etc.
 // Source: https://webglfundamentals.org/webgl/lessons/webgl-3d-orthographic.html
 
 /**
@@ -166,40 +166,6 @@ var m4 = {
       b30 * a01 + b31 * a11 + b32 * a21 + b33 * a31,
       b30 * a02 + b31 * a12 + b32 * a22 + b33 * a32,
       b30 * a03 + b31 * a13 + b32 * a23 + b33 * a33,
-    ];
-  },
-
-  vectorMultiply: function(v, m) {
-    var dst = [];
-    for (var i = 0; i < 4; ++i) {
-      dst[i] = 0.0;
-      for (var j = 0; j < 4; ++j) {
-        dst[i] += v[j] * m[j * 4 + i];
-      }
-    }
-    return dst;
-  },
-
-  projection: function(width, height, depth) {
-    // Note: This matrix flips the Y axis so 0 is at the top.
-    return [
-       2 / width, 0, 0, 0,
-       0, -2 / height, 0, 0,
-       0, 0, 2 / depth, 0,
-      -1, 1, 0, 1,
-    ];
-  },
-
-  orthographic: function(left, right, bottom, top, near, far) {
-    return [
-      2 / (right - left), 0, 0, 0,
-      0, 2 / (top - bottom), 0, 0,
-      0, 0, 2 / (near - far), 0,
-
-      (left + right) / (left - right),
-      (bottom + top) / (bottom - top),
-      (near + far) / (near - far),
-      1,
     ];
   },
 
