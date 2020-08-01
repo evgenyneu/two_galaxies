@@ -203,20 +203,15 @@ export function loadStarSizes(drawData, initialParams) {
                                    initialParams.numberOfRings[1]);
 
   let size = initialParams.starSize;
-  var sizes =  new Float32Array(bodies);
+  var sizes =  new Float32Array(bodies).fill(size);
 
   // Size of the galaxy core. Make them dependent on their masses
-  let coreSize = 1.5 * size;
+  let coreSize = 2.0 * size;
 
   // The size of a constant density star is proportional to its mass
   // to the 1/3 power
-  sizes[0] = Math.pow(coreSize * initialParams.masses[0], 1/3);
-  sizes[1] = Math.pow(coreSize * initialParams.masses[0], 1/3);
-
-  // Stars of first galaxy
-  for(let i = 2; i < bodies; i++) {
-    sizes[i] = size;
-  }
+  sizes[0] = coreSize * Math.pow(initialParams.masses[0], 1/3);
+  sizes[1] = coreSize * Math.pow(initialParams.masses[1], 1/3);
 
   var gl = drawData.gl;
 

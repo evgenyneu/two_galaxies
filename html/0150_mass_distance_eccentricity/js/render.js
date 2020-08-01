@@ -128,6 +128,25 @@ export default function drawScene(drawData, initialParams, currentParams) {
   gl.vertexAttribPointer(
     drawData.colorLocation, size, type, normalize, stride, offset);
 
+
+  // Star size
+  // ----------
+
+  // Turn on the attribute
+  gl.enableVertexAttribArray(drawData.starSizeLocation);
+
+  // Bind the buffer.
+  gl.bindBuffer(gl.ARRAY_BUFFER, drawData.starSizeBuffer);
+
+  // Tell the attribute how to get data out of starSizeBuffer (ARRAY_BUFFER)
+  size = 1;                 // 1 value per star
+  type = gl.FLOAT;          // the data is 32bit floats
+  normalize = false;        // don't normalize the data
+  stride = 0;               // 0 = move forward size * sizeof(type) each iteration to get the next position
+  offset = 0;               // start at the beginning of the buffer
+  gl.vertexAttribPointer(
+    drawData.starSizeLocation, size, type, normalize, stride, offset);
+
   // Compute transformation matrix
   // ---------
 
