@@ -1,7 +1,7 @@
 import {
   getShareURL, filterInitialParams, filterCurrentParams,
-  getUrlParameters, getInitialParameters,
-  getInitialParametersFromUrl, getCurrentParametersFromUrl,
+  getUrlParameters, getSharedInitialParameters,
+  getSharedInitialParametersFromUrl, getSharedCurrentParametersFromUrl,
   readArrayOfFloats, readFloat,
   roundArray, roundFloat, roundN,
   prepareParamsForSharing
@@ -112,7 +112,7 @@ describe('filterCurrentParams', () => {
   });
 });
 
-describe('getInitialParametersFromUrl', () => {
+describe('getSharedInitialParametersFromUrl', () => {
   it('load initial parameters from URL', () => {
     let initialParams = {
       numberOfRings: [5, 6],
@@ -121,7 +121,7 @@ describe('getInitialParametersFromUrl', () => {
     };
 
     let urlParams = "?numberOfRings=3.3%2C5&ringSeparation=2.8";
-    let result = getInitialParametersFromUrl(urlParams, initialParams);
+    let result = getSharedInitialParametersFromUrl(urlParams, initialParams);
 
     expect(result.ringSeparation).to.equal(2.8);
     expect(result.numberOfRings).to.deep.equal([3, 5]);
@@ -140,7 +140,7 @@ describe('getInitialParametersFromUrl', () => {
     };
 
     let urlParams = "?numberOfRings=&ringSeparation=";
-    let result = getInitialParametersFromUrl(urlParams, initialParams);
+    let result = getSharedInitialParametersFromUrl(urlParams, initialParams);
 
     expect(result.ringSeparation).to.equal(8);
     expect(result.numberOfRings).to.deep.equal([5, 6]);
@@ -148,7 +148,7 @@ describe('getInitialParametersFromUrl', () => {
   });
 });
 
-describe('getCurrentParametersFromUrl', () => {
+describe('getSharedCurrentParametersFromUrl', () => {
   it('load current parameters from URL', () => {
     let currentParams = {
       rotationMatrix: m4.identity(),
@@ -156,7 +156,7 @@ describe('getCurrentParametersFromUrl', () => {
     };
 
     let urlParams = "?rotationMatrix=1.2%2C0%2C0%2C0%2C0%2C1.3%2C0%2C0%2C0%2C0%2C1%2C0%2C0%2C0%2C0.9%2C1";
-    let result = getCurrentParametersFromUrl(urlParams, currentParams);
+    let result = getSharedCurrentParametersFromUrl(urlParams, currentParams);
 
     console.log(result.rotationMatrix);
 
@@ -181,7 +181,7 @@ describe('getCurrentParametersFromUrl', () => {
     };
 
     let urlParams = "?rotationMatrix=";
-    let result = getCurrentParametersFromUrl(urlParams, currentParams);
+    let result = getSharedCurrentParametersFromUrl(urlParams, currentParams);
 
     expect(result.rotationMatrix).to.deep.equal(m4.identity());
     expect(result.another).to.equal(23);

@@ -205,8 +205,8 @@ function getCurrentUrlWithoutParameters() {
  * @param  {object} defaultParams  Default initial parameter used when absent in URL.
  * @return {object} Parameters that will be used in the simulation.
  */
-export function getInitialParameters(defaultParams) {
-  return getInitialParametersFromUrl(location.search, defaultParams);
+export function getSharedInitialParameters(defaultParams) {
+  return getSharedInitialParametersFromUrl(location.search, defaultParams);
 }
 
 /**
@@ -217,7 +217,7 @@ export function getInitialParameters(defaultParams) {
  * @param  {object} defaultParams Default parameters used when absent in URL.
  * @return {object} Parameters that will be used in the simulation.
  */
-export function getInitialParametersFromUrl(urlParams, defaultParams) {
+export function getSharedInitialParametersFromUrl(urlParams, defaultParams) {
   return getParametersFromUrl(urlParams, defaultParams, sharedInitialParams);
 }
 
@@ -227,8 +227,8 @@ export function getInitialParametersFromUrl(urlParams, defaultParams) {
  * @param  {object} defaultParams  Default parameters used when  absent in URL.
  * @return {object} Parsed parameters that will be used in the simulation
  */
-export function getCurrentParameters(defaultParams) {
-  return getCurrentParametersFromUrl(location.search, defaultParams);
+export function getSharedCurrentParameters(defaultParams) {
+  return getSharedCurrentParametersFromUrl(location.search, defaultParams);
 }
 
 /**
@@ -239,7 +239,7 @@ export function getCurrentParameters(defaultParams) {
  * @param  {object} defaultParams Default parameters used when absent in URL.
  * @return {object} Parsed parameters that will be used in the simulation
  */
-export function getCurrentParametersFromUrl(urlParams, defaultParams) {
+export function getSharedCurrentParametersFromUrl(urlParams, defaultParams) {
   return getParametersFromUrl(urlParams, defaultParams, sharedCurrentParams);
 }
 
