@@ -19,6 +19,7 @@ function stopClickPropagation(event, selector) {
   });
 }
 
+
 /**
  * Toggle visibility of the HTML elements: i.e. hide element if it's visible,
  * and show if it's hidden.
@@ -31,16 +32,15 @@ function toggleElements(elements) {
   });
 }
 
-function didClickReset(currentParams) {
+
+function didClickReset() {
   return () => {
-    // Restart the simulation
-    currentParams.positions = null;
-    currentParams.velocities = null;
-    currentParams.accelerations = null;
+    location.reload();
 
     return false; // Prevent default
   };
 }
+
 
 function didClickRestart(currentParams) {
   return () => {
@@ -53,6 +53,7 @@ function didClickRestart(currentParams) {
   };
 }
 
+
 function didClickReverseTime(currentParams, buttons) {
   return (e) => {
     currentParams.timeDirection *= -1;
@@ -64,6 +65,7 @@ function didClickReverseTime(currentParams, buttons) {
   };
 }
 
+
 function didClickPause(currentParams, buttons) {
   return (e) => {
     currentParams.paused = true;
@@ -74,6 +76,7 @@ function didClickPause(currentParams, buttons) {
     return false; // Prevent default
   };
 }
+
 
 function didClickResume(currentParams, buttons) {
   return (e) => {
@@ -93,11 +96,16 @@ function didClickFastForward(currentParams, fastForwardSeconds) {
   };
 }
 
-function clearSelection()
-{
+
+
+/**
+ * Remove text selection on page, if present.
+ */
+function clearSelection() {
   if (window.getSelection) {window.getSelection().removeAllRanges();}
   else if (document.selection) {document.selection.empty();}
 }
+
 
 function didClickShare(initialParams, currentParams) {
   return (e) => {
@@ -125,6 +133,7 @@ function didClickShare(initialParams, currentParams) {
   };
 }
 
+
 function didClickCopyToClipboard() {
     var copyTextarea = document.querySelector('.TwoGalaxies-shareText');
     var outcomeElement = document.querySelector('.TwoGalaxies-copyOutcome');
@@ -139,6 +148,7 @@ function didClickCopyToClipboard() {
       (err) => outcomeElement.innerHTML = "Error: " + err);
 }
 
+
 function hideAllControls() {
   var sliders = document.querySelectorAll(".SickSlider");
 
@@ -149,6 +159,7 @@ function hideAllControls() {
   var container = document.querySelector(".TwoGalaxies-shareContainer");
   container.classList.add("TwoGalaxies--isHidden");
 }
+
 
 function didClickSliderButton(selectors) {
   return (e) => {
@@ -162,6 +173,7 @@ function didClickSliderButton(selectors) {
     return false; // Prevent default
   };
 }
+
 
 function initSliderButton(buttonSelector, sliderSelectors) {
   var button = document.querySelector(buttonSelector);
@@ -178,7 +190,7 @@ function initSliderButton(buttonSelector, sliderSelectors) {
 export function init(initialParams, currentParams) {
   // Reset simulation button
   var button = document.querySelector(".TwoGalaxies-resetButton");
-  button.onclick = didClickReset(currentParams);
+  button.onclick = didClickReset();
 
   // Restart simulation button
   button = document.querySelector(".TwoGalaxies-restartButton");

@@ -1,13 +1,17 @@
+/* Parameters of the simulations */
+
 import { getSharedInitialParameters, getSharedCurrentParameters } from './share.js';
 import m4 from './simulation/m4.js';
 import * as simulation from './simulation.js';
 
 
-/* Parameters of the simulations */
 
+
+/**
+ * Return initial parameters of the simulation, they can't be changed without
+ * restart (except for masses)
+ */
 export function getInitialParameters() {
-  // Initial parameters of the simulation, they can't be changed without
-  // restart (except for masses)
   var initialParams = {
     numberOfRings: [5, 5],
     colors: [[255, 127, 0], [0, 100, 255]],
@@ -25,8 +29,14 @@ export function getInitialParameters() {
   return getSharedInitialParameters(initialParams);
 }
 
+
+
+/**
+ * Return parameters that can change during the simulation.
+ *
+ * @param  {number} screenRefreshRateFPS Estimated refresh rate of the screen.
+ */
 export function getCurrentParameters(screenRefreshRateFPS) {
-  // Parameters that can change during the simulation
   var currentParams = {
     // Current positions, velocities and accelerations of all the bodies.
     positions: null,

@@ -71,7 +71,6 @@ function restart(drawData, initialParams, currentParams, restartParams) {
 }
 
 
-
 /**
  * The entry function of the simulation. Initialises the simulation and
  * then runs it.
