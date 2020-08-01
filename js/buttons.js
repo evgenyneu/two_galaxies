@@ -31,6 +31,17 @@ function toggleElements(elements) {
   });
 }
 
+function didClickReset(currentParams) {
+  return () => {
+    // Restart the simulation
+    currentParams.positions = null;
+    currentParams.velocities = null;
+    currentParams.accelerations = null;
+
+    return false; // Prevent default
+  };
+}
+
 function didClickRestart(currentParams) {
   return () => {
     // Restart the simulation
@@ -165,8 +176,12 @@ function initSliderButton(buttonSelector, sliderSelectors) {
  * @param  {object} currentParams Current parameters of the simulation.
  */
 export function init(initialParams, currentParams) {
+  // Reset simulation button
+  var button = document.querySelector(".TwoGalaxies-resetButton");
+  button.onclick = didClickReset(currentParams);
+
   // Restart simulation button
-  var button = document.querySelector(".TwoGalaxies-restartButton");
+  button = document.querySelector(".TwoGalaxies-restartButton");
   button.onclick = didClickRestart(currentParams);
 
   // Reverse time button
