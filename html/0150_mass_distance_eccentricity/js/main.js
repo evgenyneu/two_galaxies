@@ -64,7 +64,7 @@ function restart(drawData, initialParams, currentParams, restartParams) {
     currentParams.accelerations = null;
 
     // Recalculate the zoom
-    currentParams.zoomState.cameraDistance = null;
+    currentParams.cameraDistance = null;
   }
 
   if (restartParams.reloadColors) loadColors(drawData, initialParams);
@@ -78,10 +78,9 @@ function restart(drawData, initialParams, currentParams, restartParams) {
  * then runs it.
  *
  * @param  {number} screenRefreshRateFPS Estimated refresh rate
- *      refresh rate of the screen. It is used to set the time step
- *      of the animation so that it runs visually at the same speed for
- *      people with different monitors
- *      (i.e. 60 Hz and 144 Hz).
+ *      of the screen. It is used to set the time step of the simulation
+ *      so that it runs visually at the same speed for people with different
+ *      monitors (i.e. 60 Hz, 144 Hz etc).
  */
 function main(screenRefreshRateFPS) {
   // Initial parameters of the simulation, they can't be changed without
