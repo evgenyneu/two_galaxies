@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>restart_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M34.0437217,34.8241912 C31.2124294,34.8241912 31.2124294,36.5568699 31.2124294,36.5568699 L31.2124294,53.3688659 C31.2124294,53.3688659 31.2124294,55.1758088 34.0437217,55.1758088 C36.8750141,55.1758088 36.8750141,53.3688659 36.8750141,53.3688659 L36.8750141,36.5568699 C36.8750141,36.5568699 36.8750141,34.8241912 34.0437217,34.8241912 Z" id="Path-2" stroke="#FFFFFF" stroke-width="2"></path>
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="45" cy="45" r="29"></circle>
+        <path d="M42.1932249,34.8995647 C41.566949,35.4358056 41.5947756,40.4133128 41.5276725,45.2773914 C41.4605695,50.1414701 41.290087,54.7531519 42.0819834,55.1344054 C42.8981191,55.5273287 47.2382409,53.0551169 51.6089783,50.6237914 C55.9797156,48.1924658 60.0135862,46.0438532 59.9999656,45.2773914 C59.9855737,44.4675296 54.9681052,41.7636573 50.5311372,39.1751544 C46.0941692,36.5866514 42.7949244,34.3843672 42.1932249,34.8995647 Z" id="Path-3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(50.732350, 45.000000) scale(-1, 1) translate(-50.732350, -45.000000) "></path>
+    </g>
+</svg>

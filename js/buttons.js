@@ -31,9 +31,9 @@ function toggleElements(elements) {
   });
 }
 
-function didClickReload(currentParams) {
+function didClickRestart(currentParams) {
   return () => {
-    // Reset the simulation
+    // Restart the simulation
     currentParams.positions = null;
     currentParams.velocities = null;
     currentParams.accelerations = null;
@@ -165,9 +165,9 @@ function initSliderButton(buttonSelector, sliderSelectors) {
  * @param  {object} currentParams Current parameters of the simulation.
  */
 export function init(initialParams, currentParams) {
-  // Reload simulation button
-  var button = document.querySelector(".TwoGalaxies-reloadButton");
-  button.onclick = didClickReload(currentParams);
+  // Restart simulation button
+  var button = document.querySelector(".TwoGalaxies-restartButton");
+  button.onclick = didClickRestart(currentParams);
 
   // Reverse time button
   // ------------
