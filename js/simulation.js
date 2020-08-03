@@ -1,9 +1,9 @@
 // Calculate positions of stars using the physics simulation
 
 import * as trajectories from './trajectories.js';
-import * as init from './simulation/initial_conditions.js';
-import getAccelerations from './simulation/acceleration.js';
-import integrateOneStep from './simulation/integrator.js';
+import * as init from './physics/initial_conditions.js';
+import getAccelerations from './physics/acceleration.js';
+import integrateOneStep from './physics/integrator.js';
 
 
 /**
