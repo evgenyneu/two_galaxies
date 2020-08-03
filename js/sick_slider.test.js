@@ -5,7 +5,7 @@ var expect = chai.expect;
 describe('SickSlider', () => {
   beforeEach(function () {
     document.querySelector('.TestFixture').innerHTML = `
-      <div class="SickSlider SickSlider--isHidden hasBottomMarginSmall SickSlider--isUnselectable">
+      <div class="SickSlider TwoGalaxies--isHidden hasBottomMarginSmall SickSlider--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>

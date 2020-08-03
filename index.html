@@ -1,14 +1,15 @@
 <!DOCTYPE html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Two galaxies simulation</title>
+    <title>Two galaxies JavaScript simulation</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/two_galaxies.css">
   </head>
   <body>
-    <div class='layout-fixed layout-padding'>
-      <div class="TwoGalaxies-container isFullScreenWide isUnselectable hasBottomMarginSmall">
+    <div class='TwoGalaxies-layoutFixed TwoGalaxies-layoutPadding'>
+      <div class="TwoGalaxies-container TwoGalaxies--isFullScreenWide TwoGalaxies--isUnselectable TwoGalaxies--hasBottomMarginSmall">
         <canvas class="TwoGalaxies-canvas"></canvas>
 
         <div class='TwoGalaxies-hudContainer'>
@@ -19,10 +20,10 @@
               <a class='TwoGalaxies-restartButton TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover' href='#' title='Restart'><img src='images/restart_icon.svg' alt='Restart' class='TwoGalaxies-bottomImage'></a>
               <a class='TwoGalaxies-fastBackwardButton TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover' href='#' title='Rewind'><img src='images/fast_backward_icon.svg' alt='Rewind' class='TwoGalaxies-bottomImage'></a>
               <a class='TwoGalaxies-pauseButton TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover' href='#' title='Pause'><img src='images/pause_icon.svg' alt='Pause' class='TwoGalaxies-bottomImage'></a>
-              <a class='TwoGalaxies-resumeButton TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover TwoGalaxies-button--isHidden' href='#' title='Resume'><img src='images/resume_icon.svg' alt='Resume' class='TwoGalaxies-bottomImage'></a>
+              <a class='TwoGalaxies-resumeButton TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover TwoGalaxies--isHidden' href='#' title='Resume'><img src='images/resume_icon.svg' alt='Resume' class='TwoGalaxies-bottomImage'></a>
               <a class='TwoGalaxies-fastForwardButton TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover' href='#' title='Fast forward'><img src='images/fast_forward_icon.svg' alt='Fast forward' class='TwoGalaxies-bottomImage'></a>
               <a class='TwoGalaxies-reverseTimeButton TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover' href='#' title='Reverse time'><img src='images/reverse_time_icon.svg' alt='Reverse time' class='TwoGalaxies-bottomImage'></a>
-              <a class='TwoGalaxies-reverseTime2Button TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover TwoGalaxies-button--isHidden' href='#' title='Reverse time'><img src='images/reverse_time2_icon.svg' alt='Reverse time' class='TwoGalaxies-bottomImage'></a>
+              <a class='TwoGalaxies-reverseTime2Button TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover TwoGalaxies--isHidden' href='#' title='Reverse time'><img src='images/reverse_time2_icon.svg' alt='Reverse time' class='TwoGalaxies-bottomImage'></a>
             </div>
             <div class='TwoGalaxies-rightTopButtonContainer'>
               <a class='TwoGalaxies-shareButton TwoGalaxies-leftButton TwoGalaxies-button TwoGalaxies-doesChangeOpacityOnHover' href='#' title='Share'><img src='images/share_icon.svg' alt='Share' class='TwoGalaxies-bottomImage'></a>
@@ -40,7 +41,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderRings1 TwoGalaxies-sliderColor1 SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderRings1 TwoGalaxies-sliderColor1 SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -49,7 +50,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderRings2 TwoGalaxies-sliderColor2 SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderRings2 TwoGalaxies-sliderColor2 SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -58,7 +59,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderMass1 TwoGalaxies-sliderColor1 SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderMass1 TwoGalaxies-sliderColor1 SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -67,7 +68,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderMass2 TwoGalaxies-sliderColor2 SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderMass2 TwoGalaxies-sliderColor2 SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -76,7 +77,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderDistance SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderDistance SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -85,7 +86,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderEccentricity SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderEccentricity SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -94,7 +95,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderAngle1 TwoGalaxies-sliderColor1 SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderAngle1 TwoGalaxies-sliderColor1 SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -103,7 +104,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderAngle2 TwoGalaxies-sliderColor2 SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderAngle2 TwoGalaxies-sliderColor2 SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -112,7 +113,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderRingSeparation SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderRingSeparation SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -121,7 +122,7 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-sliderTimeStep SickSlider SickSlider--isHidden hasBottomMarginSmall hasHorizontalMarginsSmall SickSlider--isUnselectable">
+      <div class="TwoGalaxies-sliderTimeStep SickSlider TwoGalaxies--isHidden TwoGalaxies--hasBottomMarginSmall TwoGalaxies--isUnselectable">
         <div class='SickSlider-label'>Label text</div>
         <div class="SickSlider-slider">
           <div class="SickSlider-stripe"></div>
@@ -130,9 +131,9 @@
         </div>
       </div>
 
-      <div class="TwoGalaxies-shareContainer TwoGalaxies--isHidden isTextCentered hasTopMarginNormal">
-        <textarea class="TwoGalaxies-shareText">Hello I'm some text</textarea>
-        <button class="TwoGalaxies-copyToClipboardButton hasBottomMarginSmall">Copy to clipboard</button>
+      <div class="TwoGalaxies-shareContainer TwoGalaxies--isHidden TwoGalaxies--isTextCentered">
+        <textarea class="TwoGalaxies-shareText TwoGalaxies--hasBottomMarginSmall">Hello I'm some text</textarea>
+        <button class="TwoGalaxies-copyToClipboardButton TwoGalaxies--hasBottomMarginSmall">Copy to clipboard</button>
         <div class="TwoGalaxies-copyOutcome">&nbsp;</div>
       </div>
 
@@ -219,7 +220,6 @@
 
       <script type="module" src="/js/main.js"></script>
 
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
   </body>
 </html>

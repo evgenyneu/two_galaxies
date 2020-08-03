@@ -26,6 +26,8 @@ function move(state, currentParams, e) {
   if (!state.moving) return;
   if (!state.lastPosition) return;
 
+  if (typeof e.preventDefault === "function") e.preventDefault();
+
   // Calculate the x and y shifts of the finger on screen
   // from previous positions
   const delta = [
@@ -96,10 +98,8 @@ export function init(hudContainer, currentParams) {
   document.addEventListener("touchmove", (e) => touchMove(state, currentParams, e));
 
   hudContainer.addEventListener("touchmove", (e) => {
-    if (typeof e.preventDefault !== 'undefined' && e.preventDefault !== null) {
-      // Prevent screen from sliding on touch devices when the element is dragged.
-      e.preventDefault();
-    }
+    // Prevent screen from sliding on touch devices when the element is dragged.
+    if (typeof e.preventDefault === "function") e.preventDefault();
   });
 
   // End moving

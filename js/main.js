@@ -29,7 +29,7 @@ function onNextFrame(drawData, initialParams, currentParams, fpsState) {
     if (currentParams.positions === null) {
       // First frame of the animation: calculate initial positions of the bodies
       simulation.setInitial(initialParams, currentParams);
-      updateCameraDistance(currentParams);
+      updateCameraDistance(currentParams, drawData.gl.canvas);
       console.log(`Number of bodies: ${currentParams.positions.length / 3}`);
     } else {
       // Update positions of the bodies at new time

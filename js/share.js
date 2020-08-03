@@ -1,10 +1,12 @@
-// Charing the URL to the simulation with all selected parameters
+// Converting the simulation parameters (initial and current params)
+// to a URL string for sharing. As well as the reverse operation: reading
+// parameters from the shared URL into the parameter objects.
 
 /**
  * Parse a string into a float.
  *
  * @param  {string} str A string containing a number
- * @return {nunmber} A float number, null if unsuccessful.
+ * @return {number} A float number, null if unsuccessful.
  */
 export function readFloat(str) {
   let parsed = parseFloat(str);

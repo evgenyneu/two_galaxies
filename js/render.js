@@ -1,4 +1,5 @@
 // Draw the stars on screen on each frame of animation
+// The code is based on examples from https://webglfundamentals.org.
 
 import m4 from './simulation/m4.js';
 

@@ -15,7 +15,7 @@ export function getInitialParameters() {
     colors: [[255, 127, 0], [0, 100, 255]],
     coreColors: [[255, 200, 100], [200, 200, 255]],
     trajectoryColors: [[0.7, 0.5, 0, 1], [0.0, 0.5, 0.9, 1]],
-    starSize: 1200,
+    starSize: 600 * window.devicePixelRatio,
     ringSeparation: 3,
     minimalGalaxySeparation: 25,
     galaxyInclinationAnglesDegree: [60, 60],

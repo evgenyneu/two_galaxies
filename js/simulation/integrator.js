@@ -24,12 +24,12 @@ export default function integrateOneStep(timeStep, masses, positions,
     let j = i * 3;
 
     // Advance velocities with half time step
-    velocities[j + 0] += halfTimeStep * accelerations[j + 0];
+    velocities[j] += halfTimeStep * accelerations[j + 0];
     velocities[j + 1] += halfTimeStep * accelerations[j + 1];
     velocities[j + 2] += halfTimeStep * accelerations[j + 2];
 
     // Advance position with full time step
-    positions[j + 0] += timeStep * velocities[j + 0];
+    positions[j] += timeStep * velocities[j + 0];
     positions[j + 1] += timeStep * velocities[j + 1];
     positions[j + 2] += timeStep * velocities[j + 2];
   }
@@ -42,7 +42,7 @@ export default function integrateOneStep(timeStep, masses, positions,
     // The index of the body's coordinates
     let j = i * 3;
 
-    velocities[j + 0] += halfTimeStep * accelerations[j + 0];
+    velocities[j] += halfTimeStep * accelerations[j + 0];
     velocities[j + 1] += halfTimeStep * accelerations[j + 1];
     velocities[j + 2] += halfTimeStep * accelerations[j + 2];
   }

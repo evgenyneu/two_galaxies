@@ -63,7 +63,7 @@ function stopTouch(state) {
  *
  * @param  {object} currentParams Current parameters
  */
-export function updateCameraDistance(currentParams) {
+export function updateCameraDistance(currentParams, canvas) {
   if (currentParams.cameraDistance !== null) return;
   // Find min and max x coordinates
   var xMin = 1e10;
@@ -81,6 +81,10 @@ export function updateCameraDistance(currentParams) {
 
   // Find the z distance needed to show the galaxies
   var zDistance = maxXDistance / Math.tan(currentParams.zoomState.fieldOfViewRadians * 0.5);
+
+  // Increase the distance if screen is too narrow to show both galaxies
+  zDistance *= 500 / Math.min(500, canvas.clientWidth);
+
   currentParams.cameraDistance = zDistance;
 }
 

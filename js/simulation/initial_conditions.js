@@ -138,7 +138,7 @@ export function galaxyStarsPositionsAndVelocities(args) {
       let starAngle = (starNumber - 1) * angleBetweenNeighbours;
 
       // Calculate the position of the current star relative to galaxy's centre
-      positions[iStar * 3 + 0] = distanceFromCenter * Math.cos(starAngle) *
+      positions[iStar * 3] = distanceFromCenter * Math.cos(starAngle) *
                                  Math.cos(galaxyAngleRadians);
 
       positions[iStar * 3 + 1] = distanceFromCenter * Math.sin(starAngle);
@@ -148,13 +148,12 @@ export function galaxyStarsPositionsAndVelocities(args) {
 
       // Add star's position to the position of the galaxy to find
       // the star's position in our coordinate system
-      positions[iStar * 3 + 0] += args.corePosition[0];
+      positions[iStar * 3] += args.corePosition[0];
       positions[iStar * 3 + 1] += args.corePosition[1];
       positions[iStar * 3 + 2] += args.corePosition[2];
 
-
       // Calculate the velocity of the star relative to galaxy's centre
-      velocities[iStar * 3 + 0] = -starSpeed * Math.sin(starAngle) *
+      velocities[iStar * 3] = -starSpeed * Math.sin(starAngle) *
                                   Math.cos(galaxyAngleRadians);
 
       velocities[iStar * 3 + 1] = starSpeed * Math.cos(starAngle);
@@ -163,7 +162,7 @@ export function galaxyStarsPositionsAndVelocities(args) {
                                   Math.sin(galaxyAngleRadians);
 
       // Calculate star's velocity in our coordinate system
-      velocities[iStar * 3 + 0] += args.coreVelocity[0];
+      velocities[iStar * 3] += args.coreVelocity[0];
       velocities[iStar * 3 + 1] += args.coreVelocity[1];
       velocities[iStar * 3 + 2] += args.coreVelocity[2];
 
@@ -253,7 +252,7 @@ export function allPositionsAndVelocities(args) {
   //
   // The distance r between the two cores is
   //
-  //          r = r1 + r2.                       (2)
+  //          r = r1 + r2.                      (2)
   //
   // Next, we solve Eq. 1 for r1:
   //

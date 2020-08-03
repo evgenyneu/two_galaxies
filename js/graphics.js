@@ -1,4 +1,5 @@
 // Initialise the graphics, the canvas and WebGL
+// The code is based on examples from https://webglfundamentals.org.
 
 import { createProgramFromScripts } from './simulation/web_gl_utils.js';
 import m4 from './simulation/m4.js';
@@ -14,7 +15,7 @@ function fitToContainer(drawData){
   // If in landscape mode (e.g. big monitor), make the height 150 pixels
   // smaller than the window to make room for the slider controls at the bottom
   // If in portrait (e.g. on a phone), make height equal to width.
-  const canvasHeight = Math.min(window.innerHeight - 150, window.innerWidth);
+  const canvasHeight = Math.max(window.innerHeight - 150, 300);
   document.querySelector(".TwoGalaxies-container").style.height = canvasHeight + 'px';
 
   canvas.style.height = canvasHeight + 'px';
@@ -77,6 +78,8 @@ function initTrajectories(drawData) {
  * Prepare for drawing stars on screen:
  * initialize WebGL, create buffers for loading positions and colors of stars
  * into the GPU etc.
+ *
+ * The code is based on examples from https://webglfundamentals.org.
  *
  * @param  {object} initialParams Initial parameters of the simulation.
  * @return {object} Information that will be used later at each animation

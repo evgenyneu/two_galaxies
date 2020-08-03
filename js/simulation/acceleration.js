@@ -22,7 +22,7 @@ export default function getAccelerations(masses, positions, accelerations) {
       if (i == j) continue;
 
       // Find displacement vector from i-th body to j-th galaxy core
-      let displacement = [positions[j*3 + 0] - positions[i*3 + 0],
+      let displacement = [positions[j*3] - positions[i*3 + 0],
                           positions[j*3 + 1] - positions[i*3 + 1],
                           positions[j*3 + 2] - positions[i*3 + 2]];
 
@@ -67,7 +67,7 @@ export default function getAccelerations(masses, positions, accelerations) {
 
       // Add the acceleration to accelerations from the other cores
       // to find total acceleration of the i-th body
-      accelerations[i*3 + 0] += masses[j] / distanceSquared * displacement[0];
+      accelerations[i*3] += masses[j] / distanceSquared * displacement[0];
       accelerations[i*3 + 1] += masses[j] / distanceSquared * displacement[1];
       accelerations[i*3 + 2] += masses[j] / distanceSquared * displacement[2];
     }

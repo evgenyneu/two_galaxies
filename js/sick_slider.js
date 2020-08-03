@@ -1,3 +1,6 @@
+import { showElement, hide, hideElement } from './html_element.js';
+
+
 /**
  * A Slider UI element. Also requires styles from sick_slider.css.
  *
@@ -14,7 +17,7 @@
  * HTML
  * ------
  *
- * <div class="SickSlider-cameraAngle SickSlider SickSlider--isHidden">
+ * <div class="SickSlider-cameraAngle SickSlider TwoGalaxies--isHidden">
  *   <div class='SickSlider-label'>Label text</div>
  *   <div class="SickSlider-slider SickSlider--isUnselectable">
  *     <div class="SickSlider-stripe"></div>
@@ -105,12 +108,12 @@ export default function SickSlider(sliderElementSelector, settings) {
     }
 
     // Make slider visible in order to calculate its size
-    that.sliderContainer.classList.remove("SickSlider--isHidden");
+    showElement(that.sliderContainer);
 
     that.updatePositionAndLabel(that.value);
 
     if (!that.visible) {
-      that.sliderContainer.classList.add("SickSlider--isHidden");
+      hideElement(that.sliderContainer);
     }
 
     // Start dragging slider

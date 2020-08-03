@@ -49,7 +49,7 @@ export function update(time, state) {
     // Calculate the average FPS value from last ten values
     const sum = state.fpsValues.reduce((a, b) => a + b, 0);
     state.fpsAverage = Math.round(sum / state.fpsValues.length);
-    state.label.innerHTML = `FPS: ${state.fpsAverage}`;
+    state.label.innerHTML = `${state.fpsAverage}`;
     state.framesSinceLastUpdate = 0;
   }
 
