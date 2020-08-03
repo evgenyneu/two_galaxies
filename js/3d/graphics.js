@@ -1,11 +1,11 @@
 // Initialise the graphics, the canvas and WebGL
 // The code is based on examples from https://webglfundamentals.org.
 
-import { createProgramFromScripts } from './webgl/web_gl_utils.js';
-import m4 from './webgl/m4.js';
+import { createProgramFromScripts } from './web_gl_utils.js';
+import m4 from './m4.js';
 
 import { numberOfStarsInAllRingsOneGalaxy, totalNumberOfBodies }
-  from './physics/initial_conditions.js';
+  from '../physics/initial_conditions.js';
 
 
 // Adjust the size of the drawing region (canvas) based on the size of

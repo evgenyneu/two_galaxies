@@ -1,6 +1,6 @@
 // Rotate the stars by clicking and dragging on the screen.
 
-import m4 from './webgl/m4.js';
+import m4 from '../3d/m4.js';
 
 
 function startMoving(state, e) {

@@ -2,13 +2,13 @@
 // Initialises graphics and runs the simulation.
 
 import { getInitialParameters, getCurrentParameters } from './params.js';
-import { initGraphics, loadColors, loadStarSizes } from './graphics.js';
-import drawScene from './render.js';
+import { initGraphics, loadColors, loadStarSizes } from './3d/graphics.js';
+import drawScene from './3d/render.js';
 import * as simulation from './simulation.js';
-import { measureRefreshRate } from './refresh_rate.js';
-import {init as initUserInput} from './user_input.js';
-import * as showFps from './show_fps.js';
-import { updateCameraDistance } from './zoom.js';
+import { measureRefreshRate } from './ui/refresh_rate.js';
+import {init as initUserInput} from './ui/user_input.js';
+import * as showFps from './ui/show_fps.js';
+import { updateCameraDistance } from './ui/zoom.js';
 
 
 /**

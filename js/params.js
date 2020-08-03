@@ -1,7 +1,7 @@
 /* Parameters of the simulations */
 
-import { getSharedInitialParameters, getSharedCurrentParameters } from './share.js';
-import m4 from './webgl/m4.js';
+import { getSharedInitialParameters, getSharedCurrentParameters } from './ui/share.js';
+import m4 from './3d/m4.js';
 import * as simulation from './simulation.js';
 
 

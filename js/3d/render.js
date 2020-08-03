@@ -1,7 +1,7 @@
 // Draw the stars on screen on each frame of animation
 // The code is based on examples from https://webglfundamentals.org.
 
-import m4 from './webgl/m4.js';
+import m4 from './m4.js';
 
 
 /**
