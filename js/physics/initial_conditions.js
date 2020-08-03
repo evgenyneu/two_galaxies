@@ -15,6 +15,7 @@ export function totalNumberOfBodies(rings1, rings2) {
   return 2 + stars1 + stars2;
 }
 
+
 /**
  * Calculate the number of stars in a single ring of a galaxy
  *
