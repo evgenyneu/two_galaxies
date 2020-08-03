@@ -29,7 +29,10 @@ body {
 }
 
 
-.TwoGalaxies-layoutPadding { padding: 15px; padding-top: 0; }
+.TwoGalaxies-layoutPadding {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
 
 /*
