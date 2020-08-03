@@ -9,6 +9,7 @@ import { measureRefreshRate } from './ui/refresh_rate.js';
 import {init as initUserInput} from './ui/user_input.js';
 import * as showFps from './ui/show_fps.js';
 import { updateCameraDistance } from './ui/zoom.js';
+import { show, hide } from './ui/html_element.js';
 
 
 /**
@@ -84,6 +85,10 @@ function main(screenRefreshRateFPS) {
   // Get parameters of the simulation
   var initialParams = getInitialParameters();
   var currentParams = getCurrentParameters(screenRefreshRateFPS);
+
+  // Hide loading spinner and show the simulation
+  hide(".TwoGalaxies-loadingImageContainer");
+  show(".TwoGalaxies-layoutFixed");
 
   // Prepare for drawing
   var drawData = initGraphics(initialParams);

@@ -5,7 +5,9 @@
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+    -webkit-text-size-adjust: 100%;
+}
 
 body {
   color: #605848;
@@ -61,6 +63,24 @@ body {
 /* Margins */
 .TwoGalaxies--hasBottomMarginSmall { margin-bottom: 10px; }
 
+
+/*
+  Loading icon
+  ---------
+*/
+
+.TwoGalaxies-loadingImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 150px);
+    background-color: #000;
+}
+
+.TwoGalaxies-loadingImage {
+    width: 150px;
+    height: 150px;
+}
 
 /*
   Canvas
