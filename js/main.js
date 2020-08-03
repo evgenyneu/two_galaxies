@@ -30,13 +30,12 @@ function onNextFrame(drawData, initialParams, currentParams, fpsState) {
       // First frame of the animation: calculate initial positions of the bodies
       simulation.setInitial(initialParams, currentParams);
       updateCameraDistance(currentParams, drawData.gl.canvas);
-      console.log(`Number of bodies: ${currentParams.positions.length / 3}`);
     } else {
       // Update positions of the bodies at new time
       simulation.update(initialParams, currentParams);
     }
 
-    // Draw star on screen
+    // Draw stars on screen
     drawScene(drawData, initialParams, currentParams);
 
     // Call onNextFrame function on the next animation frame
