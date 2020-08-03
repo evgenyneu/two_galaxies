@@ -7,7 +7,7 @@ import {
   prepareParamsForSharing
 } from './share.js';
 
-import m4 from './simulation/m4.js';
+import m4 from '../3d/m4.js';
 
 var expect = chai.expect;
 
@@ -157,8 +157,6 @@ describe('getSharedCurrentParametersFromUrl', () => {
 
     let urlParams = "?rotationMatrix=1.2%2C0%2C0%2C0%2C0%2C1.3%2C0%2C0%2C0%2C0%2C1%2C0%2C0%2C0%2C0.9%2C1";
     let result = getSharedCurrentParametersFromUrl(urlParams, currentParams);
-
-    console.log(result.rotationMatrix);
 
     expect(result.rotationMatrix).to.deep.closeTo([
        1.2,  0,  0,  0,
