@@ -101,7 +101,7 @@ body {
   margin-right: auto;
 }
 
-.TwoGalaxies-bottomImage {
+.TwoGalaxies-image {
   height: 100%;
   border : 0;
 }
@@ -110,14 +110,13 @@ body {
     display: block;
     height: 45px;
     width: 45px;
+    float: left;
 }
-
-.TwoGalaxies-leftButton { float: left; }
 
 .TwoGalaxies-button.TwoGalaxies--isHidden { display: none; }
 
 /*
-  Frames per sec
+  Frames per second
   ---------
 */
 
