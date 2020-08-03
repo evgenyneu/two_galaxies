@@ -82,13 +82,13 @@ function restart(drawData, initialParams, currentParams, restartParams) {
  *      monitors (i.e. 60 Hz, 144 Hz etc)
  */
 function main(screenRefreshRateFPS) {
-  // Get parameters of the simulation
-  var initialParams = getInitialParameters();
-  var currentParams = getCurrentParameters(screenRefreshRateFPS);
-
   // Hide loading spinner and show the simulation
   hide(".TwoGalaxies-loadingImageContainer");
   show(".TwoGalaxies-layoutFixed");
+
+  // Get parameters of the simulation
+  var initialParams = getInitialParameters();
+  var currentParams = getCurrentParameters(screenRefreshRateFPS);
 
   // Prepare for drawing
   var drawData = initGraphics(initialParams);
