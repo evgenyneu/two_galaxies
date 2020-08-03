@@ -1,4 +1,5 @@
-// Initialise the graphics, the canvas and WebGL
+// Initialise the graphics, the canvas and WebGL, load colors and star
+// sizes in the GPU.
 // The code is based on examples from https://webglfundamentals.org.
 
 import { createProgramFromScripts } from './web_gl_utils.js';

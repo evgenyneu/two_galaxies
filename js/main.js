@@ -2,7 +2,7 @@
 // Initialises graphics and runs the simulation.
 
 import { getInitialParameters, getCurrentParameters } from './params.js';
-import { initGraphics, loadColors, loadStarSizes } from './3d/graphics.js';
+import { initGraphics, loadColors, loadStarSizes } from './3d/init.js';
 import drawScene from './3d/render.js';
 import * as simulation from './simulation.js';
 import { measureRefreshRate } from './ui/refresh_rate.js';
