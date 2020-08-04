@@ -95,6 +95,7 @@ let sharedInitialParams = {
   "minimalGalaxySeparation": { parseFunction: readFloat },
   "eccentricity": { parseFunction: readFloat },
   "ringSeparation": { parseFunction: readFloat },
+  "ringMultiplier": { parseFunction: readFloat },
   "galaxyInclinationAnglesDegree": {
     storeFunction: roundArray(2),
     parseFunction: readArrayOfFloats

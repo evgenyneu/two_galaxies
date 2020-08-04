@@ -195,7 +195,10 @@ export function init(initialParams, currentParams) {
       ".TwoGalaxies-sliderAngle1",
       ".TwoGalaxies-sliderAngle2"
     ],
-    ".TwoGalaxies-ringSeparationButton": [".TwoGalaxies-sliderRingSeparation"],
+    ".TwoGalaxies-ringSeparationButton": [
+      ".TwoGalaxies-sliderRingSeparation",
+      ".TwoGalaxies-sliderRingMultiplier"
+    ],
   };
 
   for (let buttonSelector in sliderButtonSelectors) {

@@ -4,17 +4,20 @@ var expect = chai.expect;
 
 describe('Initial conditions', () => {
   it('numberOfStarsInOneRing', () => {
-    expect(init.numberOfStarsInOneRing(1)).to.equal(12);
-    expect(init.numberOfStarsInOneRing(2)).to.equal(18);
-    expect(init.numberOfStarsInOneRing(3)).to.equal(24);
+    let multiplier = 6;
+    expect(init.numberOfStarsInOneRing(1, multiplier)).to.equal(12);
+    expect(init.numberOfStarsInOneRing(2, multiplier)).to.equal(18);
+    expect(init.numberOfStarsInOneRing(3, multiplier)).to.equal(24);
   });
 
   it('numberOfStarsInAllRingsOneGalaxy', () => {
-    expect(init.numberOfStarsInAllRingsOneGalaxy(5)).to.equal(120);
+    let multiplier = 6;
+    expect(init.numberOfStarsInAllRingsOneGalaxy(5, multiplier)).to.equal(120);
   });
 
   it('totalNumberOfBodies', () => {
-    expect(init.totalNumberOfBodies(3, 8)).to.equal(320);
+    let multiplier = 6;
+    expect(init.totalNumberOfBodies(3, 8, multiplier)).to.equal(320);
   });
 
   it('galaxyStarsPositionsAndVelocities', () => {
@@ -24,7 +27,8 @@ describe('Initial conditions', () => {
       coreMass: 1,
       galaxyAngleDegree: 0.1 * 180 / Math.PI,
       numberOfRings: 5,
-      ringSeparation: 3
+      ringSeparation: 3,
+      ringMultiplier: 6
     };
 
     var { positions, velocities } = init.galaxyStarsPositionsAndVelocities(args);
@@ -63,6 +67,7 @@ describe('Initial conditions', () => {
     const args = {
       numberOfRings: [5, 5],
       ringSeparation: 3,
+      ringMultiplier: 6,
       minimalGalaxySeparation: 3,
       galaxyInclinationAnglesDegree: [0.123 * 180 / Math.PI, 0.123 * 180 / Math.PI],
       masses: [1, 0.7],

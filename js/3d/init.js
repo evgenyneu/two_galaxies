@@ -153,8 +153,11 @@ export function initGraphics(initialParams) {
  */
 export function loadColors(drawData, initialParams) {
   // Calculate the number of stars in each galaxy
-  let stars1 = numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[0]);
-  let stars2 = numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[1]);
+  let stars1 = numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[0],
+                                                initialParams.ringMultiplier);
+
+  let stars2 = numberOfStarsInAllRingsOneGalaxy(initialParams.numberOfRings[1],
+                                                initialParams.ringMultiplier);
 
   // Total number of bodies
   let bodies = 2 + stars1 + stars2;
@@ -206,7 +209,8 @@ export function loadColors(drawData, initialParams) {
 export function loadStarSizes(drawData, initialParams) {
   // Total number of bodies (stars plus two galaxy cores)
   let bodies = totalNumberOfBodies(initialParams.numberOfRings[0],
-                                   initialParams.numberOfRings[1]);
+                                   initialParams.numberOfRings[1],
+                                   initialParams.ringMultiplier);
 
   let size = initialParams.starSize;
   var sizes =  new Float32Array(bodies).fill(size);

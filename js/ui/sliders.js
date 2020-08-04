@@ -100,6 +100,21 @@ function didChangeRingSeparation(initialParams, currentParams, onRestart) {
 }
 
 
+function didChangeRingMultiplier(initialParams, currentParams, onRestart) {
+  return function(value, position) {
+    initialParams.ringMultiplier = value;
+
+    var restartParams = {
+      restart: true,
+      reloadColors: true,
+      reloadStarSizes: true
+    };
+
+    onRestart(restartParams);
+  };
+}
+
+
 export function setupSlider(initialParams, currentParams, onRestart) {
   SickSlider(".TwoGalaxies-sliderTimeStep", {
     label: 'Time step: ',
@@ -198,6 +213,14 @@ export function setupSlider(initialParams, currentParams, onRestart) {
     value: initialParams.ringSeparation, min: 0.1, max: 10,
     decimalPlaces: 1,
     onChange: didChangeRingSeparation(initialParams, currentParams, onRestart),
+    visible: false
+  });
+
+  SickSlider(".TwoGalaxies-sliderRingMultiplier", {
+    label: 'Ring multiplier: ',
+    value: initialParams.ringMultiplier, min: 1, max: 50,
+    decimalPlaces: 0,
+    onChange: didChangeRingMultiplier(initialParams, currentParams, onRestart),
     visible: false
   });
 }
