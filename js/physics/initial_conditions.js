@@ -27,7 +27,7 @@ export function totalNumberOfBodies(rings1, rings2, multiplier) {
  */
 export function numberOfStarsInOneRing(ringNumber, multiplier) {
   // The rings that are further away from the galaxy center have more stars
-  return multiplier * ringNumber;
+  return ringNumber * multiplier;
 }
 
 
