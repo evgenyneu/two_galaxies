@@ -17,7 +17,7 @@ export function getInitialParameters() {
     trajectoryColors: [[0.7, 0.5, 0, 1], [0.0, 0.5, 0.9, 1]],
     starSize: 600 * window.devicePixelRatio,
     ringSeparation: 3,
-    ringMultiplier: 6, // Increase in number of stars in next ring
+    ringMultiplier: 8, // Increase in number of stars in next ring
     minimalGalaxySeparation: 25,
     galaxyInclinationAnglesDegree: [60, 60],
     masses: [1, 1],

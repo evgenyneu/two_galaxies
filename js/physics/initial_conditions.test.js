@@ -5,19 +5,19 @@ var expect = chai.expect;
 describe('Initial conditions', () => {
   it('numberOfStarsInOneRing', () => {
     let multiplier = 6;
-    expect(init.numberOfStarsInOneRing(1, multiplier)).to.equal(12);
-    expect(init.numberOfStarsInOneRing(2, multiplier)).to.equal(18);
-    expect(init.numberOfStarsInOneRing(3, multiplier)).to.equal(24);
+    expect(init.numberOfStarsInOneRing(1, multiplier)).to.equal(6);
+    expect(init.numberOfStarsInOneRing(2, multiplier)).to.equal(12);
+    expect(init.numberOfStarsInOneRing(3, multiplier)).to.equal(18);
   });
 
   it('numberOfStarsInAllRingsOneGalaxy', () => {
-    let multiplier = 6;
+    let multiplier = 8;
     expect(init.numberOfStarsInAllRingsOneGalaxy(5, multiplier)).to.equal(120);
   });
 
   it('totalNumberOfBodies', () => {
-    let multiplier = 6;
-    expect(init.totalNumberOfBodies(3, 8, multiplier)).to.equal(320);
+    let multiplier = 8;
+    expect(init.totalNumberOfBodies(3, 8, multiplier)).to.equal(338);
   });
 
   it('galaxyStarsPositionsAndVelocities', () => {
@@ -28,7 +28,7 @@ describe('Initial conditions', () => {
       galaxyAngleDegree: 0.1 * 180 / Math.PI,
       numberOfRings: 5,
       ringSeparation: 3,
-      ringMultiplier: 6
+      ringMultiplier: 8
     };
 
     var { positions, velocities } = init.galaxyStarsPositionsAndVelocities(args);
@@ -42,10 +42,10 @@ describe('Initial conditions', () => {
       [3.985012495834077, 0, -0.29950024994048446], 1e-13);
 
     expect(positions.slice(3, 6)).to.deep.closeTo(
-      [3.5850966520063019, 1.5, -0.25937482488824837], 1e-13);
+      [3.110722577730857, 2.1213203435596424, -0.21177865769998247], 1e-13);
 
     expect(positions.slice(3*119, 3*119 + 3)).to.deep.closeTo(
-      [15.698317243678604, -2.6047226650039557, -1.4747508408524161], 1e-13);
+      [15.741310193330548, -2.3465169756034667, -1.4790645243577303], 1e-13);
 
 
     // Velocities
@@ -57,17 +57,17 @@ describe('Initial conditions', () => {
       [0, 1.5773502691896257, 0], 1e-10);
 
     expect(velocities.slice(3, 6)).to.deep.closeTo(
-      [-0.2872329613340334, 1.5, 0.028819424987583143], 1e-13);
+      [-0.40620874947917696, 1.4082482904638631, 0.04075682167723415], 1e-13);
 
     expect(velocities.slice(119 * 3, 119 * 3 + 3)).to.deep.closeTo(
-      [0.044611774600251820, 1.2542762684421485, -0.44761077756662986e-2], 1e-13);
+      [0.040189417406220285, 1.2550200329578804, -0.004032392016758411], 1e-13);
   });
 
   it('allPositionsAndVelocities', () => {
     const args = {
       numberOfRings: [5, 5],
       ringSeparation: 3,
-      ringMultiplier: 6,
+      ringMultiplier: 8,
       minimalGalaxySeparation: 3,
       galaxyInclinationAnglesDegree: [0.123 * 180 / Math.PI, 0.123 * 180 / Math.PI],
       masses: [1, 0.7],
@@ -92,7 +92,7 @@ describe('Initial conditions', () => {
 
     // Last star
     expect(positions.slice(241 * 3, 241 * 3 + 3)).to.deep.closeTo(
-      [17.937824355647578, -2.6047226650039557, -1.8123922781056725], 1e-13);
+      [17.980706728192207, -2.3465169756034667, -1.8176935713537608], 1e-13);
 
 
     // Velocities
@@ -111,6 +111,6 @@ describe('Initial conditions', () => {
 
     // Last star
     expect(velocities.slice(241 * 3, 241 * 3 + 3)).to.deep.closeTo(
-      [0.03722888956660431, 0.48460026258500988, -0.0046023866960218348], 1e-13);
+      [0.033538396438367514, 0.4852225406244772, -0.004146152930446584], 1e-13);
   });
 });
