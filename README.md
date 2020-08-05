@@ -1,10 +1,14 @@
-# Two galaxies
+# JavaScript simulation of two interacting galaxies
 
-This is a web page showing a simulation of collision of two disc galaxies.
+This is a web app that shows a simulation of two interacting galaxies, it's available here:
 
-## Run web site locally
+[https://evgenii.com/blog/two_galaxies](https://evgenii.com/blog/two_galaxies).
+
+
+## Run the simulation locally
 
 You can use any local web servers to run the web site locally. Bellow are examples of using Python and Node.js:
+
 
 ### With Python
 
@@ -32,6 +36,11 @@ http-server
 ```
 
 Now you can open the web site in your browser using the URL printed in the console, for example `http://127.0.0.1:8080`.
+
+
+## Running unit test
+
+In order to run the unit test, navigate to /tests path. For example, if you use Python, the unit tests will be at [http://0.0.0.0:8000/test](http://0.0.0.0:8000/test)
 
 
 ## The unlicense
