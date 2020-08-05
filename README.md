@@ -9,7 +9,7 @@ This a simulation of two interacting galaxies, written in HTML, CSS and JavaScri
 
 ## Run the simulation locally
 
-You can use any local web servers to run the web site locally. Bellow are examples of using Python and Node.js:
+You can use any local web server to run the web site locally. Bellow are examples of using Python and Node.js:
 
 
 ### With Python
