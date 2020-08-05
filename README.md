@@ -40,7 +40,7 @@ http-server
 Now you can open the web site in your browser using the URL printed in the console, for example `http://127.0.0.1:8080`.
 
 
-## Running unit test
+## Running unit tests
 
 In order to run the unit test, navigate to `/tests` URL path. For example, if you use Python, use [http://0.0.0.0:8000/test](http://0.0.0.0:8000/test)
 
