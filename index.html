@@ -26,6 +26,11 @@
       window.addEventListener('resize', viewportHeight);
     </script>
 
+    <script nomodule>
+      // Message shown to older web browsers
+      document.write('<div class="OldBrowser">Please use a newer Web browser.</div>');
+    </script>
+
     <div class="TwoGalaxies-loadingImageContainer">
       <img src='images/loading.svg' alt='Loading' class='TwoGalaxies-loadingImage'>
     </div>
@@ -250,7 +255,6 @@
       </script>
 
       <script type="module" src="/js/main.js"></script>
-
     </div>
   </body>
 </html>
