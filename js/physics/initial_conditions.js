@@ -90,6 +90,10 @@ export function galaxyStarsPositionsAndVelocities(args) {
     let numberOfStars = numberOfStarsInOneRing(ringNumber,
                                                args.ringMultiplier);
 
+    // Calculate the angle between two neighbouring stars in a ring
+    // when viewed from the galaxy center
+    let angleBetweenNeighbours = 2 * Math.PI / numberOfStars;
+
     // Find the speed of each star circling the galaxy center. We use
     // two physical laws:
     //
@@ -134,10 +138,6 @@ export function galaxyStarsPositionsAndVelocities(args) {
     //          v = sqrt(M / r).
     //
     let starSpeed = Math.sqrt(args.coreMass / distanceFromCenter);
-
-    // Calculate the angle between two neighbouring stars in a ring
-    // when viewed from the galaxy center
-    let angleBetweenNeighbours = 2 * Math.PI / numberOfStars;
 
     // Loop over all the stars in the current ring
     for(let starNumber = 1; starNumber <= numberOfStars; starNumber++) {
