@@ -8,9 +8,28 @@
     <link rel="stylesheet" href="/css/two_galaxies.css">
   </head>
   <body>
+    <script>
+      /**
+       * Calculate the improved viewport height so it can be used
+       * to set height in CSS: calc(var(--vh, 1vh) * 100.
+       * Based on: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+       */
+      function viewportHeight() {
+        // Create a CSS 'vh' variable for the viewport height
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }
+
+      viewportHeight();
+
+      // Recalculate the viewport heeight when screen is resized
+      window.addEventListener('resize', viewportHeight);
+    </script>
+
     <div class="TwoGalaxies-loadingImageContainer">
       <img src='images/loading.svg' alt='Loading' class='TwoGalaxies-loadingImage'>
     </div>
+
     <div class='TwoGalaxies-layoutFixed TwoGalaxies-layoutPadding TwoGalaxies--isHidden'>
       <div class="TwoGalaxies-container TwoGalaxies--isFullScreenWide TwoGalaxies--isUnselectable TwoGalaxies--hasBottomMarginSmall">
         <canvas class="TwoGalaxies-canvas"></canvas>

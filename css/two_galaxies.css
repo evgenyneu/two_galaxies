@@ -73,7 +73,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 150px);
+    height: calc(var(--vh, 1vh) * 100 - 150px);
     background-color: #000;
 }
 
@@ -90,12 +90,13 @@ body {
 .TwoGalaxies-container {
   background-color: #000000;
   position: relative;
-  height: 600px;
+  height: calc(var(--vh, 1vh) * 100 - 150px);
 }
 
 .TwoGalaxies-canvas {
   width: 100%;
   display: block;
+  height: calc(var(--vh, 1vh) * 100 - 150px);
 }
 
 .TwoGalaxies--isHidden { display: none; }

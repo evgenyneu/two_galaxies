@@ -9,18 +9,10 @@ import { numberOfStarsInAllRingsOneGalaxy, totalNumberOfBodies }
   from '../physics/initial_conditions.js';
 
 
-// Adjust the size of the drawing region (canvas) based on the size of
-// the web browser window
+// Adjust the size of the drawing buffer based on the CCS pixel size
+// of the canvas
 function fitToContainer(drawData){
   var canvas = drawData.gl.canvas;
-  // If in landscape mode (e.g. big monitor), make the height 150 pixels
-  // smaller than the window to make room for the slider controls at the bottom
-  // If in portrait (e.g. on a phone), make height equal to width.
-  const canvasHeight = Math.max(window.innerHeight - 150, 300);
-  document.querySelector(".TwoGalaxies-container").style.height = canvasHeight + 'px';
-
-  canvas.style.height = canvasHeight + 'px';
-
   var realToCSSPixels = window.devicePixelRatio;
 
   // Lookup the size the browser is displaying the canvas in CSS pixels
