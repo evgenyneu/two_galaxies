@@ -42,7 +42,7 @@ Now you can open the web site in your browser using the URL printed in the conso
 
 ## Running unit test
 
-In order to run the unit test, navigate to /tests path. For example, if you use Python, the unit tests will be at [http://0.0.0.0:8000/test](http://0.0.0.0:8000/test)
+In order to run the unit test, navigate to /tests path. For example, if you use Python, use [http://0.0.0.0:8000/test](http://0.0.0.0:8000/test)
 
 
 ## The unlicense
