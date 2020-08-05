@@ -111,7 +111,7 @@ export function galaxyStarsPositionsAndVelocities(args) {
     //            F = G m M / r^2,                (2)
     //
     //      where
-    //        G is gravitational constant, set to 1 for simplicity,
+    //        G is gravitational constant,
     //        M is the mass of a galaxy core,
     //        r is distance between a body and a core.
     //
@@ -127,15 +127,20 @@ export function galaxyStarsPositionsAndVelocities(args) {
     // to keep the star in orbit around the galaxy. This force comes from
     // gravity, so we equate Eq. 4 with Eq. 2:
     //
-    //          m v^2 / r = m M / r^2.
+    //          m v^2 / r = G m M / r^2.
     //
     // Star mass m and one of r cancels:
     //
-    //          v^2 =  M / r.
+    //          v^2 = G M / r.
     //
     // Finally, we take square root of both sides and get the speed we wanted:
     //
-    //          v = sqrt(M / r).
+    //          v = sqrt(G M / r).
+    //
+    // We will also change the units of length, mass and time such that
+    // constant G is equal to one. For derivation, see
+    // section "Changing units of length, mass and time"
+    // in https://evgenii.com/blog/two-galaxies/
     //
     let starSpeed = Math.sqrt(args.coreMass / distanceFromCenter);
 
