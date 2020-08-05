@@ -1,6 +1,6 @@
 # JavaScript simulation of two interacting galaxies
 
-This is a web app that shows a simulation of two interacting galaxies, it's available here:
+This is a web page that shows a simulation of two interacting galaxies, it's available here:
 
 [https://evgenii.com/blog/two_galaxies](https://evgenii.com/blog/two_galaxies).
 
