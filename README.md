@@ -4,6 +4,8 @@ This is a web page that shows a simulation of two interacting galaxies, it's ava
 
 [https://evgenii.com/blog/two_galaxies](https://evgenii.com/blog/two_galaxies).
 
+![Two galaxies simulation](https://github.com/evgenyneu/two_galaxies/raw/master/images_docs/two_galaxies.jpg)
+
 
 ## Run the simulation locally
 
