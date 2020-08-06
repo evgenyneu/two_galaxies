@@ -6,5 +6,5 @@ https://evgenii.com/files/2020/08/two_galaxies/?numberOfRings=150%2C150&masses=1
 
 |  Mac Chrome   | iPhone Safari | Chrome-android |
 |---------------|---------------|----------------|
-|     41-44     |      25-27    |                |
+|     41-44     |      25-27    |     11-13      |
 
