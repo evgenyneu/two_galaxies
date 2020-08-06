@@ -9,9 +9,18 @@ function distanceBetweenFingers(e) {
 }
 
 
+
+/**
+ * User is rolling the mouse wheel, we need to zoom in/out
+ */
 function onWheel(state, e, currentParams) {
   e.preventDefault();
-  currentParams.cameraDistance += e.deltaY / 100 * currentParams.cameraDistance;
+
+  // The amount of wheel scroll, deltaY can vary between system.
+  // We want to normalise it by using the sign
+  const delta = Math.sign(e.deltaY);
+
+  currentParams.cameraDistance += delta / 5 * currentParams.cameraDistance;
 
   if (currentParams.cameraDistance > state.maxCameraDistance) {
     currentParams.cameraDistance = state.maxCameraDistance;
