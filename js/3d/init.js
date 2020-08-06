@@ -10,8 +10,9 @@ import { numberOfStarsInAllRingsOneGalaxy, totalNumberOfBodies }
 
 
 // Adjust the size of the drawing buffer based on the CCS pixel size
-// of the canvas
-function fitToContainer(drawData){
+// of the canvas. The height of canvas also affects how large the stars look,
+// so we need to update those as well.
+function updateCanvasSize(drawData, initialParams){
   var canvas = drawData.gl.canvas;
   var realToCSSPixels = window.devicePixelRatio;
 
@@ -29,6 +30,9 @@ function fitToContainer(drawData){
     canvas.width  = displayWidth;
     canvas.height = displayHeight;
   }
+
+  // Adjust the star sizes based on height of the canvas
+  initialParams.starSize = canvas.height * 1.2;
 }
 
 
@@ -120,17 +124,17 @@ export function initGraphics(initialParams) {
   // Load the colors of the stars into the GPU
   loadColors(drawData, initialParams);
 
+  // Adjust the size of the drawing region based on the size of the
+  // web browser window
+  updateCanvasSize(drawData, initialParams);
+
   // Load the sizes of the stars in the GPU
   loadStarSizes(drawData, initialParams);
 
   initTrajectories(drawData);
 
-  // Adjust the size of the drawing region based on the size of the
-  // web browser window
-  fitToContainer(drawData);
-
   // Adjust the canvas size when the browser window is resized
-  window.addEventListener('resize', (e) => fitToContainer(drawData));
+  window.addEventListener('resize', (e) => updateCanvasSize(drawData, initialParams));
 
   return drawData;
 }
