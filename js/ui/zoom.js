@@ -11,6 +11,47 @@ function distanceBetweenFingers(e) {
 
 
 /**
+ * Returns the normalised amount of wheel spin to be used for zooming
+ * in and out, a number near 1. Can be positive or negative depending on
+ * spin direction. This is necessary because reported amount of shifts
+ * differ between browsers, operating systems and input devices
+ * (touch pad scroll vs mouse wheel).
+ *
+ * The code is based on combination of
+ * https://stackoverflow.com/a/5542105/297131
+ * https://gist.github.com/akella/11574989a9f3cc9e0ad47e401c12ccaf
+ *
+ * @param  {event} e The `wheel` event object.
+ */
+function wheelSpin(e) {
+  let spin = 0;
+
+  if ('wheelDelta' in e) {
+    // On Chrome we can't rely on deltaY because it ideas ~4 on Mac and ~120
+    // on Windows for mouse scroll. Therefore, we want `wheelDelta` instead.
+
+    let deltaAbs = Math.abs(e.wheelDelta);
+
+    // Set an upper limit because mouse scroll produces values larger than 100,
+    // and sometimes even 700
+    deltaAbs = Math.min(30, deltaAbs);
+
+    // Normalise to a value around 1, the fudge factor was manually tuned
+    // for Mac/Windows for Edge/Chrome browsers
+    spin = - Math.sign(e.wheelDelta) * deltaAbs / 40;
+  }
+
+  if (!spin && 'deltaY' in e) {
+    // WheelDelta is not fired in Firefox, we use deltaY instead
+    let deltaAbs = Math.abs(e.deltaY);
+    spin = Math.sign(e.deltaY) * deltaAbs / 5;
+  }
+
+  return spin;
+}
+
+
+/**
  * User is rolling the mouse wheel, we need to zoom in/out
  */
 function onWheel(state, e, currentParams) {
@@ -19,8 +60,8 @@ function onWheel(state, e, currentParams) {
   // The amount of wheel scroll, deltaY can vary between system.
   // We want to normalise it by using the sign
   const delta = Math.sign(e.deltaY);
-
-  currentParams.cameraDistance += delta / 5 * currentParams.cameraDistance;
+  let spin = wheelSpin(e);
+  currentParams.cameraDistance += spin / 5 * currentParams.cameraDistance;
 
   if (currentParams.cameraDistance > state.maxCameraDistance) {
     currentParams.cameraDistance = state.maxCameraDistance;
