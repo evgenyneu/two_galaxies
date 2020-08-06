@@ -1,4 +1,4 @@
-# JavaScript simulation of two interacting galaxies
+# Simulation of two interacting galaxies
 
 This a simulation of two interacting galaxies, written in HTML, CSS and JavaScript:
 
