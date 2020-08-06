@@ -1,6 +1,6 @@
 # JavaScript simulation of two interacting galaxies
 
-This is a web page that shows a simulation of two interacting galaxies, available here:
+This a simulation of two interacting galaxies, written in HTML, CSS and JavaScript:
 
 [https://evgenii.com/blog/two-galaxies/](https://evgenii.com/blog/two-galaxies/)
 
@@ -9,7 +9,7 @@ This is a web page that shows a simulation of two interacting galaxies, availabl
 
 ## Run the simulation locally
 
-You can use any local web servers to run the web site locally. Bellow are examples of using Python and Node.js:
+You can use any web server to run the web site locally. Bellow are examples of using Python and Node.js:
 
 
 ### With Python
@@ -40,7 +40,7 @@ http-server
 Now you can open the web site in your browser using the URL printed in the console, for example `http://127.0.0.1:8080`.
 
 
-## Running unit test
+## Running unit tests
 
 In order to run the unit test, navigate to `/tests` URL path. For example, if you use Python, use [http://0.0.0.0:8000/test](http://0.0.0.0:8000/test)
 
