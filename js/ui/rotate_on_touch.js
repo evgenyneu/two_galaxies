@@ -35,13 +35,16 @@ function move(state, currentParams, e) {
     e.pageY - state.lastPosition[1]
   ];
 
+  delta[0] *= window.devicePixelRatio;
+  delta[1] *= window.devicePixelRatio;
+
   // Rotate the scene around the x and y axes based on the finger shifts
   // ----
 
-  currentParams.rotationMatrix = m4.multiply(m4.xRotation(delta[1] / 100),
+  currentParams.rotationMatrix = m4.multiply(m4.xRotation(delta[1] / 200),
                                              currentParams.rotationMatrix);
 
-  currentParams.rotationMatrix = m4.multiply(m4.yRotation(delta[0] / 100),
+  currentParams.rotationMatrix = m4.multiply(m4.yRotation(delta[0] / 200),
                                              currentParams.rotationMatrix);
 
   // Remember the position of the finger
