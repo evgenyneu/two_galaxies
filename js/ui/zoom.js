@@ -44,7 +44,7 @@ function wheelSpin(e) {
   if (!spin && 'deltaY' in e) {
     // WheelDelta is not fired in Firefox, we use deltaY instead
     let deltaAbs = Math.abs(e.deltaY);
-    spin = Math.sign(e.deltaY) * deltaAbs / 5;
+    spin = Math.sign(e.deltaY) * deltaAbs / 10;
   }
 
   return spin;
