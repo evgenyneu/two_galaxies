@@ -9,7 +9,19 @@ This is a simulation of two interacting galaxies, written in HTML, CSS and JavaS
 
 ## Run the simulation locally
 
-You can use any web server to run the web site locally. Bellow are examples of using Python and Node.js:
+To run the simulation on your computer, first download this repository (Git needs to be installed):
+
+```
+git clone https://github.com/evgenyneu/two_galaxies.git
+```
+
+Then change into the `two_galaxies` directory:
+
+```
+cd two_galaxies
+```
+
+Next, start a web server. You can use any web server to run the web site locally. Bellow are examples of using Python and Node.js:
 
 
 ### With Python
