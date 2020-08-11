@@ -32,7 +32,7 @@ Install Python and then run
 python -m http.server
 ```
 
-Now you can open the web site in your browser using the URL printed in the Terminal, for example `http://0.0.0.0:8000`.
+Now you can open the web site in your browser using the URL printed in the Terminal, for example [http://0.0.0.0:8000](http://0.0.0.0:8000).
 
 
 ### With Node.js
@@ -49,7 +49,7 @@ Run:
 http-server
 ```
 
-Now you can open the web site in your browser using the URL printed in the console, for example `http://127.0.0.1:8080`.
+Now you can open the web site in your browser using the URL printed in the console, for example [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
 
 ## Running unit tests
