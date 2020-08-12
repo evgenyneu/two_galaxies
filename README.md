@@ -54,7 +54,7 @@ Now you can open the web site in your browser using the URL printed in the conso
 
 ## Running unit tests
 
-Open `/test` URL path to run the JavaScript unit tests. For example, if you use Python, open [http://0.0.0.0:8000/test](http://0.0.0.0:8000/test)
+Open `/test` URL path to run the JavaScript unit tests. For example, if you used the Python web server, open [http://0.0.0.0:8000/test](http://0.0.0.0:8000/test)
 
 ## The ammonite 🦑[[link]](https://evgenii.com/files/2020/08/two_galaxies/?numberOfRings=63%2C0&masses=1%2C1&minimalGalaxySeparation=66.48&eccentricity=0.6&ringSeparation=3&ringMultiplier=8&galaxyInclinationAnglesDegree=184%2C115&rotationMatrix=-0.98%2C-0.07%2C-0.09%2C0%2C0.07%2C-0.99%2C0.11%2C0%2C-0.1%2C0.1%2C0.98%2C0%2C0%2C0%2C0%2C1&cameraDistance=431.49)
 
