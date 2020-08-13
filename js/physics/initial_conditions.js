@@ -145,10 +145,10 @@ export function galaxyStarsPositionsAndVelocities(args) {
     let starSpeed = Math.sqrt(args.coreMass / distanceFromCenter);
 
     // Loop over all the stars in the current ring
-    for(let starNumber = 1; starNumber <= numberOfStars; starNumber++) {
+    for(let starNumber = 0; starNumber < numberOfStars; starNumber++) {
       // Find the angle of the current star relative to the first
       // star in the ring
-      let starAngle = (starNumber - 1) * angleBetweenNeighbours;
+      let starAngle = starNumber * angleBetweenNeighbours;
 
       // Calculate the position of the current star relative to galaxy's centre
       positions[iStar * 3] = distanceFromCenter * Math.cos(starAngle) *
