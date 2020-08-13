@@ -166,7 +166,6 @@ export function loadColors(drawData, initialParams) {
   // larger than the number of bodies.
   var colors = new Uint8Array(bodies * 3);
 
-
   // Assign the Red (index 0), Green (index 1) and Blue (index 2)
   // components of the star colors to the `colors` array for individual bodies
   // ----------
@@ -194,7 +193,6 @@ export function loadColors(drawData, initialParams) {
     colors[6 + i * 3 + stars1 * 3 + 1] = twoColors[1][1];
     colors[6 + i * 3 + stars1 * 3 + 2] = twoColors[1][2];
   }
-
 
   // Finally, write the color array to the GPU memory
   // ---------
@@ -240,6 +238,9 @@ export function loadStarSizes(drawData, initialParams) {
   // to the 1/3 power
   sizes[0] = coreSize * Math.pow(initialParams.masses[0], 1/3);
   sizes[1] = coreSize * Math.pow(initialParams.masses[1], 1/3);
+
+  // Finally, write the size array to the GPU memory
+  // ---------
 
   var gl = drawData.gl;
 
