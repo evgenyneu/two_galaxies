@@ -196,7 +196,7 @@ export function loadColors(drawData, initialParams) {
 
 
 /**
- * Load star star sizes into the GPU buffer
+ * Load star sizes into the GPU buffer
  *
  * @param  {object} drawData Draw data
  * @param  {object} initialParams Initial parameters of the simulation
