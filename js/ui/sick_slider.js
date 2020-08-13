@@ -2,7 +2,7 @@ import { showElement, hide, hideElement } from './html_element.js';
 
 
 /**
- * A Slider UI element. Also requires styles from sick_slider.css.
+ * A slider UI element.
  *
  * Example
  * -------
@@ -14,6 +14,7 @@ import { showElement, hide, hideElement } from './html_element.js';
  *   onChange: function(value, position){ ... }
  * });
  *
+ *
  * HTML
  * ------
  *
@@ -24,6 +25,14 @@ import { showElement, hide, hideElement } from './html_element.js';
  *     <div class="SickSlider-head"></div>
  *   </div>
  * </div>
+ *
+ *
+ * CSS
+ * ------
+ *
+ * Include .SickSlider-* and TwoGalaxies--isHidden CSS styles
+ * from two_galaxies.css
+ *
  *
  * Manually update the slider
  * -----------------------------
