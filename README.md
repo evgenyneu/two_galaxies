@@ -32,7 +32,7 @@ Install Python and then run
 python -m http.server
 ```
 
-View the simulation web page at [http://0.0.0.0:8000](http://0.0.0.0:8000).
+View the simulation in a web browser at [http://0.0.0.0:8000](http://0.0.0.0:8000).
 
 
 ### With Node.js
@@ -49,7 +49,7 @@ Run:
 http-server
 ```
 
-View the simulation web page at [http://127.0.0.1:8080](http://127.0.0.1:8080).
+View the simulation in a web browser at [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
 
 ## Running unit tests
