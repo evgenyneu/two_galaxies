@@ -35,7 +35,7 @@ python -m http.server
 View the simulation in a web browser at [http://0.0.0.0:8000](http://0.0.0.0:8000).
 
 
-### Option 1: run a Node.js web server
+### Option 2: run a Node.js web server
 
 Install the server
 
