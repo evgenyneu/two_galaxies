@@ -12,7 +12,7 @@ import { numberOfStarsInAllRingsOneGalaxy, totalNumberOfBodies }
 // Adjust the size of the drawing buffer based on the CCS pixel size
 // of the canvas. The height of canvas also affects how large the stars look,
 // so we need to update those as well.
-function updateCanvasSize(drawData, initialParams){
+function updateCanvasSize(drawData, initialParams, currentParams, restart){
   var canvas = drawData.gl.canvas;
   var realToCSSPixels = window.devicePixelRatio;
 
@@ -32,7 +32,23 @@ function updateCanvasSize(drawData, initialParams){
   }
 
   // Adjust the star sizes based on height of the canvas
-  initialParams.starSize = canvas.height * 1.2;
+  // -------
+
+  let newStarSize = canvas.height * 1.2;
+
+  if (newStarSize !== initialParams.starSize) {
+    initialParams.starSize = newStarSize;
+
+    // Reload the new star sizes into the GPU
+
+    var restartParams = {
+      restart: false,
+      reloadColors: false,
+      reloadStarSizes: true
+    };
+
+    restart(drawData, initialParams, currentParams, restartParams);
+  }
 }
 
 
@@ -82,7 +98,7 @@ function initTrajectories(drawData) {
  * @return {object} Information that will be used later at each animation
  *                  frame for drawing stars on screen.
  */
-export function initGraphics(initialParams) {
+export function initGraphics(initialParams, currentParams, restart) {
   // Get canvas object
   var canvas = document.querySelector(".TwoGalaxies-canvas");
   var gl = canvas.getContext("webgl");
@@ -126,7 +142,7 @@ export function initGraphics(initialParams) {
 
   // Adjust the size of the drawing region based on the size of the
   // web browser window
-  updateCanvasSize(drawData, initialParams);
+  updateCanvasSize(drawData, initialParams, currentParams, restart);
 
   // Load the sizes of the stars in the GPU
   loadStarSizes(drawData, initialParams);
@@ -134,7 +150,7 @@ export function initGraphics(initialParams) {
   initTrajectories(drawData);
 
   // Adjust the canvas size when the browser window is resized
-  window.addEventListener('resize', (e) => updateCanvasSize(drawData, initialParams));
+  window.addEventListener('twoGalaxiesViewportChanged', (e) => updateCanvasSize(drawData, initialParams, currentParams, restart));
 
   return drawData;
 }
@@ -212,7 +228,6 @@ export function loadColors(drawData, initialParams) {
  *
  * @param  {object} drawData Draw data
  * @param  {object} initialParams Initial parameters of the simulation
- * @param  {array} twoColors  Colors of the two galaxies
  */
 export function loadStarSizes(drawData, initialParams) {
   // Total number of bodies (stars plus two galaxy cores)

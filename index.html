@@ -15,15 +15,31 @@
        * Based on: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
        */
       function viewportHeight() {
-        // Create a CSS 'vh' variable for the viewport height
+        if (window.innerHeight === window.twoGalaxiesInnerHeight &&
+            window.innerWidth === window.twoGalaxiesInnerWidth) return;
+
+        window.twoGalaxiesInnerHeight = window.innerHeight;
+        window.twoGalaxiesInnerWidth = window.innerWidth;
+
         let vh = window.innerHeight * 0.01;
+
+        // Create a CSS 'vh' variable for the viewport height
         document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+        // Send the event to update the size of the canvas
+        var evt = new CustomEvent('twoGalaxiesViewportChanged');
+        window.dispatchEvent(evt);
       }
 
       viewportHeight();
 
-      // Recalculate the viewport heeight when screen is resized
+      // Recalculate the viewport height when screen is resized
       window.addEventListener('resize', viewportHeight);
+
+      // Recalculate the height every second to account for
+      // bottom menu bar on iOS Safari
+      // https://www.eventbrite.com/engineering/mobile-safari-why
+      setInterval(viewportHeight, 1000);
     </script>
 
     <script nomodule>

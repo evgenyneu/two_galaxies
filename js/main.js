@@ -91,7 +91,7 @@ function main(screenRefreshRateFPS) {
   var currentParams = getCurrentParameters(screenRefreshRateFPS);
 
   // Prepare for drawing
-  var drawData = initGraphics(initialParams);
+  var drawData = initGraphics(initialParams, currentParams, restart);
 
   // Allow user to rotate and zoom the screen
   initUserInput(drawData, initialParams, currentParams,
