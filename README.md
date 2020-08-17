@@ -24,7 +24,7 @@ cd two_galaxies
 Next, start a web server. You can use any web server to run the web site locally. Bellow are examples of using Python and Node.js:
 
 
-### With Python
+### Option 1: run a Python web server
 
 Install Python and then run
 
@@ -32,10 +32,10 @@ Install Python and then run
 python -m http.server
 ```
 
-Now you can open the web site in your browser using the URL printed in the Terminal, for example [http://0.0.0.0:8000](http://0.0.0.0:8000).
+View the simulation in a web browser at [http://0.0.0.0:8000](http://0.0.0.0:8000).
 
 
-### With Node.js
+### Option 2: run a Node.js web server
 
 Install the server
 
@@ -49,7 +49,7 @@ Run:
 http-server
 ```
 
-Now you can open the web site in your browser using the URL printed in the console, for example [http://127.0.0.1:8080](http://127.0.0.1:8080).
+View the simulation in a web browser at [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
 
 ## Running unit tests
