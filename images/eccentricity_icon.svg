@@ -5,10 +5,10 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="55.8372396" cy="55.664388" r="12"></circle>
-        <ellipse id="Oval" stroke="#FFFFFF" stroke-width="2" transform="translate(44.982441, 44.895620) rotate(-45.000000) translate(-44.982441, -44.895620) " cx="44.9824409" cy="44.8956201" rx="22.1608073" ry="31.4911832"></ellipse>
-        <circle id="Oval-2" fill="#FFFFFF" cx="56.1328125" cy="56.0416667" r="4.5"></circle>
-        <ellipse id="Oval-2" fill="#FFFFFF" cx="47.6321615" cy="47.2317708" rx="3.44986979" ry="3.48697917"></ellipse>
-        <ellipse id="Oval-2" fill="#FFFFFF" cx="23.061849" cy="22.5247396" rx="3.44986979" ry="3.48697917"></ellipse>
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="3" cx="55.8372396" cy="55.664388" r="12"></circle>
+        <ellipse id="Oval" stroke="#FFFFFF" stroke-width="3" transform="translate(45.382724, 45.295903) rotate(-45.000000) translate(-45.382724, -45.295903) " cx="45.3827242" cy="45.2959034" rx="22.1608073" ry="32.0572692"></ellipse>
+        <circle id="Oval-2" fill="#FFFFFF" cx="56.1121094" cy="55.8411333" r="5.5"></circle>
+        <circle id="Oval-2" fill="#FFFFFF" cx="47.2883926" cy="47.0590725" r="4.5"></circle>
+        <circle id="Oval-2" fill="#FFFFFF" cx="22.6162877" cy="22.2488802" r="4.5"></circle>
     </g>
 </svg>
