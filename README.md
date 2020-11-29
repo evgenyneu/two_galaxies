@@ -65,3 +65,6 @@ Open `/test` URL path to run the JavaScript unit tests. For example, if you used
 ## The unlicense
 
 This work is in [public domain](LICENSE).
+
+
+<pre xml:lang="latex">\sqrt{2}</pre>
